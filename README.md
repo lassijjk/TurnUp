@@ -35,6 +35,9 @@ Including Jira (or other Project Management Tool) ticket numbers
   - Client: development-example.com
   - Server: api-development-example.com
 
+## License
+
+This project is developed and maintained by Tampere University students and is licensed under the [MIT License](LICENSE).
 ## Author
 
   + Eero Laine: eero.laine@tuni.fi
