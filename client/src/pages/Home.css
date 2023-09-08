@@ -1,0 +1,10 @@
+.home {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.home-title {
+  margin-top: 2rem !important;
+  color: #4e008e !important;
+}
