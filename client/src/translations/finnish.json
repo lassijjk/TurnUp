@@ -1,5 +1,11 @@
 {
   "Home": "Koti",
   "Map": "Kartta",
-  "Login": "Kirjaudu sisään"
+  "Login": "Kirjaudu sisään",
+  "home": {
+    "description": "Tämä on aloitusnäyttö"
+  },
+  "map": {
+    "description": "Tämä on karttanäyttö"
+  }
 }

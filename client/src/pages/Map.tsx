@@ -1,8 +1,10 @@
 import './Map.css'
 import { Box, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 
 const Map = () => {
+  const { t } = useTranslation()
   return (
     <>
       <Helmet>
@@ -10,7 +12,7 @@ const Map = () => {
       </Helmet>
       <Box component="div" className="map">
         <Typography variant="h4" component="div" className="map-title">
-          This is map screen
+          {t('map.description')}
         </Typography>
       </Box>
     </>

@@ -1,8 +1,10 @@
 import './Home.css'
 import { Box, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 
 const Home = () => {
+  const { t } = useTranslation()
   return (
     <>
       <Helmet>
@@ -10,7 +12,7 @@ const Home = () => {
       </Helmet>
       <Box component="div" className="home">
         <Typography variant="h4" component="div" className="home-title">
-          This is home screen
+          {t('home.description')}
         </Typography>
       </Box>
     </>
