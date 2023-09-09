@@ -1,0 +1,10 @@
+.map {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.map-title {
+  margin-top: 2rem !important;
+  color: #4e008e !important;
+}

@@ -1,0 +1,11 @@
+{
+  "Home": "Home",
+  "Map": "Map",
+  "Login": "Login",
+  "home": {
+    "description": "This is home screen"
+  },
+  "map": {
+    "description": "This is map screen"
+  }
+}
