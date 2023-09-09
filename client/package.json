@@ -23,6 +23,7 @@
     "react-helmet-async": "^1.3.0",
     "react-i18next": "^13.2.2",
     "react-router-dom": "^6.15.0",
+    "vite-plugin-pwa": "^0.16.5",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
