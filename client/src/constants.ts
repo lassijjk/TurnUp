@@ -1,0 +1,1 @@
+export const VITE_DIGI_TRANSIT_API_KEY = import.meta.env.VITE_DIGI_TRANSIT_API_KEY
