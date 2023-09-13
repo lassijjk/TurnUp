@@ -1,0 +1,5 @@
+Event:
+https://api.visittampere.com/api/v1/swagger-ui/
+
+Link local commute API: 
+https://www.digitransit.fi/en/developers/
