@@ -3,7 +3,7 @@ import axios from 'axios'
 import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../../constants'
 import { Leg, Itinerary, Plan, LocationPoint } from './interface'
 
-const getCommutingStops = (from: LocationPoint, to: LocationPoint) => {
+const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
   return `
     query {
         plan(
@@ -39,7 +39,7 @@ const CommutingStops: React.FC = () => {
       const response = await axios.post(
         `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
-          query: getCommutingStops(from, to),
+          query: getCommutingStopsQuery(from, to),
         },
         {
           headers: {
