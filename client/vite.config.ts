@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from "vite-plugin-pwa";
+import replace from '@rollup/plugin-replace'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -42,7 +43,9 @@ export default defineConfig({
     start_url:"/",
     orientation:'portrait'
     }
-  })],
+  }), 
+  replace({'process.env.VITE_DIGI_TRANSIT_API_KEY': JSON.stringify(process.env.VITE_DIGI_TRANSIT_API_KEY), preventAssignment: true})
+  ],
   server: {
     port: 3000
   },
