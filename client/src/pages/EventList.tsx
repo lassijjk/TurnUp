@@ -67,6 +67,9 @@ const EventList: React.FC = () => {
 
   return (
     <div>
+        <Helmet>
+        <title>Turn Up | Event</title>
+      </Helmet>
       <h2>Events Today</h2>
       <table className="event-table">
         <thead>
