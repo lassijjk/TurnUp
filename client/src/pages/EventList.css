@@ -1,0 +1,21 @@
+.eventList {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.eventList-title {
+  margin-top: 2rem !important;
+  color: #4e008e !important;
+}
+.align-left {
+  text-align: left; /* Left-align text */
+}
+
+.align-right {
+  text-align: right; /* Right-align text */
+}
+
+.table-row {
+  border-bottom: 1px solid #ccc; /* Add a border at the bottom of each row */
+}

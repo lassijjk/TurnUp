@@ -43,6 +43,15 @@ const Navbar: React.FC = () => {
           <Box
             className="navbar-link"
             onClick={() => {
+              navigate('/eventList')
+            }}
+          >
+            {t('EventList')}
+          </Box>
+
+          <Box
+            className="navbar-link"
+            onClick={() => {
               navigate('/map')
             }}
           >
