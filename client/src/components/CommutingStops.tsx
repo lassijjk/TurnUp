@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { VITE_DIGI_TRANSIT_API_KEY } from '../constants'
+import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../constants'
 
 const CommutingStops: React.FC = () => {
   const [data, setData] = useState<any>(null)
@@ -9,7 +9,7 @@ const CommutingStops: React.FC = () => {
   const handleGraphQLRequest = async () => {
     try {
       const response = await axios.post(
-        `https://api.digitransit.fi/routing/v1/routers/waltti/index/graphql?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
+        `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
           query: `
             query {
