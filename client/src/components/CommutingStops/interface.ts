@@ -16,3 +16,8 @@ export interface Plan {
     itineraries: [Itinerary]
   }
 }
+
+export interface LocationPoint {
+  lat: number
+  lon: number
+}

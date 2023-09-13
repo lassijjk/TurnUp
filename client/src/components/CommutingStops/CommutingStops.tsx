@@ -1,38 +1,45 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../../constants'
-import { Leg, Itinerary, Plan } from './interface'
+import { Leg, Itinerary, Plan, LocationPoint } from './interface'
+
+const getCommutingStops = (from: LocationPoint, to: LocationPoint) => {
+  return `
+    query {
+        plan(
+          from: {lat: ${from.lat}, lon: ${from.lon}}
+          to: {lat: ${to.lat}, lon: ${to.lon}}
+          numItineraries: 1
+        ) {
+          itineraries {
+            legs {
+              startTime
+              endTime
+              mode
+              duration
+              realTime
+              distance
+              transitLeg
+            }
+          }
+        }
+      }
+  `
+}
 
 const CommutingStops: React.FC = () => {
   const [data, setData] = useState<Plan | null>()
   const [error, setError] = useState<string | null>()
+
+  const from = { lat: 61.4941, lon: 23.7792 }
+  const to = { lat: 61.5038, lon: 23.8088 }
 
   const handleGraphQLRequest = async () => {
     try {
       const response = await axios.post(
         `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
-          query: `
-            query {
-                plan(
-                  from: {lat: 61.4941, lon: 23.7792}
-                  to: {lat: 61.5038, lon: 23.8088}
-                  numItineraries: 1
-                ) {
-                  itineraries {
-                    legs {
-                      startTime
-                      endTime
-                      mode
-                      duration
-                      realTime
-                      distance
-                      transitLeg
-                    }
-                  }
-                }
-              }
-          `,
+          query: getCommutingStops(from, to),
         },
         {
           headers: {
