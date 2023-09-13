@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../constants'
+import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../../constants'
+import { Leg, Itinerary, Plan } from './interface'
 
 const CommutingStops: React.FC = () => {
-  const [data, setData] = useState<any>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [data, setData] = useState<Plan | null>()
+  const [error, setError] = useState<string | null>()
 
   const handleGraphQLRequest = async () => {
     try {
@@ -52,11 +53,16 @@ const CommutingStops: React.FC = () => {
     <div>
       <button onClick={handleGraphQLRequest}>Let's Go</button>
       {error && <p>{error}</p>}
-      {data && (
-        <pre>
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      )}
+      {data &&
+        data.plan.itineraries.map((itinerary: Itinerary) =>
+          itinerary.legs.map((leg: Leg) => (
+            <div>
+              <p>
+                {leg.mode} - {Math.round(leg.distance)} meters
+              </p>
+            </div>
+          ))
+        )}
     </div>
   )
 }
