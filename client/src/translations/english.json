@@ -1,5 +1,6 @@
 {
   "Home": "Home",
+  "EventList" : "EventList",
   "Map": "Map",
   "Login": "Login",
   "home": {
@@ -7,5 +8,8 @@
   },
   "map": {
     "description": "This is map screen"
+  },
+  "eventList": {
+    "description": "This is Event List screen"
   }
 }
