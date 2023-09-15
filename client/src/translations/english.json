@@ -9,7 +9,6 @@
   "map": {
     "description": "This is map screen"
   },
-
   "eventList": {
     "description": "This is Event List screen"
   }

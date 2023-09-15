@@ -28,25 +28,21 @@ interface Event {
   end_time: string
   locations: Location[]
   dates: DateInfo[]
-
 }
 
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([])
 
   useEffect(() => {
- 
     axios
       .get('https://api.visittampere.com/api/v1/eventztoday/event/all/?lang=en')
       .then((response) => {
-   
         setEvents(response.data)
       })
       .catch((error) => {
         console.error('Error fetching data:', error)
       })
   }, [])
-
 
   const findLatestDate = (dates: DateInfo[]) => {
     if (dates.length === 0) {
@@ -78,20 +74,18 @@ const EventList: React.FC = () => {
             <th className="align-right">Latest Start Date</th>
             <th className="align-right">Latest End Date</th>
             <th className="align-right">Address</th>
-     
           </tr>
         </thead>
         <tbody>
           {events.map((event, index) => (
             <tr key={index + 1} className="table-row">
-              <td className="align-left">{index + 1}</td> 
+              <td className="align-left">{index + 1}</td>
               <td className="align-left">{event.name}</td>
               <td className="align-right">{event.start_time}</td>
               <td className="align-right">{event.end_time}</td>
               <td className="align-right">{findLatestDate(event.dates)?.start || 'N/A'}</td>
               <td className="align-right">{findLatestDate(event.dates)?.end || 'N/A'}</td>
               <td className="align-right">{event.locations[0]?.address || 'N/A'}</td>
-          
             </tr>
           ))}
         </tbody>
