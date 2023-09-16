@@ -43,6 +43,9 @@ export default defineConfig({
     orientation:'portrait'
     }
   })],
+  define: {
+    global: {},
+  },
   server: {
     port: 3000
   },
