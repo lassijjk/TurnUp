@@ -1,0 +1,18 @@
+projects:
+  turnup:
+    schemaPath: amplify/backend/api/turnup/build/schema.graphql
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
+        region: eu-north-1
+        apiId: null
+        maxDepth: 3
+extensions:
+  amplify:
+    version: 3
