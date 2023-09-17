@@ -2,6 +2,7 @@ import './Home.css'
 import { Box, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
+import CommutingStops from '../components/CommutingStops/CommutingStops'
 
 const Home = () => {
   const { t } = useTranslation()
@@ -15,6 +16,7 @@ const Home = () => {
           {t('home.description')}
         </Typography>
       </Box>
+      <CommutingStops></CommutingStops>
     </>
   )
 }

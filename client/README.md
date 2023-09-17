@@ -34,7 +34,6 @@ Before merging your code into the `dev` or `main` branch, make sure to format yo
 npm run format
 ```
 
-
 This ensures consistent code style across the project.
 
 ## Folder Structure
@@ -43,3 +42,11 @@ This ensures consistent code style across the project.
 - `/components`: Place the reusable React components here.
 - `/stores`: This directory contains the store for state management.
 - `/translations`: Currently, it has translations for English and Finnish languages.
+
+## Environment setup
+
+### Client
+
+- create a .env file with command `cp .env.example .env`
+
+- add the secret values from different channels. eg: discord or a password management system
