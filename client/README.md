@@ -20,6 +20,7 @@ This is a React application starter template that utilizes various technologies 
 2. Open a terminal and navigate to the project directory.
 3. Run `npm install` to install the project dependencies.
 4. Run `npm run dev` to start the development server. Your application will be available at `http://localhost:3000`.
+5. Run `npm run dev-local` to start the development server with local AWS Amplify backend.
 
 ## How to Build and Review the Build
 
