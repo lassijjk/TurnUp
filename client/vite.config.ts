@@ -43,9 +43,12 @@ export default defineConfig({
     start_url:"/",
     orientation:'portrait'
     }
-  }), 
-  replace({'process.env.VITE_DIGI_TRANSIT_API_KEY': JSON.stringify(process.env.VITE_DIGI_TRANSIT_API_KEY), preventAssignment: true})
+  }),
+    replace({'process.env.VITE_DIGI_TRANSIT_API_KEY': JSON.stringify(process.env.VITE_DIGI_TRANSIT_API_KEY), preventAssignment: true})
   ],
+  define: {
+    global: {},
+  },
   server: {
     port: 3000
   },
