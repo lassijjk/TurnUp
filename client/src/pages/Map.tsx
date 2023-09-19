@@ -12,7 +12,7 @@ const Map = () => {
       </Helmet>
       <Box component="div" className="map">
         <Typography variant="h4" component="div" className="map-title">
-          {t('map.description')}
+          {t('MAP.DESCRIPTION')}
         </Typography>
       </Box>
     </>

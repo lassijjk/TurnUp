@@ -2,7 +2,7 @@ import './Home.css'
 import { Box, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import CommutingStops from '../components/CommutingStops/CommutingStops'
+import EventCard from "../components/Cards/EventCard.tsx";
 
 const Home = () => {
   const { t } = useTranslation()
@@ -11,12 +11,18 @@ const Home = () => {
       <Helmet>
         <title>Turn Up</title>
       </Helmet>
-      <Box component="div" className="home">
-        <Typography variant="h4" component="div" className="home-title">
-          {t('home.description')}
-        </Typography>
-      </Box>
-      <CommutingStops></CommutingStops>
+      <div className="event-card-container">
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+          <EventCard></EventCard>
+      </div>
+
     </>
   )
 }

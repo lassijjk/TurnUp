@@ -25,47 +25,51 @@ const Navbar: React.FC = () => {
     <AppBar position="static" className="navbar-container">
       <Container>
         <Toolbar>
-          <Box component="div" sx={{ flexGrow: 1 }}>
+          <Box component="div">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tampere_University_logo.png"
               alt="app-logo"
               height="60"
             />
           </Box>
-          <Box
+          <Box sx={{ flexGrow: 1 }} className='app-name'>
+            <h1>{t('NAVBAR.APP_NAME')}</h1>
+            <blockquote>{t('NAVBAR.VALUE_PROPOSITION')}</blockquote>
+          </Box>
+          <em
             className="navbar-link"
             onClick={() => {
               navigate('/')
             }}
           >
-            {t('Home')}
-          </Box>
+            {t('HOME.SINGULAR')}
+          </em>
 
-          <Box
+          <em
             className="navbar-link"
             onClick={() => {
               navigate('/eventList')
             }}
           >
-            {t('EventList')}
-          </Box>
+            {t('EVENT_LIST.SINGULAR')}
+          </em>
 
-          <Box
+          <em
             className="navbar-link"
             onClick={() => {
               navigate('/map')
             }}
           >
-            {t('Map')}
-          </Box>
-          <Box
+            {t('MAP.SINGULAR')}
+          </em>
+          <em
             className="navbar-link"
             onClick={() => {
               navigate('/')
             }}
           >
-            {t('Login')}
-          </Box>
+            {t('LOGIN')}
+          </em>
           <Box className="navbar-link">
             <IconButton onClick={handleOpenNavMenu}>
               <LanguageIcon />
@@ -83,7 +87,7 @@ const Navbar: React.FC = () => {
                   className={language == lang ? 'navbar-language-selected' : ''}
                 >
                   <Typography textAlign="center" onClick={() => changeLanguage(lang)}>
-                    {lang}
+                    {t('LANGUAGE.' + lang.toUpperCase())}
                   </Typography>
                 </MenuItem>
               ))}
