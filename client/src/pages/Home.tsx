@@ -10,7 +10,6 @@ import UseTodaysEvents from "../api/UseTodaysEvents.tsx";
 const Home = () => {
     const { t } = useTranslation();
     const events = UseTodaysEvents(16);
-    console.log(222, events);
 
     return (
         <>
