@@ -8,3 +8,10 @@ export enum EventTagType {
     SPORTS = 'sports'
 };
 
+export type EventObj = {
+    id: number;
+    name: string;
+    description: string;
+    images: Array<string>;
+    startTime: string;
+}

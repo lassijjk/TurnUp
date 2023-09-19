@@ -1,8 +1,7 @@
 import React from 'react';
 import './EventTag.css';
-import { EventTagType } from '../../types/EventTag';
+import { EventTagType } from '../../types/Event.ts';
 import {useTranslation} from "react-i18next";
-import { styled } from '@mui/system';
 import {
     ChildFriendly,
     Forest,

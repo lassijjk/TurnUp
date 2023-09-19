@@ -9,6 +9,11 @@
     flex-direction: column;
 }
 
+.event-name {
+    max-height: calc(2 * 3rem);
+    overflow: hidden;
+}
+
 .time-to {
     display: flex;
     flex-direction: row;
