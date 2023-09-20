@@ -1,30 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './EventCard.css'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import EventTag from '../Buttons/EventTag.tsx'
 import { EventObj, EventTagType } from '../../types/event.ts'
-import { Box, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 type EventCardProps = {
   event: EventObj
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
-  const [dayTemp, setDay] = useState('0')
-  function toDateString(time: string) {
-    const date = new Date(time)
-
-    const day = String(date.getUTCDate()).padStart(2, '0')
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0')
-    const year = date.getUTCFullYear()
-
-    if (dayTemp === '0') {
-      setDay(day)
-    }
-
-    return `${day}/${month}/${year}`
-  }
-
+  const dayTemp = String(new Date(event.startTime).getUTCDate()).padStart(2, '0')
   const getVariant = (offset: number = 0): EventTagType => {
     switch (offset) {
       case 0:
@@ -46,23 +33,53 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
     }
   }
 
+  const convertToReadableTime = (time: string | Date): string => {
+    // Input date in ISO 8601 format
+    const inputDate = new Date(time)
+
+    // Create an array of day names and month names
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+    // Extract day, month, and year from the input date
+    const dayOfWeek = daysOfWeek[inputDate.getUTCDay()]
+    const dayOfMonth = inputDate.getUTCDate()
+    const year = inputDate.getUTCFullYear()
+
+    // Format the date as "Day Date.Month.Year"
+    const formattedDate = `${dayOfWeek} ${dayOfMonth}.${inputDate.getUTCMonth() + 1}.${year}`
+
+    return formattedDate
+  }
+
   return (
-    <Box component="div" className="event-card-frame">
-      <Typography component="div" variant="h3" className="event-name">
-        {event.name}
-      </Typography>
-      <Box component="div" className="time-to">
-        <h4>{toDateString(event.startTime)}</h4>
-        <Box component="div" className="event-card-tags">
-          <EventTag variant={getVariant(Number.parseInt(dayTemp) % 7)}></EventTag>
-          <EventTag variant={getVariant(1 + (Number.parseInt(dayTemp) % 4))}></EventTag>
+    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame">
+      <Box className="event-card-content">
+        <Box>
+          <img src={event.images[0].url} />
+        </Box>
+        <Box className="event-card-info">
+          <Typography component="div" variant="h3" className="event-name">
+            {event.name}
+          </Typography>
+          <Box component="div" className="time-to">
+            <CalendarMonthIcon sx={{color: '#d1410c'}}/>
+            <Typography component="div" className="event-card-time">
+              {convertToReadableTime(event.startTime) + ' - ' + convertToReadableTime(event.endTime)}
+            </Typography>
+          </Box>
+          <Box component="div" className="travel-time">
+            <DirectionsBusIcon sx={{color: '#6f7287'}} />
+            <Typography component="div" className="event-card-bus-time">
+              {dayTemp} min
+            </Typography>
+          </Box>
+          <Box component="div" className="event-card-tags">
+            <EventTag variant={getVariant(Number.parseInt(dayTemp) % 7)}></EventTag>
+            <EventTag variant={getVariant(1 + (Number.parseInt(dayTemp) % 4))}></EventTag>
+          </Box>
         </Box>
       </Box>
-      <Box component="div" className="travel-time">
-        <h4>{dayTemp} min</h4>
-        <DirectionsBusIcon fontSize="large" className="bus-icon" />
-      </Box>
-    </Box>
+    </Grid>
   )
 }
 

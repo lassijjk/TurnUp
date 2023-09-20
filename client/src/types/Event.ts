@@ -13,6 +13,7 @@ export type EventObj = {
   id: number
   name: string
   description: string
-  images: Array<string>
+  images: Array<{ url: string; type: string; width: number; height: number }>
   startTime: string
+  endTime: string
 }

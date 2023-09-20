@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Box, Container, Menu, MenuItem, Typography, IconButton
 import LanguageIcon from '@mui/icons-material/Language'
 import { Language, useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
+import logo from '../assets/logo.png'
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
@@ -22,37 +23,44 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <AppBar position="static" className="navbar-container">
-      <Container>
+    <AppBar position="static" className="navbar-appbar">
+      <Container className="navbar-container">
         <Toolbar>
-          <Box sx={{ flexGrow: 1 }} className="app-name">
-            <h1>{t('NAVBAR.APP_NAME')}</h1>
-            <blockquote>{t('NAVBAR.VALUE_PROPOSITION')}</blockquote>
+          <Box sx={{ flexGrow: 1 }} className="navbar-app-name">
+            <Box>
+              <img src={logo} className="navbar-logo" />
+            </Box>
+            <Box className="navbar-title-container">
+              <Typography component="div" className="navbar-title">
+                {t('NAVBAR.APP_NAME')}
+              </Typography>
+              <Typography component="blockquote">{t('NAVBAR.VALUE_PROPOSITION')}</Typography>
+            </Box>
           </Box>
-          <em
+          <Typography
             className="navbar-link"
             onClick={() => {
               navigate('/')
             }}
           >
             {t('HOME.SINGULAR')}
-          </em>
-          <em
+          </Typography>
+          <Typography
             className="navbar-link"
             onClick={() => {
               navigate('/map')
             }}
           >
             {t('MAP.SINGULAR')}
-          </em>
-          <em
+          </Typography>
+          <Typography
             className="navbar-link"
             onClick={() => {
               navigate('/')
             }}
           >
             {t('LOGIN')}
-          </em>
+          </Typography>
           <Box className="navbar-link">
             <IconButton onClick={handleOpenNavMenu}>
               <LanguageIcon />

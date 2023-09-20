@@ -1,8 +1,12 @@
-.navbar-container {
+.navbar-appbar {
   background-color: #fff !important;
   position: sticky !important;
   top: 0 !important;
   z-index: 1000 !important;
+}
+
+.navbar-container {
+  max-width: unset !important;
 }
 
 .navbar-link {
@@ -14,6 +18,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  font-weight: 700 !important;
 }
 
 .navbar-link:hover {
@@ -25,8 +30,23 @@
   color: #fff !important;
 }
 
-.app-name {
-  color: var(--black);
-  padding: 1rem;
-  padding-top: 0.6rem;
+.navbar-logo {
+  height: 60px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.navbar-title-container {
+  margin-left: 10px !important;
+}
+
+.navbar-title {
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+}
+
+.navbar-app-name {
+  color: var(--black) !important;
+  display: flex !important;
+  align-items: center !important;
 }
