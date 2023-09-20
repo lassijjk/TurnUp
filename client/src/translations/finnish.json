@@ -1,11 +1,34 @@
 {
-  "Home": "Koti",
-  "Map": "Kartta",
-  "Login": "Kirjaudu sisään",
-  "home": {
-    "description": "Tämä on aloitusnäyttö"
+  "EVENT_LIST": {
+    "DESCRIPTION": "Tämän on tapahtumalistaus",
+    "SINGULAR": "Tapahtumat"
   },
-  "map": {
-    "description": "Tämä on karttanäyttö"
+  "EVENT_TAG": {
+    "LABEL": {
+      "culture": "Kulttuuri",
+      "fine-dining": "Ruoka",
+      "for-kids": "Lapsille",
+      "music": "Musiikki",
+      "outdoor": "Ulkoilma",
+      "religion": "Uskonto",
+      "sports": "Liikunta"
+    }
+  },
+  "HOME": {
+    "DESCRIPTION": "Tämä on etusivu",
+    "SINGULAR": "Etusivu"
+  },
+  "LANGUAGE": {
+    "ENGLISH": "Englanti",
+    "FINNISH": "Suomi"
+  },
+  "LOGIN": "Kirjaudu sisään",
+  "MAP": {
+    "DESCRIPTION": "Tämä on karttanäkymä",
+    "SINGULAR": "Kartta"
+  },
+  "NAVBAR": {
+    "APP_NAME": "Turn up",
+    "VALUE_PROPOSITION": "Löydä hauskaa tekemistä"
   }
 }

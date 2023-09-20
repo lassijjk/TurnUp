@@ -1,0 +1,37 @@
+.event-card-frame {
+    width: 20rem;
+    height: 13rem;
+    background-color: var(--white);
+    border-radius: var(--border-radius-15);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.event-name {
+    max-height: calc(2 * 3rem);
+    overflow: hidden;
+}
+
+.time-to {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.event-card-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.travel-time {
+    display: flex;
+    flex-direction: row;
+}
+
+.bus-icon {
+    margin-left: 0.6rem;
+    color: var(--dark-gray);
+}

@@ -1,15 +1,34 @@
 {
-  "Home": "Home",
-  "EventList" : "EventList",
-  "Map": "Map",
-  "Login": "Login",
-  "home": {
-    "description": "This is home screen"
+  "EVENT_LIST": {
+    "DESCRIPTION": "This is event list screen",
+    "SINGULAR": "Event list"
   },
-  "map": {
-    "description": "This is map screen"
+  "EVENT_TAG": {
+    "LABEL": {
+      "culture": "Culture",
+      "fine-dining": "Food",
+      "for-kids": "For Kids",
+      "music": "Music",
+      "outdoor": "Outdoor",
+      "religion": "Religion",
+      "sports": "Sports"
+    }
   },
-  "eventList": {
-    "description": "This is Event List screen"
+  "HOME": {
+    "DESCRIPTION": "This is home screen",
+    "SINGULAR": "Home"
+  },
+  "LANGUAGE": {
+    "ENGLISH": "English",
+    "FINNISH": "Finnish"
+  },
+  "LOGIN": "Login",
+  "MAP": {
+    "DESCRIPTION": "This is map screen",
+    "SINGULAR": "Map"
+  },
+  "NAVBAR": {
+    "APP_NAME": "Turn up",
+    "VALUE_PROPOSITION": "Find something fun to do"
   }
 }

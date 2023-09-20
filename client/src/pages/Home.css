@@ -8,3 +8,13 @@
   margin-top: 2rem !important;
   color: #4e008e !important;
 }
+
+.event-card-container {
+  background-color: var(--light-petrol);
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 4rem;
+  gap: 2rem;
+}
