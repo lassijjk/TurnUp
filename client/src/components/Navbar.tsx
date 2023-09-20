@@ -25,14 +25,7 @@ const Navbar: React.FC = () => {
     <AppBar position="static" className="navbar-container">
       <Container>
         <Toolbar>
-          <Box component="div">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tampere_University_logo.png"
-              alt="app-logo"
-              height="60"
-            />
-          </Box>
-          <Box sx={{ flexGrow: 1 }} className='app-name'>
+          <Box sx={{ flexGrow: 1 }} className="app-name">
             <h1>{t('NAVBAR.APP_NAME')}</h1>
             <blockquote>{t('NAVBAR.VALUE_PROPOSITION')}</blockquote>
           </Box>
@@ -44,16 +37,6 @@ const Navbar: React.FC = () => {
           >
             {t('HOME.SINGULAR')}
           </em>
-
-          <em
-            className="navbar-link"
-            onClick={() => {
-              navigate('/eventList')
-            }}
-          >
-            {t('EVENT_LIST.SINGULAR')}
-          </em>
-
           <em
             className="navbar-link"
             onClick={() => {
