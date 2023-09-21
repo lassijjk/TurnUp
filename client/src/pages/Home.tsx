@@ -9,14 +9,11 @@ import UseTodaysEvents from "../api/UseTodaysEvents.tsx";
 import _ from 'lodash';
 import { EventObj } from '../types/event.ts'
 
-const domainRegex = /^(?:https?:\/\/)?(?:w{3,}\.)?([^\/]+)/;
-
 const Home = () => {
     const { t } = useTranslation();
     const events = UseTodaysEvents();
     const categories = _(events)
         .flatMap('locations')
-        .map(location => location.address)
         .filter()
         .uniq()
         .sort()

@@ -1,6 +1,7 @@
 import {
     EventApiCategory,
     EventApiLink,
+    EventApiLocation,
     EventApiTag,
     EventApiTarget,
     EventApiTopic,
@@ -10,12 +11,14 @@ import {
     FinnishTagName,
     FinnishTargetName,
     FinnishTopicName,
+    KnownAddress,
     KnownEventDomain
 } from "../../types/event.ts";
 import _ from 'lodash';
 import {LanguageFullName} from "../../types/language.ts";
 
 const domainRegex = /^(?:https?:\/\/)?(?:w{3,}\.)?([^\/]+)/;
+const addressRegex: RegExp = /^[^,]+/;
 
 const getTags = (event: EventObj, max: number, language: LanguageFullName) => {
     const needsTranslation = language === LanguageFullName.FINNISH;
@@ -23,7 +26,7 @@ const getTags = (event: EventObj, max: number, language: LanguageFullName) => {
         ...tagTopics(needsTranslation ? translateTopics(event.topics) : event.topics),
         ...tagTargets(needsTranslation ? translateTargets(event.targets) : event.targets),
         ...tagTags(needsTranslation ? translateTags(event.tags) : event.tags),
-        ...tagLinks(event.links)];
+        ...tagLinks(event.links), ...tagLocations(event.locations)];
     return _.take(_(tagsRaw).flatten().uniq().value(), max);
 }
 
@@ -554,6 +557,218 @@ const getDomainTag = (domain: KnownEventDomain): EventTagType | null => {
             return EventTagType.FOR_KIDS;
     }
     return null;
+}
+
+const tagLocations = (locations: Array<EventApiLocation>) => {
+    let tags: Array<EventTagType> = [];
+    const addresses = _.flatten(locations).map(location => {
+        const matches = addressRegex.exec(location.address);
+        return matches ? matches[0].toLowerCase() : null;
+    });
+    addresses.forEach(address => {
+        tags = tags.concat(getAddressTags(address));
+    })
+    return tags;
+}
+
+const getAddressTags = (address: KnownAddress): Array<EventTagType> => {
+    switch (address) {
+        case KnownAddress.AHAA_TEATTERI:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.AHLMANINTIE_63:
+            return [EventTagType.CULTURE];
+        case KnownAddress.AKERLUNDINKATU_6_200:
+            return [EventTagType.ART];
+        case KnownAddress.ALEKSANTERIN_KIRKKO:
+            return [EventTagType.RELIGION];
+        case KnownAddress.ARTTELI_KUMPPANUUSYHDISTYS_RY:
+            return [EventTagType.FREE];
+        case KnownAddress.AVANT_CENTER_PIHA_ALUE:
+            return [EventTagType.SPORTS];
+        case KnownAddress.BAR_IHKUN_TILOISSA:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.BLAK_BOKS:
+            return [EventTagType.SPORTS];
+        case KnownAddress.F_E_SILLANPAAN_KATU_9:
+            return [EventTagType.MUSIC];
+        case KnownAddress.FACTORY_HALLI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.FEDERLEYNKATU_19:
+            return [EventTagType.OUTDOOR];
+        case KnownAddress.FRENCKELLINAUKIO:
+            return [EventTagType.OUTDOOR];
+        case KnownAddress.G_LIVELAB_TAMPERE:
+            return [EventTagType.MUSIC];
+        case KnownAddress.GALLERIA_2:
+            return [EventTagType.ART];
+        case KnownAddress.GASTROPUB_NORDIC:
+            return [EventTagType.FOOD];
+        case KnownAddress.HALLA_NAYTTAMO:
+            return [EventTagType.ART];
+        case KnownAddress.HAMEENKYRON_KIRKKO:
+            return [EventTagType.RELIGION, EventTagType.MUSIC];
+        case KnownAddress.HAMEENPUISTO_44:
+            return [EventTagType.FREE];
+        case KnownAddress.HAMMARENINKATU_5:
+            return [EventTagType.FREE];
+        case KnownAddress.HARKITIE_6:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.HATANPAAN_KOULU:
+            return [EventTagType.MUSIC];
+        case KnownAddress.HATANPAAN_VALTATIE_1:
+            return [EventTagType.ART];
+        case KnownAddress.HERVANNAN_KIRJASTO:
+            return [EventTagType.FREE];
+        case KnownAddress.HERVANNAN_UIMAHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.HERVANNAN_UIMAHALLIN_KUNTOSALI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.HERVANNAN_VAPAA_AIKAKESKUS:
+            return [EventTagType.SPORTS];
+        case KnownAddress.HONO_BAARI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.HOTELLI_WALTIKKA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.IDEAPARKINKATU_4:
+            return [EventTagType.SPORTS];
+        case KnownAddress.IKAALINEN_SPA_ARENA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.IKAALINEN_SPA_KYROS_SALI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.IKAALISTEN_KYLPYLA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.IKAALISTEN_SPA_RESORT:
+            return [EventTagType.MUSIC];
+        case KnownAddress.ILMAILUNKATU_20:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.ITAINENKATU_8:
+            return [EventTagType.FOOD];
+        case KnownAddress.ITSENAINISYYDENKATU_21_B:
+            return [EventTagType.FOOD];
+        case KnownAddress.JOUKAHAISENKATU_7_B:
+            return [EventTagType.SPORTS];
+        case KnownAddress.KANGASALA_TALO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KANGASALAN_KIRKKO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KAUKAJARVEN_KIRJASTO:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.KAUKAJARVEN_VAPAA_AIKATALO:
+            return [EventTagType.SPORTS];
+        case KnownAddress.KAUPIN_JALKAPALLOSTADION:
+            return [EventTagType.SPORTS];
+        case KnownAddress.KAUPPAKATU_10:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KAUPPI_SPORTS_CENTER:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.KERHOLA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KESKUSTORI:
+            return [EventTagType.OUTDOOR];
+        case KnownAddress.KESKUSTORI_2:
+            return [EventTagType.SIGHTSEEING];
+        case KnownAddress.KESKUSTORIN_VANHA_KIRKKO:
+            return [EventTagType.RELIGION, EventTagType.SENIORS];
+        case KnownAddress.KIRJASTO_LEIJAN_MONITOIMITILA:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.KOILLISKESKUKSEN_KIRJASTO:
+            return [EventTagType.FOR_KIDS, EventTagType.MUSIC];
+        case KnownAddress.KOIVISTONKYLAN_KIRJASTO:
+            return [EventTagType.FOR_KIDS, EventTagType.MUSIC];
+        case KnownAddress.KOSKELAN_KOULUKESKUKSEN_LIIKUNTASALI:
+            return [EventTagType.FOR_KIDS, EventTagType.MUSIC];
+        case KnownAddress.KOUKKUNIEMEN_KIRJASTO:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.KOUKKUNIEMEN_VANHAINKOTI:
+            return [EventTagType.RELIGION, EventTagType.SENIORS];
+        case KnownAddress.KULTTUURIKESKUS_MAANALAINEN:
+            return [EventTagType.CULTURE];
+        case KnownAddress.KULTTUURIKESKUS_PIIPOO:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.KULTTUURITALO_JAATSI:
+            return [EventTagType.ART];
+        case KnownAddress.KULTTUURITALO_LAIKKU:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KUNINKAANKATU_2:
+            return [EventTagType.ART];
+        case KnownAddress.KUNTOKATU_17:
+            return [EventTagType.OUTDOOR, EventTagType.FREE];
+        case KnownAddress.KUUSELAN_LAHITORI:
+            return [EventTagType.FOR_KIDS, EventTagType.SPORTS];
+        case KnownAddress.KYLLIKINKATU_9:
+            return [EventTagType.FOOD, EventTagType.FOR_KIDS, EventTagType.SEMINAR];
+        case KnownAddress.LAIKUNLAVA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.KYTTALAN_LAHITORI:
+            return [EventTagType.SENIORS, EventTagType.SPORTS];
+        case KnownAddress.LAPINTIE_3A:
+            return [EventTagType.CULTURE];
+        case KnownAddress.LAPLAND_HOTELS_ARENA:
+            return [EventTagType.CULTURE];
+        case KnownAddress.LASTENKULTTUURIKESKUS_RULLA:
+            return [EventTagType.FOR_KIDS, EventTagType.ART];
+        case KnownAddress.LAUKONTORI_12:
+            return [EventTagType.MUSIC, EventTagType.ART];
+        case KnownAddress.LENIN_MUSEO:
+            return [EventTagType.CULTURE, EventTagType.SEMINAR];
+        case KnownAddress.MANTTAALITALO:
+            return [EventTagType.CULTURE];
+        case KnownAddress.LIELAHDEN_KIRJASTO:
+            return [EventTagType.FREE, EventTagType.CULTURE, EventTagType.SEMINAR];
+        case KnownAddress.MARIANKATU_40:
+            return [EventTagType.ART, EventTagType.FREE];
+        case KnownAddress.MARTTILANKATU_14:
+            return [EventTagType.ART];
+        case KnownAddress.MAAILMAN_AINOA_MUUMIMUSEO:
+            return [EventTagType.FOR_KIDS, EventTagType.CULTURE];
+        case KnownAddress.MESSUKYLAN_KIRJASTO:
+            return [EventTagType.SEMINAR, EventTagType.ART];
+        case KnownAddress.MESSUKYLAN_KIRKKO:
+            return [EventTagType.FOR_KIDS, EventTagType.ART, EventTagType.RELIGION];
+        case KnownAddress.MUSTALAHTI:
+            return [EventTagType.OUTDOOR];
+        case KnownAddress.MUSTANLAHDENKATU_22:
+            return [EventTagType.MUSIC, EventTagType.FOR_KIDS];
+        case KnownAddress.MUUMIMUSEO:
+            return [EventTagType.FREE, EventTagType.ART, EventTagType.CULTURE];
+        case KnownAddress.NAASHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.NASILINNANKATU_26:
+            return [EventTagType.RELIGION, EventTagType.SENIORS];
+        case KnownAddress.MUSEO_MILAVIDA:
+            return [EventTagType.ART];
+        case KnownAddress.MUSEOKESKUS_VAPRIIKKI:
+            return [EventTagType.FOR_KIDS, EventTagType.ART];
+        case KnownAddress.NEKALAN_KIRJASTO:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE];
+        case KnownAddress.OLYMPIA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.NOKIANTIE_150:
+            return [EventTagType.SPORTS, EventTagType.OUTDOOR];
+        case KnownAddress.NOKIA_ARENA:
+            return [EventTagType.MUSIC, EventTagType.ART];
+        case KnownAddress.ONE_KRS_MONITOIMI:
+            return [EventTagType.SENIORS, EventTagType.FREE];
+        case KnownAddress.PAAKIRJASTO_METSO:
+            return [EventTagType.SEMINAR, EventTagType.FREE];
+        case KnownAddress.PAAVOLANTIE_4:
+            return [EventTagType.FOR_KIDS, EventTagType.MUSIC, EventTagType.ART];
+        case KnownAddress.PAAKIRJASTO_METSON_EDUSTA:
+            return [EventTagType.OUTDOOR, EventTagType.FOR_KIDS];
+        case KnownAddress.PARKANON_KIRKKO:
+            return [EventTagType.MUSIC, EventTagType.RELIGION];
+        case KnownAddress.PENKOLAMMINTIE_124:
+            return [EventTagType.OUTDOOR, EventTagType.SIGHTSEEING, EventTagType.FOOD];
+        case KnownAddress.PARKANON_URHEILUTALO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.PESA_LASNAOLON_YHTEISO:
+            return [EventTagType.FREE];
+        case KnownAddress.PIRKANMAAN_MUISTIYHDISTYS_RY:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.PISPALAN_KIRJASTO:
+            return [EventTagType.ART];
+    }
+    return [];
 }
 
 export default getTags;
