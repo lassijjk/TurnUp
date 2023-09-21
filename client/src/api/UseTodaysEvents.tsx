@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
+import { EventObj } from "../types/Event.ts";
 
-const UseTodaysEvents = (max: number) => {
-    const [events, setEvents] = useState([]);
+const UseTodaysEvents = (max: number = 0) => {
+    const [events, setEvents] = useState<EventObj[]>([]);
 
     useEffect(() => {
         axios
@@ -16,15 +17,7 @@ const UseTodaysEvents = (max: number) => {
             });
     }, []);
 
-    return _.take(events, max).map(event => {
-        return {
-            id: event.id,
-            name: event.name,
-            description: event.description,
-            startTime: event.start_time,
-            images: event.images
-        };
-    });
+    return max ? _.take(events, max) : events;
 };
 
 export default UseTodaysEvents;

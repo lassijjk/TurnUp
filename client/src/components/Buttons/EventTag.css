@@ -9,10 +9,16 @@
     border: 0;
 }
 
-.event-tag-frame-culture { background-color: var(--red-violet); color: white; }
-.event-tag-frame-fine-dining { background-color: var(--amarillo-yellow); }
+.event-tag-frame-art { background-color: var(--berry-red); color: var(--white); }
+.event-tag-frame-business { background-color: var(--steel-blue); color: var(--white); }
+.event-tag-frame-culture { background-color: var(--red-violet); color: var(--white); }
+.event-tag-frame-food { background-color: var(--amarillo-yellow); }
 .event-tag-frame-for-kids { background-color: var(--green); }
-.event-tag-frame-music { background-color: var(--pink); color: white; }
-.event-tag-frame-outdoor { background-color: var(--pine-green); color: white; }
+.event-tag-frame-free { background-color: var(--warm-green); color: var(--white); }
+.event-tag-frame-music { background-color: var(--pink); color: var(--white); }
+.event-tag-frame-outdoor { background-color: var(--pine-green); color: var(--white); }
+.event-tag-frame-politics { background-color: var(--aqua-blue); }
 .event-tag-frame-religion { background-color: var(--light-yellow); }
-.event-tag-frame-sports { background-color: var(--dark-water); color: white; }
+.event-tag-frame-science { background-color: var(--dark-blue); color: var(--white); }
+.event-tag-frame-sightseeing { background-color: var(--light-sky-blue); }
+.event-tag-frame-sports { background-color: var(--dark-water); color: var(--white); }

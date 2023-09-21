@@ -3,6 +3,7 @@ import './EventCard.css';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import EventTag from "../Buttons/EventTag.tsx";
 import {EventObj, EventTagType} from "../../types/Event.ts";
+import getTags from "../Buttons/EventTagger.tsx";
 
 const EventCard: React.FC = (params: { event: EventObj} ) => {
     const {event} = params;
@@ -26,7 +27,7 @@ const EventCard: React.FC = (params: { event: EventObj} ) => {
             case 0:
                 return EventTagType.CULTURE;
             case 1:
-                return EventTagType.FINE_DINING;
+                return EventTagType.FOOD;
             case 2:
                 return EventTagType.FOR_KIDS;
             case 3:
@@ -40,14 +41,20 @@ const EventCard: React.FC = (params: { event: EventObj} ) => {
         }
     }
 
+    const getEventTags = (event: EventObj) => {
+        const tags = getTags(event, 2);
+        return <>
+            {tags.map(tag => <EventTag key={tag} variant={tag}></EventTag>)}
+        </>;
+    }
+
     return (
         <div className="event-card-frame">
             <h3 className='event-name'>{event.name}</h3>
             <div className="time-to">
-                <h4>{toDateString(event.startTime)}</h4>
+                <h4>{toDateString(event.start_time)}</h4>
                 <div className='event-card-tags'>
-                    <EventTag variant={getVariant(dayTemp % 7)}></EventTag>
-                    <EventTag variant={getVariant(1 + dayTemp % 4)}></EventTag>
+                    {getEventTags(event)}
                 </div>
             </div>
             <div className="travel-time">

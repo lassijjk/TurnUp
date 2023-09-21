@@ -6,10 +6,17 @@ import EventCard from "../components/Cards/EventCard.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import UseTodaysEvents from "../api/UseTodaysEvents.tsx";
+import _ from 'lodash';
 
 const Home = () => {
     const { t } = useTranslation();
-    const events = UseTodaysEvents(16);
+    const events = UseTodaysEvents();
+    const categories = _(events)
+        .flatMap('tags')
+        .uniq()
+        .sort()
+        .value();
+    console.log(244, categories);
 
     return (
         <>

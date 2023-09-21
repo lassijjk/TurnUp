@@ -5,12 +5,18 @@
   },
   "EVENT_TAG": {
     "LABEL": {
+      "art": "Taide",
+      "business": "Yrittäjyys",
       "culture": "Kulttuuri",
-      "fine-dining": "Ruoka",
+      "food": "Ruoka",
       "for-kids": "Lapsille",
+      "free": "Ilmainen",
       "music": "Musiikki",
       "outdoor": "Ulkoilma",
+      "politics": "Politiikka",
       "religion": "Uskonto",
+      "science": "Tiede",
+      "sightseeing": "Kiertoajelu",
       "sports": "Liikunta"
     }
   },
