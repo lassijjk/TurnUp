@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../../constants'
-import { Leg, Itinerary, Plan, LocationPoint } from './interface'
+import { LocationPoint, Plan, Itinerary, Leg } from '../../types/commutingStop'
 
 const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
   return `
