@@ -1,4 +1,15 @@
 {
+  "DATE": {
+    "SHORT": {
+      "0": "La",
+      "1": "Su",
+      "2": "Ma",
+      "3": "Ti",
+      "4": "Ke",
+      "5": "To",
+      "6": "Pe"
+    }
+  },
   "EVENT_LIST": {
     "DESCRIPTION": "Tämän on tapahtumalistaus",
     "SINGULAR": "Tapahtumat"
@@ -6,17 +17,17 @@
   "EVENT_TAG": {
     "LABEL": {
       "art": "Taide",
-      "business": "Yrittäjyys",
       "culture": "Kulttuuri",
       "food": "Ruoka",
       "for-kids": "Lapsille",
       "free": "Ilmainen",
       "music": "Musiikki",
       "outdoor": "Ulkoilma",
-      "politics": "Politiikka",
       "religion": "Uskonto",
       "science": "Tiede",
-      "sightseeing": "Kiertoajelu",
+      "seminar": "Seminaari",
+      "seniors": "Seniorit",
+      "sightseeing": "Kierros",
       "sports": "Liikunta"
     }
   },

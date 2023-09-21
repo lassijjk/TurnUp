@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Map from './pages/Map'
-import EventList from './pages/EventList'
 import Navbar from './components/Navbar'
 import { I18nextProvider } from 'react-i18next'
 import i18next from 'i18next'
@@ -27,7 +26,6 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/eventList" element={<EventList />} />
             <Route path="/map" element={<Map />} />
           </Routes>
         </BrowserRouter>

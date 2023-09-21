@@ -1,22 +1,21 @@
 import React from 'react';
 import './EventTag.css';
-import {EventTagType} from '../../types/Event.ts';
+import {EventTagType} from '../../types/event.ts';
 import {useTranslation} from "react-i18next";
 import {
     ChildFriendly,
-    ColorLens,
+    ColorLens, Elderly,
     Forest,
     MoneyOff,
     MusicNote, PhotoCamera,
-    Public,
+    School,
     Science,
     SelfImprovement,
     SportsHockey,
     TheaterComedy,
-    WineBar,
-    Work
+    WineBar
 } from "@mui/icons-material";
-import {rippleEffect} from "./RippleEffect.tsx";
+import { Box, Button } from '@mui/material'
 
 interface EventTagProps {
     variant: EventTagType;
@@ -28,8 +27,6 @@ const EventTag: React.FC<EventTagProps> = ({ variant }) => {
         switch (variant) {
             case EventTagType.ART:
                 return <ColorLens />;
-            case EventTagType.BUSINESS:
-                return <Work />;
             case EventTagType.CULTURE:
                 return <TheaterComedy />;
             case EventTagType.FOOD:
@@ -42,12 +39,14 @@ const EventTag: React.FC<EventTagProps> = ({ variant }) => {
                 return <MusicNote />;
             case EventTagType.OUTDOOR:
                 return <Forest />;
-            case EventTagType.POLITICS:
-                return <Public />;
             case EventTagType.RELIGION:
                 return <SelfImprovement/>;
             case EventTagType.SCIENCE:
                 return <Science />;
+            case EventTagType.SEMINAR:
+                return <School />;
+            case EventTagType.SENIORS:
+                return <Elderly />;
             case EventTagType.SIGHTSEEING:
                 return <PhotoCamera />;
             case EventTagType.SPORTS:
@@ -56,12 +55,17 @@ const EventTag: React.FC<EventTagProps> = ({ variant }) => {
     }
 
 
-    return (
-        <button variant='contained' onClick={event => rippleEffect(event)} className={'ripple-button event-tag-frame event-tag-frame-' + variant}>
-            <span>{t('EVENT_TAG.LABEL.' + variant)}</span>
-            {getIcon(variant)}
-        </button>
-    );
-};
+  return (
+    <Button
+      variant="contained"
+      className={'ripple-button event-tag-frame event-tag-frame-' + variant}
+    >
+      <Box component="span" className="event-title">
+        {t('EVENT_TAG.LABEL.' + variant)}
+      </Box>
+      {getIcon(variant)}
+    </Button>
+  )
+}
 
 export default EventTag;

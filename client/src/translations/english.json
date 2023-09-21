@@ -1,4 +1,15 @@
 {
+  "DATE": {
+    "SHORT": {
+      "0": "Sat",
+      "1": "Sun",
+      "2": "Mon",
+      "3": "Tue",
+      "4": "Wed",
+      "5": "Thu",
+      "6": "Fri"
+    }
+  },
   "EVENT_LIST": {
     "DESCRIPTION": "This is event list screen",
     "SINGULAR": "Event list"
@@ -6,17 +17,17 @@
   "EVENT_TAG": {
     "LABEL": {
       "art": "Art",
-      "business": "Business",
       "culture": "Culture",
       "food": "Food",
       "for-kids": "For Kids",
       "free": "Free",
       "music": "Music",
       "outdoor": "Outdoor",
-      "politics": "Politiikka",
       "religion": "Religion",
       "science": "Science",
-      "sightseeing": "Sightseeing",
+      "seminar": "Seminar",
+      "seniors": "Seniors",
+      "sightseeing": "Sights",
       "sports": "Sports"
     }
   },

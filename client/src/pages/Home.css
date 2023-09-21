@@ -6,7 +6,10 @@
 
 .home-title {
   margin-top: 2rem !important;
-  color: #4e008e !important;
+  margin-bottom: 1rem !important;
+  margin-left: 1rem !important;
+  font-size: 32px !important;
+  font-weight: bold !important;
 }
 
 .event-card-container {
@@ -14,7 +17,6 @@
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 4rem;
-  gap: 2rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
 }

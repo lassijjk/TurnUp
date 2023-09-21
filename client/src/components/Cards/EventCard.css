@@ -1,37 +1,72 @@
 .event-card-frame {
-    width: 20rem;
-    height: 13rem;
-    background-color: var(--white);
-    border-radius: var(--border-radius-15);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.event-card-content {
+  background-color: var(--white) !important;
+  border-radius: var(--border-radius-15) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-direction: column !important;
+}
+
+.event-card-content img {
+  border-top-left-radius: var(--border-radius-15) !important;
+  border-top-right-radius: var(--border-radius-15) !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.event-card-info {
+  height: 100% !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 1rem !important;
 }
 
 .event-name {
-    max-height: calc(2 * 3rem);
-    overflow: hidden;
+  height: calc(2 * 1.19rem) !important;
+  overflow: hidden !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #39364f !important;
 }
 
 .time-to {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-top: 0.5rem !important;
 }
 
 .event-card-tags {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+  margin-top: 0.5rem !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.5rem !important;
 }
 
 .travel-time {
-    display: flex;
-    flex-direction: row;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-top: 0.5rem !important;
 }
 
-.bus-icon {
-    margin-left: 0.6rem;
-    color: var(--dark-gray);
+.event-card-time {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #d1410c !important;
+  margin-left: 3px !important;
+}
+
+.event-card-bus-time {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #6f7287 !important;
+  margin-left: 3px !important;
 }
