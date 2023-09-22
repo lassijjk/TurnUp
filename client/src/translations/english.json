@@ -12,6 +12,7 @@
   },
   "EVENT_LIST": {
     "DESCRIPTION": "This is event list screen",
+    "QUESTION": "Want to spice up today?",
     "SINGULAR": "Event list"
   },
   "EVENT_TAG": {

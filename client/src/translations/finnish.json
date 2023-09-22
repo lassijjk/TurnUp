@@ -12,6 +12,7 @@
   },
   "EVENT_LIST": {
     "DESCRIPTION": "Tämän on tapahtumalistaus",
+    "QUESTION": "Piristetäänkö päivääsi?",
     "SINGULAR": "Tapahtumat"
   },
   "EVENT_TAG": {

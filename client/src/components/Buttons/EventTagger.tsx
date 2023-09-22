@@ -767,6 +767,258 @@ const getAddressTags = (address: KnownAddress): Array<EventTagType> => {
             return [EventTagType.SEMINAR];
         case KnownAddress.PISPALAN_KIRJASTO:
             return [EventTagType.ART];
+        case KnownAddress.PISPALAN_KIRKKO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.PISPAN_LAHITORI:
+            return [EventTagType.ART];
+        case KnownAddress.POURUNTIE_1242:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.POHJOLAN_LAHITORI:
+            return [EventTagType.ART];
+        case KnownAddress.PUB_KOLO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.PUUTARHAKATU_1:
+            return [EventTagType.MUSIC];
+        case KnownAddress.PUUTARHAKATU_4:
+            return [EventTagType.RELIGION, EventTagType.CULTURE, EventTagType.FOOD];
+        case KnownAddress.PUUTARHAKATU_34:
+            return [EventTagType.ART];
+        case KnownAddress.PYHAJARVENKATU_5B:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE];
+        case KnownAddress.PYHAJARVENKATU_10:
+            return [EventTagType.FREE];
+        case KnownAddress.PUNKALAITUMEN_KIRKKO:
+            return [EventTagType.MUSIC, EventTagType.RELIGION];
+        case KnownAddress.PYHAN_BIRGITAN_KIRKKO:
+            return [EventTagType.MUSIC, EventTagType.FOR_KIDS];
+        case KnownAddress.PYYNIKKISALI:
+            return [EventTagType.MUSIC, EventTagType.FOR_KIDS];
+        case KnownAddress.PYYNIKIN_UIMAHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.PYYNIKINTIE_9:
+            return [EventTagType.RELIGION, EventTagType.FREE, EventTagType.SENIORS];
+        case KnownAddress.PYYNIKIN_PALLOILUHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.RATAPIHANKATU_37:
+            return [EventTagType.FREE];
+        case KnownAddress.RATAPIHANKATU_54:
+            return [EventTagType.OUTDOOR, EventTagType.CULTURE];
+        case KnownAddress.RAHOLAN_LIIKUNTAKESKUS:
+            return [EventTagType.SPORTS];
+        case KnownAddress.RATINA_STADION:
+            return [EventTagType.SPORTS, EventTagType.OUTDOOR, EventTagType.FREE];
+        case KnownAddress.RATINAN_STADION:
+            return [EventTagType.SPORTS];
+        case KnownAddress.RATINANNIEMEN_FESTIVAALIALUE:
+            return [EventTagType.MUSIC];
+        case KnownAddress.RATINANNIEMEN_PUISTO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.RATINANNIEMEN_TAPAHTUMAPUISTO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.RAUTAJARVEN_RAUTAHOVI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.SAASTAJANKATU_16:
+            return [EventTagType.FOR_KIDS, EventTagType.MUSIC];
+        case KnownAddress.SAMMONKATU_2:
+            return [EventTagType.FREE, EventTagType.FOOD];
+        case KnownAddress.SAMPOLA:
+            return [EventTagType.SEMINAR, EventTagType.FREE];
+        case KnownAddress.RAVINTOLA_KRUUNA_KLAAVA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.SAAKSMAEN_KIRKKO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.SAMPOLAN_KIRJASTO:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE];
+        case KnownAddress.SATAKUNNANKATU_18:
+            return [EventTagType.ART, EventTagType.FREE];
+        case KnownAddress.TALLIPIHA:
+            return [EventTagType.OUTDOOR, EventTagType.SIGHTSEEING, EventTagType.FOOD];
+        case KnownAddress.TAMMELAKESKUS:
+            return [EventTagType.FOOD, EventTagType.FREE];
+        case KnownAddress.SORIN_SIRKUS:
+            return [EventTagType.FOR_KIDS, EventTagType.ART];
+        case KnownAddress.TAMPERE:
+            return [EventTagType.OUTDOOR, EventTagType.FREE];
+        case KnownAddress.SPIRAL_HALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.SUOMEN_MUSIIKKITEATTERI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.SUUPANTORI_2:
+            return [EventTagType.RELIGION, EventTagType.SEMINAR];
+        case KnownAddress.TAIDEKESKUS_MALTINRANTA:
+            return [EventTagType.ART];
+        case KnownAddress.TAMPERE_TALO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.LIELAHDEN_KARTANO_1_KRS:
+            return [EventTagType.ART];
+        case KnownAddress.SORELLA_CELLAR_CLUB:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_JAAHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TAMPEREEN_KAUPPAHALLI:
+            return [EventTagType.FOOD, EventTagType.FREE, EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_KAUPUNGINARKISTO:
+            return [EventTagType.FREE, EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_KOMEDIATEATTERI:
+            return [EventTagType.CULTURE];
+        case KnownAddress.ORIGINAL_SOKOS_HOTEL_ILVES:
+            return [EventTagType.MUSIC, EventTagType.FOOD];
+        case KnownAddress.RAVINTOLATEATTERI_TAMPEREEN_KOMEDIATEATTERI:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_KONSERVATORIO:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TAMPEREEN_KOMEDIATEATTERI_PAANAYTTAMO:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_KOMEDIATEATTERI_RAVINTOLATEATTERI:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_TAIDEMUSEO:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TAMPEREEN_STADION:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TAMPEREEN_TEATTERI:
+            return [EventTagType.CULTURE, EventTagType.FOR_KIDS];
+        case KnownAddress.TAMPEREEN_TUOMIOKIRKKO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TAMPEREEN_UINTIKESKUKSEN_KUNTOSALI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TAMPEREEN_UINTIKESKUS:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TAMPEREEN_YLIOPIPPILASTEATTERI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TAMPEREEN_YLIOPISTON_JUHLASALI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TAMPEREEN_YO_TALO:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TANSSITEATTERI_MD:
+            return [EventTagType.ART];
+        case KnownAddress.TAVARA_ASEMA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TEERENPELI:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TEATTERI_MUKAMAS:
+            return [EventTagType.FOR_KIDS, EventTagType.CULTURE];
+        case KnownAddress.TELAKKA:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TEATTERI_TELAKKA:
+            return [EventTagType.ART];
+        case KnownAddress.TEHTAAN_KENTTA:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TREDU:
+            return [EventTagType.OUTDOOR, EventTagType.SEMINAR];
+        case KnownAddress.TESOMAN_JAAHALLIN_KUNTOSALI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TESOMAN_KIRJASTO:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE];
+        case KnownAddress.TESOMAN_PALLOILUHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TESOMAN_UIMAHALLI:
+            return [EventTagType.SPORTS];
+        case KnownAddress.TESOMANKATU_33:
+            return [EventTagType.SEMINAR, EventTagType.SPORTS];
+        case KnownAddress.TT_PAANAYTTAMON_RAVINTOLA:
+            return [EventTagType.FOOD];
+        case KnownAddress.TUKKATEATTERI:
+            return [EventTagType.ART, EventTagType.CULTURE];
+        case KnownAddress.TTT_KLUBI:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TTT_KELLARITEATTERI:
+            return [EventTagType.ART];
+        case KnownAddress.TULLIKAMARIN_AUKIO_2:
+            return [EventTagType.MUSIC, EventTagType.FREE];
+        case KnownAddress.TULLIKAMARIN_KLUBI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.VARJOBAARI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TULLIKAMARIN_PAKKAHUONE:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TUOMIOKIRKONKATU_1:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.TUULENSUUN_PALATSI:
+            return [EventTagType.FOOD, EventTagType.CULTURE];
+        case KnownAddress.KUSTAA_KOLMANNEN_TIE_75:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.TTT_SUURI_NAYTTAMO:
+            return [EventTagType.CULTURE];
+        case KnownAddress.TYOVAENMUSEO_WERSTAS:
+            return [EventTagType.MUSIC, EventTagType.SENIORS];
+        case KnownAddress.URAMONKATU_9:
+            return [EventTagType.ART];
+        case KnownAddress.URHEILUTIE_5:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE, EventTagType.OUTDOOR];
+        case KnownAddress.VALKEAKOSKEN_TEATTERI:
+            return [EventTagType.ART];
+        case KnownAddress.VALSSIPADONRAITTI_3:
+            return [EventTagType.SCIENCE, EventTagType.SEMINAR];
+        case KnownAddress.VANHA_KIRKKO:
+            return [EventTagType.SEMINAR, EventTagType.MUSIC, EventTagType.RELIGION];
+        case KnownAddress.VANHA_RAIKKA:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.VASTAVIRTA_KLUBI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.WREDE_SALI:
+            return [EventTagType.MUSIC];
+        case KnownAddress.YLIOPISTONKATU_55:
+            return [EventTagType.MUSIC];
+        case KnownAddress.YLIOPISTONKATU_58:
+            return [EventTagType.ART];
+        case KnownAddress.YLIOPISTONKATU_60:
+            return [EventTagType.ART];
+        case KnownAddress.TAMPEREEN_MESSU_JA_URHEILUKESKU:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.TAMPEREEN_MESSU_JA_URHEILUKESKUS_2:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.TAMPEREEN_MESSU_JA_URHEILUKESKUS_3:
+            return [EventTagType.ART, EventTagType.SEMINAR];
+        case KnownAddress.TTT_EINO_SALMELAISEN_NAYTTAMO:
+            return [EventTagType.ART];
+        case KnownAddress.SERLACHIUS_MUSEO_GOSTAN_TAKANA_RANNASSA:
+            return [EventTagType.SPORTS, EventTagType.OUTDOOR];
+        case KnownAddress.KNUUTILAN_KARTANO_LUKKISALMENTIE49_37200_SIURO:
+            return [EventTagType.OUTDOOR, EventTagType.FREE];
+        case KnownAddress.ADDRESS_33100:
+            return [EventTagType.ART];
+        case KnownAddress.ARTCENTER_MALTINRANTA:
+            return [EventTagType.ART];
+        case KnownAddress.ADDRESS_33101:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.ADDRESS_33180:
+            return [EventTagType.RELIGION, EventTagType.SENIORS];
+        case KnownAddress.ADDRESS_33210:
+            return [EventTagType.CULTURE];
+        case KnownAddress.ADDRESS_33820:
+            return [EventTagType.MUSIC];
+        case KnownAddress.CHILDRENS_CULTURAL_CENTRE_RULLA:
+            return [EventTagType.FOR_KIDS, EventTagType.FREE, EventTagType.MUSIC];
+        case KnownAddress.GALLEN_KALLELANKATU_1:
+            return [EventTagType.ART];
+        case KnownAddress.HAMEENKATU_23:
+            return [EventTagType.MUSIC, EventTagType.FOOD];
+        case KnownAddress.JUHLATALONKATU_4:
+            return [EventTagType.SENIORS, EventTagType.FREE];
+        case KnownAddress.KOIVUMAENTIE_2:
+            return [EventTagType.SEMINAR, EventTagType.SCIENCE];
+        case KnownAddress.KUNINKAANKATU_4:
+            return [EventTagType.MUSIC, EventTagType.OUTDOOR, EventTagType.ART];
+        case KnownAddress.KURUNTIE_12:
+            return [EventTagType.SEMINAR];
+        case KnownAddress.MOOMIN_MUSEUM:
+            return [EventTagType.ART, EventTagType.FOR_KIDS];
+        case KnownAddress.NUOLIALANTIE_46:
+            return [EventTagType.FOR_KIDS];
+        case KnownAddress.POHJOLANKATU_25:
+            return [EventTagType.ART];
+        case KnownAddress.SIMOLANKATU_4:
+            return [EventTagType.ART];
+        case KnownAddress.TAMPERE_CITY_ARCHIVES:
+            return [EventTagType.SIGHTSEEING, EventTagType.FREE, EventTagType.CULTURE];
+        case KnownAddress.TAMPERE_HALL:
+            return [EventTagType.MUSIC];
+        case KnownAddress.TEHDASKARTANONKATU_28:
+            return [EventTagType.ART];
+        case KnownAddress.TUOMIOKIRKONKATU_22:
+            return [EventTagType.SENIORS, EventTagType.SPORTS];
+        case KnownAddress.VOIMAKATU_11:
+            return [EventTagType.ART, EventTagType.FREE];
     }
     return [];
 }

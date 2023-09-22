@@ -11,14 +11,7 @@ import { EventObj } from '../types/event.ts'
 
 const Home = () => {
     const { t } = useTranslation();
-    const events = UseTodaysEvents();
-    const categories = _(events)
-        .flatMap('locations')
-        .filter()
-        .uniq()
-        .sort()
-        .value();
-    console.log(244, categories);
+    const events = UseTodaysEvents(16);
 
   return (
     <>
@@ -28,7 +21,7 @@ const Home = () => {
       <Grid container className="event-card-container">
         <Grid item xs={12}>
           <Typography component="h1" className="home-title">
-            Want to spice up today?
+              {t('EVENT_LIST.QUESTION')}
           </Typography>
         </Grid>
         {events.map((event: EventObj) => (
