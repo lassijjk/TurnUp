@@ -4,9 +4,15 @@ import EventCard from '../components/Cards/EventCard.tsx'
 import UseTodaysEvents from '../api/UseTodaysEvents.tsx'
 import { EventObj } from '../types/event.ts'
 import { Grid, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
   const events = UseTodaysEvents(16)
+  const navigate = useNavigate()
+
+  const handleEventClick = (eventId: number) => {
+    navigate(`/event/${eventId}`)
+  }
 
   return (
     <>
@@ -20,7 +26,14 @@ const Home = () => {
           </Typography>
         </Grid>
         {events.map((event: EventObj) => (
-          <EventCard event={event} key={event.id} />
+          <EventCard
+            event={event}
+            key={event.id}
+            onClick={() => {
+              console.log(event.id)
+              handleEventClick(event.id)
+            }}
+          />
         ))}
       </Grid>
     </>

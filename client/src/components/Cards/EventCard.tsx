@@ -8,9 +8,10 @@ import { Box, Grid, Typography } from '@mui/material'
 
 type EventCardProps = {
   event: EventObj
+  onClick: () => void
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps) => {
   const dayTemp = String(new Date(event.startTime).getUTCDate()).padStart(2, '0')
   const getVariant = (offset: number = 0): EventTagType => {
     switch (offset) {
@@ -52,7 +53,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
   }
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame">
+    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame" onClick={onClick}>
       <Box className="event-card-content">
         <Box>
           <img src={event.images[0].url} />
@@ -62,13 +63,13 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
             {event.name}
           </Typography>
           <Box component="div" className="time-to">
-            <CalendarMonthIcon sx={{color: '#d1410c'}}/>
+            <CalendarMonthIcon sx={{ color: '#d1410c' }} />
             <Typography component="div" className="event-card-time">
               {convertToReadableTime(event.startTime) + ' - ' + convertToReadableTime(event.endTime)}
             </Typography>
           </Box>
           <Box component="div" className="travel-time">
-            <DirectionsBusIcon sx={{color: '#6f7287'}} />
+            <DirectionsBusIcon sx={{ color: '#6f7287' }} />
             <Typography component="div" className="event-card-bus-time">
               {dayTemp} min
             </Typography>

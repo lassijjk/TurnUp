@@ -1,0 +1,9 @@
+.event-container {
+  background-color: var(--light-petrol);
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
+
