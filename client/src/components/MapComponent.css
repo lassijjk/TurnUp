@@ -1,0 +1,9 @@
+.mapComponent {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 600px !important;
+}
