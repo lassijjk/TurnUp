@@ -23,7 +23,6 @@ const Home = () => {
   const [selectedTag, setSelectedTag] = useState(searchParams.get(HomeSearchParams.TAG) ?? '')
   const events = UseTodaysEvents(ITEMS_ON_PAGE, selectedTag)
   const tags: Array<string> = Object.values(EventTagType)
-  console.log(222, selectedTag)
 
   const onTagSelected = (tag: string) => {
     setSelectedTag(tag)
