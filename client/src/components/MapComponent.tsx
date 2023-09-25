@@ -8,20 +8,25 @@ type MapComponentProps = {
   longitude: number
 }
 const initMap = (container: HTMLDivElement, coords: [number, number]) => {
-  new mapboxgl.Marker({
-    color: '#ff1500',
-    draggable: false,
-  }).setLngLat(coords)
+  mapboxgl.accessToken = import.meta.env.VITE_MAP_BOX_KEY as string;
 
-  return new mapboxgl.Map({
+  const map = new mapboxgl.Map({
     container,
     style: 'mapbox://styles/mapbox/streets-v12',
     pitchWithRotate: false,
     center: coords,
     zoom: 15,
-    accessToken: import.meta.env.VITE_MAP_BOX_KEY as string,
     doubleClickZoom: false,
+  });
+
+  new mapboxgl.Marker({
+    color: '#ff1500',
+    draggable: false,
   })
+    .setLngLat(coords)
+    .addTo(map);
+
+  return map;
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ latitude, longitude }: MapComponentProps) => {
@@ -35,7 +40,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ latitude, longitude }: MapC
 
   return (
     <Box component="div" ref={mapRef} className="mapComponent">
-      ]
       <RoomIcon />
     </Box>
   )
