@@ -45,4 +45,13 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 **.sample
+
+.eslintignore
+.gitignore.save
+.graphqlconfig.yml
+amplify/README.md
+amplify/backend
+amplify/hooks
+src/graphql/
+src/ui-components/
 #amplify-do-not-edit-end
