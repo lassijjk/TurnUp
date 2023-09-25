@@ -3,13 +3,10 @@ import { Box, Grid, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import EventCard from '../components/Cards/EventCard.tsx'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import UseTodaysEvents from '../api/UseTodaysEvents.tsx'
-import _ from 'lodash'
 import { EventObj } from '../types/event.ts'
 import UseSingleEvent from '../api/UseSingleEvent.tsx'
 import { useStore } from '../stores/settingStore.tsx'
+import UseTodaysEvents from '../api/useTodaysEvents.tsx'
 
 const Home = () => {
   const ITEMS_ON_PAGE: number = 16
