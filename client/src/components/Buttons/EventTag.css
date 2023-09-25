@@ -67,12 +67,12 @@
 }
 
 .event-tag-frame-seniors {
-  background-color: var(--aqua-blue) !important;
+  background-color: var(--yellow) !important;
   color: var(--black) !important;
 }
 
 .event-tag-frame-sightseeing {
-  background-color: var(--light-sky-blue) !important;
+  background-color: var(--aqua-blue) !important;
   color: var(--black) !important;
 }
 
