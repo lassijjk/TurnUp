@@ -4,8 +4,8 @@ const TIMESTAMP_ID : string = 'timestamp-';
 const DEFAULT_MAX_CACHE_TIME: DurationStamp = {h: 0, m: 20, s: 0};
 
 export const rememberQuery = (queryId: QueryId, extension: string) => {
-    const data = localStorage.getItem(buildQueryId(queryId, extension));
-    const cachedTimestamp = localStorage.getItem(getTimeStampId(queryId, extension));
+    const data = sessionStorage.getItem(buildQueryId(queryId, extension));
+    const cachedTimestamp = sessionStorage.getItem(getTimeStampId(queryId, extension));
     if (data && cachedTimestamp && now() - parseInt(cachedTimestamp) <= getMaxCacheTime(queryId)) {
         return JSON.parse(data);
     }
@@ -40,6 +40,6 @@ function now() {
 }
 
 export const cacheQuery = (queryId: QueryId, extension: String, data) => {
-    localStorage.setItem(buildQueryId(queryId, extension), JSON.stringify(data));
-    localStorage.setItem(getTimeStampId(queryId, extension), now().toString());
+    sessionStorage.setItem(buildQueryId(queryId, extension), JSON.stringify(data));
+    sessionStorage.setItem(getTimeStampId(queryId, extension), now().toString());
 }
