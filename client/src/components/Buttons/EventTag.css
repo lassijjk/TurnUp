@@ -9,6 +9,13 @@
   border: 0 !important;
 }
 
+.event-tag-large {
+  width: 9.3rem !important;
+  height: 2.1rem !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+}
+
 .event-tag-frame-art {
   background-color: var(--berry-red) !important;
   color: var(--white) !important;

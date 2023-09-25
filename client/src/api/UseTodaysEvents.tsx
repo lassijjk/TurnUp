@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import _, { keyBy } from 'lodash'
-import { EventObj } from '../types/event.ts'
-import { Language, useStore } from '../stores/settingStore'
-import { LanguageFullName } from '../types/language.ts'
+import { EventObj, EventTagType } from '../types/event.ts'
+import { useStore } from '../stores/settingStore'
+import { Language } from '../types/language.ts'
 import { cacheQuery, rememberQuery } from './CacheManager.tsx'
 import { QueryId } from '../types/api.ts'
+import eventTagger from '../components/Buttons/EventTagger.tsx'
 
-const UseTodaysEvents = (max: number = 0) => {
+const UseTodaysEvents = (max: number = 0, selectedTag: string) => {
   const { language } = useStore()
   const queryId: QueryId = QueryId.TODAYS_EVENTS
   const [events, setEvents] = useState<Map<string, EventObj[]>>(rememberQuery(queryId, language) ?? {})
@@ -18,13 +19,17 @@ const UseTodaysEvents = (max: number = 0) => {
       axios
         .get(
           `https://api.visittampere.com/api/v1/eventztoday/event/all/?lang=${
-            language === LanguageFullName.FINNISH ? 'fi' : 'en'
+            language === Language.FINNISH ? 'fi' : 'en'
           }`
         )
         .then((response) => {
-          const data = _.keyBy(response.data, '_id')
-          setEvents(data)
-          cacheQuery(queryId, language, data)
+          const data = response.data.map((event) => {
+            event.tags = eventTagger(event, Object.values(EventTagType).length, language)
+            return event
+          })
+          const mappedData = _.keyBy(data, '_id')
+          setEvents(mappedData)
+          cacheQuery(queryId, language, mappedData)
         })
         .catch((error) => {
           console.error('Error fetching data:', error)
@@ -33,9 +38,16 @@ const UseTodaysEvents = (max: number = 0) => {
     } else {
       setEvents(currentEvents)
     }
-  }, [language])
+  }, [language, selectedTag])
 
-  return max ? _.take(Object.values(events), max) : events
+  return max
+    ? _.take(
+        selectedTag.length
+          ? Object.values(events).filter((event) => event.tags.includes(selectedTag))
+          : Object.values(events),
+        max
+      )
+    : events
 }
 
 export default UseTodaysEvents

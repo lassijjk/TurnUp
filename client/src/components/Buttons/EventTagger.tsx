@@ -15,13 +15,13 @@ import {
   KnownEventDomain,
 } from '../../types/event.ts'
 import _ from 'lodash'
-import { LanguageFullName } from '../../types/language.ts'
+import { Language } from '../../types/language.ts'
 
 const domainRegex = /^(?:https?:\/\/)?(?:w{3,}\.)?([^\/]+)/
 const addressRegex: RegExp = /^[^,]+/
 
-const getTags = (event: EventObj, max: number, language: LanguageFullName) => {
-  const needsTranslation = language === LanguageFullName.FINNISH
+const getTags = (event: EventObj, max: number, language: Language) => {
+  const needsTranslation = language === Language.FINNISH
   const tagsRaw: Array<EventTagType> = [
     ...tagCategories(needsTranslation ? translateCategories(event.categories) : event.categories),
     ...tagTopics(needsTranslation ? translateTopics(event.topics) : event.topics),

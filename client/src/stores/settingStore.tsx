@@ -1,6 +1,5 @@
 import create from 'zustand'
-
-export type Language = 'English' | 'Finnish'
+import { Language } from '../types/language.ts'
 
 interface SettingState {
   language: Language

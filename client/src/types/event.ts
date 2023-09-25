@@ -39,6 +39,7 @@ export type EventObj = {
   tags: Array<EventApiTag>
   url: string
   areas: Array<EventApiArea>
+  tags: Array<EventTagType>
 }
 
 export type EventApiLocation = {

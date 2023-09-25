@@ -1,4 +1,4 @@
-export const enum LanguageFullName {
+export const enum Language {
   ENGLISH = 'English',
   FINNISH = 'Finnish',
 }

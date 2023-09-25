@@ -43,6 +43,7 @@
 .navbar-title {
   font-size: 1.75rem !important;
   font-weight: 700 !important;
+  margin-bottom: -0.4rem !important;
 }
 
 .navbar-app-name {
