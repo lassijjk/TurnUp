@@ -32,6 +32,10 @@
     "categories": {
       "api": {
         "turnup": {}
+      },
+      "auth": {
+        "turnupd793b274": {},
+        "TurnUp": {}
       }
     }
   },

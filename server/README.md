@@ -28,3 +28,4 @@ TurnUp server is using AWS Amplify with GraphQL and DynamoDB. The server is desi
 3. Run backend locally `amplify mock`
 4. Add new environment `amplify env add`
 5. Switch between environments `amplify env checkout ENVIRONMENT_NAME`
+6. List of environments `amplify env list`
