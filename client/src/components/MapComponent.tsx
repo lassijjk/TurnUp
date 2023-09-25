@@ -8,7 +8,7 @@ type MapComponentProps = {
   longitude: number
 }
 const initMap = (container: HTMLDivElement, coords: [number, number]) => {
-  mapboxgl.accessToken = import.meta.env.VITE_MAP_BOX_KEY as string;
+  mapboxgl.accessToken = import.meta.env.VITE_MAP_BOX_KEY as string
 
   const map = new mapboxgl.Map({
     container,
@@ -17,16 +17,16 @@ const initMap = (container: HTMLDivElement, coords: [number, number]) => {
     center: coords,
     zoom: 15,
     doubleClickZoom: false,
-  });
+  })
 
   new mapboxgl.Marker({
     color: '#ff1500',
     draggable: false,
   })
     .setLngLat(coords)
-    .addTo(map);
+    .addTo(map)
 
-  return map;
+  return map
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({ latitude, longitude }: MapComponentProps) => {
