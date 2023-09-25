@@ -1,16 +1,34 @@
 {
+  "DATE": {
+    "SHORT": {
+      "0": "La",
+      "1": "Su",
+      "2": "Ma",
+      "3": "Ti",
+      "4": "Ke",
+      "5": "To",
+      "6": "Pe"
+    }
+  },
   "EVENT_LIST": {
     "DESCRIPTION": "Tämän on tapahtumalistaus",
+    "QUESTION": "Piristetäänkö päivääsi?",
     "SINGULAR": "Tapahtumat"
   },
   "EVENT_TAG": {
     "LABEL": {
+      "art": "Taide",
       "culture": "Kulttuuri",
-      "fine-dining": "Ruoka",
+      "food": "Ruoka",
       "for-kids": "Lapsille",
+      "free": "Ilmainen",
       "music": "Musiikki",
       "outdoor": "Ulkoilma",
       "religion": "Uskonto",
+      "science": "Tiede",
+      "seminar": "Seminaari",
+      "seniors": "Seniorit",
+      "sightseeing": "Kierros",
       "sports": "Liikunta"
     }
   },

@@ -28,7 +28,7 @@
 }
 
 .event-name {
-  height: calc(2 * 1.2rem) !important;
+  height: calc(2 * 1.19rem) !important;
   overflow: hidden !important;
   font-size: 1rem !important;
   font-weight: 700 !important;

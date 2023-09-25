@@ -1,16 +1,34 @@
 {
+  "DATE": {
+    "SHORT": {
+      "0": "Sat",
+      "1": "Sun",
+      "2": "Mon",
+      "3": "Tue",
+      "4": "Wed",
+      "5": "Thu",
+      "6": "Fri"
+    }
+  },
   "EVENT_LIST": {
     "DESCRIPTION": "This is event list screen",
+    "QUESTION": "Want to spice up today?",
     "SINGULAR": "Event list"
   },
   "EVENT_TAG": {
     "LABEL": {
+      "art": "Art",
       "culture": "Culture",
-      "fine-dining": "Food",
+      "food": "Food",
       "for-kids": "For Kids",
+      "free": "Free",
       "music": "Music",
       "outdoor": "Outdoor",
       "religion": "Religion",
+      "science": "Science",
+      "seminar": "Seminar",
+      "seniors": "Seniors",
+      "sightseeing": "Sights",
       "sports": "Sports"
     }
   },

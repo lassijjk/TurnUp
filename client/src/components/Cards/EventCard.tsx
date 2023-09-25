@@ -1,47 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './EventCard.css'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import EventTag from '../Buttons/EventTag.tsx'
 import { EventObj, EventTagType } from '../../types/event.ts'
+import getTags from '../Buttons/EventTagger.tsx'
 import { Box, Grid, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 
 type EventCardProps = {
   event: EventObj
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
-  const dayTemp = String(new Date(event.startTime).getUTCDate()).padStart(2, '0')
-  const getVariant = (offset: number = 0): EventTagType => {
-    switch (offset) {
-      case 0:
-        return EventTagType.CULTURE
-      case 1:
-        return EventTagType.FINE_DINING
-      case 2:
-        return EventTagType.FOR_KIDS
-      case 3:
-        return EventTagType.MUSIC
-      case 4:
-        return EventTagType.OUTDOOR
-      case 5:
-        return EventTagType.RELIGION
-      case 6:
-        return EventTagType.SPORTS
-      default:
-        return EventTagType.DEFAULT
-    }
-  }
+  const { language } = useLocation()
+  const { t } = useTranslation()
+  const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
 
   const convertToReadableTime = (time: string | Date): string => {
-    // Input date in ISO 8601 format
     const inputDate = new Date(time)
-
-    // Create an array of day names and month names
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-
-    // Extract day, month, and year from the input date
-    const dayOfWeek = daysOfWeek[inputDate.getUTCDay()]
+    const dayOfWeek = t('DATE.SHORT.' + inputDate.getUTCDay().toString())
     const dayOfMonth = inputDate.getUTCDate()
     const year = inputDate.getUTCFullYear()
 
@@ -49,6 +28,17 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
     const formattedDate = `${dayOfWeek} ${dayOfMonth}.${inputDate.getUTCMonth() + 1}.${year}`
 
     return formattedDate
+  }
+
+  const getEventTags = (event: EventObj) => {
+    const tags = getTags(event, 2, language)
+    return (
+      <>
+        {tags.map((tag) => (
+          <EventTag key={tag} variant={tag}></EventTag>
+        ))}
+      </>
+    )
   }
 
   return (
@@ -62,20 +52,19 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
             {event.name}
           </Typography>
           <Box component="div" className="time-to">
-            <CalendarMonthIcon sx={{ color: '#d1410c' }} />
+            <CalendarMonthIcon sx={{ color: '#c83e36' }} />
             <Typography component="div" className="event-card-time">
-              {convertToReadableTime(event.startTime) + ' - ' + convertToReadableTime(event.endTime)}
+              {convertToReadableTime(event.start_time) + ' - ' + convertToReadableTime(event.end_time)}
             </Typography>
           </Box>
           <Box component="div" className="travel-time">
-            <DirectionsBusIcon sx={{ color: '#6f7287' }} />
+            <DirectionsBusIcon sx={{ color: '#686872' }} />
             <Typography component="div" className="event-card-bus-time">
               {dayTemp} min
             </Typography>
           </Box>
           <Box component="div" className="event-card-tags">
-            <EventTag variant={getVariant(Number.parseInt(dayTemp) % 7)}></EventTag>
-            <EventTag variant={getVariant(1 + (Number.parseInt(dayTemp) % 4))}></EventTag>
+            {getEventTags(event)}
           </Box>
         </Box>
       </Box>
