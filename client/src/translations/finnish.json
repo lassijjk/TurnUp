@@ -23,6 +23,7 @@
     "FINNISH": "Suomi"
   },
   "LOGIN": "Kirjaudu sisään",
+  "LOGOUT": "Kirjaudu ulos",
   "MAP": {
     "DESCRIPTION": "Tämä on karttanäkymä",
     "SINGULAR": "Kartta"

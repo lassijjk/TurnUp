@@ -62,13 +62,13 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
             {event.name}
           </Typography>
           <Box component="div" className="time-to">
-            <CalendarMonthIcon sx={{color: '#d1410c'}}/>
+            <CalendarMonthIcon sx={{ color: '#d1410c' }} />
             <Typography component="div" className="event-card-time">
               {convertToReadableTime(event.startTime) + ' - ' + convertToReadableTime(event.endTime)}
             </Typography>
           </Box>
           <Box component="div" className="travel-time">
-            <DirectionsBusIcon sx={{color: '#6f7287'}} />
+            <DirectionsBusIcon sx={{ color: '#6f7287' }} />
             <Typography component="div" className="event-card-bus-time">
               {dayTemp} min
             </Typography>

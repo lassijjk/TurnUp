@@ -23,6 +23,7 @@
     "FINNISH": "Finnish"
   },
   "LOGIN": "Login",
+  "LOGOUT": "Logout",
   "MAP": {
     "DESCRIPTION": "This is map screen",
     "SINGULAR": "Map"
