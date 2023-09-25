@@ -8,6 +8,7 @@ import getTags from '../Buttons/EventTagger.tsx'
 import { Box, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
+import _ from "lodash";
 
 type EventCardProps = {
   event: EventObj
@@ -31,7 +32,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
   }
 
   const getEventTags = (event: EventObj) => {
-    const tags = getTags(event, 2, language)
+    const tags = _.take(event.tags, 2);
     return (
       <>
         {tags.map((tag) => (
