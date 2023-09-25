@@ -1,43 +1,31 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import _ from 'lodash'
-import { EventObj } from '../types/event'
+import { EventObj } from '../types/event.ts'
 import { useStore } from '../stores/settingStore'
+import { LanguageFullName } from '../types/language.ts'
 
-interface EventAPI {
-  id: number
-  name: string
-  description: string
-  images: Array<{ url: string; type: string; width: number; height: number }>
-  start_time: string
-  end_time: string
-}
-
-const UseTodaysEvents = (max: number): EventObj[] => {
-  const [events, setEvents] = useState([])
+const UseTodaysEvents = (max: number = 0) => {
+  const [events, setEvents] = useState<EventObj[]>([])
   const { language } = useStore()
 
   useEffect(() => {
     axios
-      .get(`https://api.visittampere.com/api/v1/eventztoday/event/all/?lang=${language === 'Finnish' ? 'fi' : 'en'}`)
+      .get(
+        `https://api.visittampere.com/api/v1/eventztoday/event/all/?lang=${
+          language === LanguageFullName.FINNISH ? 'fi' : 'en'
+        }`
+      )
       .then((response) => {
         setEvents(response.data)
       })
       .catch((error) => {
         console.error('Error fetching data:', error)
+        return []
       })
   }, [language])
 
-  return _.take(events, max).map((event: EventAPI) => {
-    return {
-      id: event.id,
-      name: event.name,
-      description: event.description,
-      startTime: event.start_time,
-      endTime: event.end_time,
-      images: event.images,
-    }
-  })
+  return max ? _.take(events, max) : events
 }
 
 export default UseTodaysEvents

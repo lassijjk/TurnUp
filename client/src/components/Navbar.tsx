@@ -6,6 +6,7 @@ import LanguageIcon from '@mui/icons-material/Language'
 import { Language, useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
+import { useAuthUser, useLogin, useLogout } from '../hooks/userHooks'
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
@@ -13,6 +14,10 @@ const Navbar: React.FC = () => {
   const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null)
   const { language, changeLanguage } = useStore()
   const languages: Language[] = ['English', 'Finnish']
+
+  const user = useAuthUser()
+  const { loginWithGoogle } = useLogin()
+  const { logout } = useLogout()
 
   const handleCloseNavMenu = () => {
     setAnchorElLanguage(null)
@@ -53,14 +58,16 @@ const Navbar: React.FC = () => {
           >
             {t('MAP.SINGULAR')}
           </Typography>
-          <Typography
-            className="navbar-link"
-            onClick={() => {
-              navigate('/')
-            }}
-          >
-            {t('LOGIN')}
-          </Typography>
+          {user ? (
+            <Typography className="navbar-link" onClick={logout}>
+              {t('LOGOUT')}
+            </Typography>
+          ) : (
+            <Typography className="navbar-link" onClick={loginWithGoogle}>
+              {t('LOGIN')}
+            </Typography>
+          )}
+
           <Box className="navbar-link">
             <IconButton onClick={handleOpenNavMenu}>
               <LanguageIcon />
