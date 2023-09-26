@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './EventCard.css'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import EventTag from '../Buttons/EventTag.tsx'
-import { EventObj, EventTagType } from '../../types/event.ts'
+import { EventObj } from '../../types/event.ts'
 import getTags from '../Buttons/EventTagger.tsx'
 import { Box, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
+import { useStore } from '../../stores/settingStore.tsx'
 
 type EventCardProps = {
   event: EventObj
@@ -15,7 +15,7 @@ type EventCardProps = {
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps) => {
-  const { language } = useLocation()
+  const { language } = useStore()
   const { t } = useTranslation()
   const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
 

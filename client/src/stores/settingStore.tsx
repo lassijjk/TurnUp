@@ -1,15 +1,14 @@
 import create from 'zustand'
-
-export type Language = 'English' | 'Finnish'
+import { LanguageFullName } from '../types/language'
 
 interface SettingState {
-  language: Language
-  changeLanguage: (language: Language) => void
+  language: LanguageFullName
+  changeLanguage: (language: LanguageFullName) => void
 }
 
 export const useStore = create<SettingState>((set) => ({
-  language: (localStorage.getItem('language') as Language) || 'English',
-  changeLanguage: (language: Language) => {
+  language: (localStorage.getItem('language') as LanguageFullName) || LanguageFullName.ENGLISH,
+  changeLanguage: (language: LanguageFullName) => {
     localStorage.setItem('language', language)
     set(() => ({
       language: language,
