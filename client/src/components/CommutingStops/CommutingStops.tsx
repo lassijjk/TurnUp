@@ -71,7 +71,6 @@ const CommutingStops: React.FC = () => {
           },
         }
       )
-
       setData(response.data.data)
       setError(null)
     } catch (err) {

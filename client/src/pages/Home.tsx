@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import EventCard from '../components/Cards/EventCard.tsx'
-import UseTodaysEvents from '../api/UseTodaysEvents.tsx'
 import { EventObj } from '../types/event.ts'
+import UseTodaysEvents from '../api/useTodaysEvents.tsx'
 
 const Home = () => {
   const { t } = useTranslation()
