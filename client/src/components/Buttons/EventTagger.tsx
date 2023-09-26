@@ -23,10 +23,18 @@ const addressRegex: RegExp = /^[^,]+/
 const getTags = (event: EventObj, max: number, language: LanguageFullName) => {
   const needsTranslation = language === LanguageFullName.FINNISH
   const tagsRaw: Array<EventTagType> = [
-    ...tagCategories(needsTranslation ? translateCategories(event.categories) : event.categories),
-    ...tagTopics(needsTranslation ? translateTopics(event.topics) : event.topics),
-    ...tagTargets(needsTranslation ? translateTargets(event.targets) : event.targets),
-    ...tagTags(needsTranslation ? translateTags(event.tags) : event.tags),
+    ...tagCategories(
+      needsTranslation
+        ? translateCategories(event.categories as FinnishCategoryName[])
+        : (event.categories as EventApiCategory[])
+    ),
+    ...tagTopics(
+      needsTranslation ? translateTopics(event.topics as FinnishTopicName[]) : (event.topics as EventApiTopic[])
+    ),
+    ...tagTargets(
+      needsTranslation ? translateTargets(event.targets as FinnishTargetName[]) : (event.targets as EventApiTarget[])
+    ),
+    ...tagTags(needsTranslation ? translateTags(event.tags as FinnishTagName[]) : (event.tags as EventApiTag[])),
     ...tagLinks(event.links),
     ...tagLocations(event.locations),
   ]
@@ -402,7 +410,7 @@ const tagLinks = (links: Array<EventApiLink>) => {
     return matches ? matches[1] : null
   })
   domains.forEach((domain) => {
-    const tag: EventTagType | null = getDomainTag(domain)
+    const tag: EventTagType | null = getDomainTag(domain as KnownEventDomain)
     if (tag) {
       tags.push(tag)
     }
@@ -569,7 +577,7 @@ const tagLocations = (locations: Array<EventApiLocation>) => {
     return matches ? matches[0].toLowerCase() : null
   })
   addresses.forEach((address) => {
-    tags = tags.concat(getAddressTags(address))
+    tags = tags.concat(getAddressTags(address as KnownAddress))
   })
   return tags
 }

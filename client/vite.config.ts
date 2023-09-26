@@ -47,7 +47,7 @@ export default defineConfig({
     replace({'process.env.VITE_DIGI_TRANSIT_API_KEY': JSON.stringify(process.env.VITE_DIGI_TRANSIT_API_KEY), preventAssignment: true})
   ],
   define: {
-    global: {},
+    _global: ({})
   },
   server: {
     port: 3000

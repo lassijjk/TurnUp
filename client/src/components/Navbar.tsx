@@ -3,17 +3,18 @@ import './Navbar.css'
 import { useNavigate } from 'react-router-dom'
 import { AppBar, Toolbar, Box, Container, Menu, MenuItem, Typography, IconButton } from '@mui/material'
 import LanguageIcon from '@mui/icons-material/Language'
-import { Language, useStore } from '../stores/settingStore'
+import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
 import { useAuthUser, useLogin, useLogout } from '../hooks/userHooks'
+import { LanguageFullName } from '../types/language'
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null)
   const { language, changeLanguage } = useStore()
-  const languages: Language[] = ['English', 'Finnish']
+  const languages: LanguageFullName[] = [LanguageFullName.ENGLISH, LanguageFullName.FINNISH]
 
   const user = useAuthUser()
   const { loginWithGoogle } = useLogin()
