@@ -1,12 +1,9 @@
 import './Home.css'
-import { Box, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import EventCard from '../components/Cards/EventCard.tsx'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 import UseTodaysEvents from '../api/UseTodaysEvents.tsx'
-import _ from 'lodash'
 import { EventObj } from '../types/event.ts'
 
 const Home = () => {

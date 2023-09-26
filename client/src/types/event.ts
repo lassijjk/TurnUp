@@ -33,10 +33,10 @@ export type EventObj = {
   imageAt: string | null
   language: string
   siteName: string
-  categories: Array<EventApiCategory>
-  topics: Array<EventApiTopic>
-  targets: Array<EventApiTarget>
-  tags: Array<EventApiTag>
+  categories: Array<EventApiCategory | FinnishCategoryName>
+  topics: Array<EventApiTopic | FinnishTopicName>
+  targets: Array<EventApiTarget | FinnishTargetName>
+  tags: Array<EventApiTag | FinnishTagName>
   url: string
   areas: Array<EventApiArea>
 }
@@ -111,6 +111,7 @@ export enum FinnishCategoryName {
   RESTAURANT = 'Ravintola',
   SIGHTSEEING_TOURS = 'Nähtävyydet ja kierrokset',
   SPORTS = 'Urheilu',
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   THEATER = 'Teatteri',
 }
 
@@ -523,5 +524,6 @@ export enum KnownAddress {
   YLIOPISTONKATU_55 = 'yliopistonkatu 55',
   YLIOPISTONKATU_58 = 'yliopistonkatu 58',
   YLIOPISTONKATU_60 = 'yliopistonkatu 60',
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   AKERLUNDINKATU_6 = 'åkerlundinkatu 6',
 }
