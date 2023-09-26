@@ -10,7 +10,7 @@
 }
 
 .navbar-link {
-  color: var(--black);
+  color: var(--dark-black-vintage) !important;
   text-decoration: none !important;
   margin-right: 0.5rem !important;
   padding: 0.25rem 0.5rem !important;
@@ -43,6 +43,7 @@
 .navbar-title {
   font-size: 1.75rem !important;
   font-weight: 700 !important;
+  color: var(--dark-black-vintage) !important;
 }
 
 .navbar-app-name {

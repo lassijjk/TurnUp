@@ -10,6 +10,7 @@
   margin-left: 1rem !important;
   font-size: 32px !important;
   font-weight: bold !important;
+  color: var(--dark-black-vintage) !important;
 }
 
 .event-card-container {
