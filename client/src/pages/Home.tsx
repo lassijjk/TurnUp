@@ -1,15 +1,19 @@
 import './Home.css'
-import { Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import EventCard from '../components/Cards/EventCard.tsx'
 import { EventObj } from '../types/event.ts'
+import UseSingleEvent from '../api/UseSingleEvent.tsx'
+import { useStore } from '../stores/settingStore.tsx'
 import UseTodaysEvents from '../api/useTodaysEvents.tsx'
 
 const Home = () => {
+  const ITEMS_ON_PAGE: number = 16
   const { t } = useTranslation()
-  const events = UseTodaysEvents(16)
+  const events = UseTodaysEvents(ITEMS_ON_PAGE)
+  const event = UseSingleEvent('609a0f81254a504749b51b3c')
   const navigate = useNavigate()
 
   const handleEventClick = (eventId: string) => {
