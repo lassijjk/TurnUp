@@ -2,6 +2,7 @@ import './Home.css'
 import { Box, Grid, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import EventCard from '../components/Cards/EventCard.tsx'
 import { EventObj } from '../types/event.ts'
 import UseSingleEvent from '../api/UseSingleEvent.tsx'
@@ -13,6 +14,11 @@ const Home = () => {
   const { t } = useTranslation()
   const events = UseTodaysEvents(ITEMS_ON_PAGE)
   const event = UseSingleEvent('609a0f81254a504749b51b3c')
+  const navigate = useNavigate()
+
+  const handleEventClick = (eventId: string) => {
+    navigate(`/event/${eventId}`)
+  }
 
   return (
     <>
@@ -26,7 +32,13 @@ const Home = () => {
           </Typography>
         </Grid>
         {events.map((event: EventObj) => (
-          <EventCard event={event} key={event.id} />
+          <EventCard
+            event={event}
+            key={event.id}
+            onClick={() => {
+              handleEventClick(event.id)
+            }}
+          />
         ))}
       </Grid>
     </>

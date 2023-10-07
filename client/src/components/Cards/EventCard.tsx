@@ -11,9 +11,10 @@ import { useStore } from '../../stores/settingStore.tsx'
 
 type EventCardProps = {
   event: EventObj
+  onClick: () => void
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps) => {
   const { language } = useStore()
   const { t } = useTranslation()
   const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
@@ -42,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
   }
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame">
+    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame" onClick={onClick}>
       <Box className="event-card-content">
         <Box>
           <img src={event.images[0].url} />
