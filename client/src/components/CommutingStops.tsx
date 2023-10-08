@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Button, Grid, Card } from '@mui/material'
+import { Grid, Card } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../../constants'
-import { LocationPoint, Plan, Itinerary, Leg } from '../../types/commutingStop'
+import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../constants'
+import { LocationPoint, Plan, Itinerary, Leg } from '../types/commutingStop'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
-  minHeight: '250px',
+  minHeight: '20px',
   padding: theme.spacing(4, 3),
   marginTop: theme.spacing(3),
   borderRadius: theme.spacing(1),
@@ -15,6 +15,13 @@ const Item = styled(Card)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }))
+
+interface CommutingStopsProps {
+  eventLocationData: {
+    latitude: number
+    longitude: number
+  }
+}
 
 const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
   return `
@@ -51,12 +58,17 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
   `
 }
 
-const CommutingStops: React.FC = () => {
+const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const [data, setData] = useState<Plan | null>()
   const [error, setError] = useState<string | null>()
 
   const from = { lat: 61.679128, lon: 23.881073 }
-  const to = { lat: 61.5038, lon: 23.8088 }
+  const { latitude, longitude } = eventLocationData
+  const to = { lat: latitude, lon: longitude }
+
+  useEffect(() => {
+    handleGraphQLRequest()
+  }, [])
 
   const handleGraphQLRequest = async () => {
     try {
@@ -95,22 +107,10 @@ const CommutingStops: React.FC = () => {
   const mappedItineraries = data ? data.plan.itineraries.map((itinerary: Itinerary) => getFirstAndLast(itinerary)) : []
   const firstBusStopName = mappedItineraries[0]?.[0]?.from.name
   const lastBusStopName = mappedItineraries[0]?.[mappedItineraries[0].length - 1]?.to.name
-
-  const buttonStyle = {
-    backgroundColor: '#418155',
-    color: 'white',
-  }
   return (
-    <Grid container className="event-card-container">
-      {/* <Grid item xs={12}>
-        <Typography component="h3">Home {`->`} </Typography>
-      </Grid> */}
+    <Grid container className="commute-container">
       <Grid item xs={12}>
         <Item>
-          <Button style={buttonStyle} onClick={handleGraphQLRequest}>
-            Let's Go
-          </Button>
-
           {error && <p>{error}</p>}
           {data &&
             data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
