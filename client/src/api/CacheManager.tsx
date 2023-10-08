@@ -1,4 +1,4 @@
-import { DurationStamp, MaxCacheDuration, QueryId, TimeInMilliseconds } from '../types/api.ts'
+import { DurationStamp, MaxCacheDuration, QueryId, TimeInMilliseconds, mapMaxCacheDuration } from '../types/api.ts'
 
 const TIMESTAMP_ID: string = 'timestamp-'
 const DEFAULT_MAX_CACHE_TIME: DurationStamp = { h: 0, m: 20, s: 0 }
@@ -32,7 +32,7 @@ function getMaxCacheTime(queryId: QueryId): number {
 function getMaxCacheDuration(queryId: QueryId): DurationStamp {
   switch (queryId) {
     case QueryId.TODAYS_EVENTS:
-      return MaxCacheDuration.TODAYS_EVENTS
+      return mapMaxCacheDuration[MaxCacheDuration.TODAYS_EVENTS]
   }
   return DEFAULT_MAX_CACHE_TIME
 }
@@ -41,7 +41,7 @@ function now() {
   return new Date().getTime()
 }
 
-export const cacheQuery = (queryId: QueryId, extension: String, data) => {
+export const cacheQuery = (queryId: QueryId, extension: string, data) => {
   sessionStorage.setItem(buildQueryId(queryId, extension), JSON.stringify(data))
   sessionStorage.setItem(getTimeStampId(queryId, extension), now().toString())
 }
