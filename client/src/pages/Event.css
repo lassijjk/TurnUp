@@ -6,4 +6,31 @@
   padding-right: 3rem;
   padding-left: 3rem;
 }
+.event-tag {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  padding: 1rem;
+}
 
+.event-description {
+  font-size: medium;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  text-align: left;
+}
+
+.lets-go-button {
+  background-color: #418155;
+  color: white;
+  display: flex;
+  align-self: center;
+}
+.list-of-dates {
+}
+
+.commute-container {
+  max-width: fit-content;
+}
