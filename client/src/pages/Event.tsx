@@ -15,7 +15,6 @@ import { useStore } from '../stores/settingStore'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
-  minHeight: '250px',
   padding: theme.spacing(4, 3),
   marginTop: theme.spacing(3),
   borderRadius: theme.spacing(1),
@@ -37,6 +36,7 @@ const Event = () => {
   const { id } = useParams()
   const event = useSingleEvent(id || '')
   const [showEvent, setShowEvent] = useState(false)
+  const [showMore, setShowMore] = useState(true)
   const { language } = useStore()
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
@@ -56,6 +56,8 @@ const Event = () => {
     setShowEvent(true)
     const [longitude, latitude] = event.locations[0]?.geoIndex
     setEventLocationData({ latitude, longitude })
+
+    setShowMore(false)
   }
 
   return (
@@ -65,29 +67,33 @@ const Event = () => {
           <Typography component="div" variant="h1" className="event-name">
             {event.name}
           </Typography>
-          <Typography component="div">
-            <ul style={{ listStyleType: 'none' }}>
-              {event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
-                <li key={`${date.start}-${index}`} className="list-of-dates">
-                  <p>
-                    {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </Typography>
-          <Typography component="div" className="event-tag">
-            {getEventTags(event)}
-          </Typography>
-          {event.description !== '-' && <Box className="event-description">{event.description}</Box>}
-          <Typography component="div">Address: {event.locations[0]?.address}</Typography>
+          {showMore && (
+            <>
+              <Typography component="div">
+                <ul style={{ listStyleType: 'none' }}>
+                  {event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
+                    <li key={`${date.start}-${index}`} className="list-of-dates">
+                      <p>
+                        {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </Typography>
+              <Typography component="div" className="event-tag">
+                {getEventTags(event)}
+              </Typography>
+              {event.description !== '-' && <Box className="event-description">{event.description}</Box>}
+              <Typography component="div">Address: {event.locations[0]?.address}</Typography>
 
-          <Button style={buttonStyle} className="lets-go-button" onClick={handleCommute}>
-            Let's Go
-          </Button>
+              <Button style={buttonStyle} className="lets-go-button" onClick={handleCommute}>
+                Let's Go
+              </Button>
+            </>
+          )}
+          {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
         </Item>
       </Grid>
-      {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
     </Grid>
   )
 }

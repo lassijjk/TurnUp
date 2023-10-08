@@ -11,9 +11,9 @@ const Item = styled(Card)(({ theme }) => ({
   padding: theme.spacing(4, 3),
   marginTop: theme.spacing(3),
   borderRadius: theme.spacing(1),
-  backgroundColor: '#fff',
+  backgroundColor: '#39364f',
+  color: 'white',
   textAlign: 'center',
-  color: theme.palette.text.secondary,
 }))
 
 interface CommutingStopsProps {
@@ -61,6 +61,7 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
 const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const [data, setData] = useState<Plan | null>()
   const [error, setError] = useState<string | null>()
+  const [isLoading, setIsLoading] = useState(true)
 
   const from = { lat: 61.679128, lon: 23.881073 }
   const { latitude, longitude } = eventLocationData
@@ -85,6 +86,7 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
       )
       setData(response.data.data)
       setError(null)
+      setIsLoading(false)
     } catch (err) {
       setError(err + ' An error occurred while fetching data.')
       setData(null)
@@ -109,33 +111,38 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const lastBusStopName = mappedItineraries[0]?.[mappedItineraries[0].length - 1]?.to.name
   return (
     <Grid container className="commute-container">
-      <Grid item xs={12}>
-        <Item>
-          {error && <p>{error}</p>}
-          {data &&
-            data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
-              getFirstWalk(itinerary).map((leg: Leg, legIndex: number) => (
-                <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
-                  {firstBusStopName && (
-                    <>
+      {error && <p>{error}</p>}
+
+      {isLoading && <p>Loading...</p>}
+
+      {!isLoading && (
+        <Grid item xs={12}>
+          <Item>
+            {data &&
+              data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
+                getFirstWalk(itinerary).map((leg: Leg, legIndex: number) => (
+                  <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
+                    {firstBusStopName && (
+                      <>
+                        <p>
+                          {leg.mode} to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
+                        </p>
+                        <hr />
+                        <p> Nearest station: {firstBusStopName} </p>
+                      </>
+                    )}
+                    {legsWithWalkExcluded.length === 0 && (
                       <p>
-                        {leg.mode} to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
+                        {leg.mode} to destination {Math.round(leg.duration / 60)} minutes.
                       </p>
-                      <hr />
-                      <p> Nearest station: {firstBusStopName} </p>
-                    </>
-                  )}
-                  {legsWithWalkExcluded.length === 0 && (
-                    <p>
-                      {leg.mode} to destination {Math.round(leg.duration / 60)} minutes.
-                    </p>
-                  )}
-                  {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
-                </div>
-              ))
-            )}
-        </Item>
-      </Grid>
+                    )}
+                    {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
+                  </div>
+                ))
+              )}
+          </Item>
+        </Grid>
+      )}
     </Grid>
   )
 }
