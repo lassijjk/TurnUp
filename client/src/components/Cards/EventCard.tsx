@@ -8,6 +8,7 @@ import getTags from '../Buttons/EventTagger.tsx'
 import { Box, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useStore } from '../../stores/settingStore.tsx'
+import { convertToReadableDate } from '../../utils/convertToReadableDate.ts'
 
 type EventCardProps = {
   event: EventObj
@@ -19,17 +20,8 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps)
   const { t } = useTranslation()
   const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
 
-  const convertToReadableTime = (time: string | Date): string => {
-    const inputDate = new Date(time)
-    const dayOfWeek = t('DATE.SHORT.' + inputDate.getUTCDay().toString())
-    const dayOfMonth = inputDate.getUTCDate()
-    const year = inputDate.getUTCFullYear()
-
-    // Format the date as "Day Date.Month.Year"
-    const formattedDate = `${dayOfWeek} ${dayOfMonth}.${inputDate.getUTCMonth() + 1}.${year}`
-
-    return formattedDate
-  }
+  const startTime = convertToReadableDate(event.start_time, t)
+  const endTime = convertToReadableDate(event.end_time, t)
 
   const getEventTags = (event: EventObj) => {
     const tags = getTags(event, 2, language)
@@ -55,7 +47,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps)
           <Box component="div" className="time-to">
             <CalendarMonthIcon sx={{ color: '#c83e36' }} />
             <Typography component="div" className="event-card-time">
-              {convertToReadableTime(event.start_time) + ' - ' + convertToReadableTime(event.end_time)}
+              {startTime + ' - ' + endTime}
             </Typography>
           </Box>
           <Box component="div" className="travel-time">
