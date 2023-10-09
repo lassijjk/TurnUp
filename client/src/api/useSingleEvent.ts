@@ -5,8 +5,8 @@ import { useMemo } from 'react'
 
 const useSingleEvent = (id: string) => {
   const { language } = useStore()
-  const events = useMemo(() =>  rememberQuery(QueryId.TODAYS_EVENTS, language), [language])
-  
+  const events = useMemo(() => rememberQuery(QueryId.TODAYS_EVENTS, language), [language])
+
   return events ? events[id] : null
 }
 
