@@ -4,6 +4,7 @@ import { Grid, Card } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../constants'
 import { LocationPoint, Plan, Itinerary, Leg } from '../types/commutingStop'
+import useGeoLocation, { GeoLocationData } from '../api/useGeoLocation'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -11,9 +12,9 @@ const Item = styled(Card)(({ theme }) => ({
   padding: theme.spacing(4, 3),
   marginTop: theme.spacing(3),
   borderRadius: theme.spacing(1),
-  backgroundColor: '#fff',
+  backgroundColor: '#39364f',
+  color: 'white',
   textAlign: 'center',
-  color: theme.palette.text.secondary,
 }))
 
 interface CommutingStopsProps {
@@ -61,17 +62,26 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
 const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const [data, setData] = useState<Plan | null>()
   const [error, setError] = useState<string | null>()
+  const [isLoading, setIsLoading] = useState(true)
 
-  const from = { lat: 61.679128, lon: 23.881073 }
-  const { latitude, longitude } = eventLocationData
-  const to = { lat: latitude, lon: longitude }
+  const { geoLocationData } = useGeoLocation()
+
+  const { latitude: toLatitude, longitude: toLongitude } = eventLocationData
+  const to = { lat: toLatitude, lon: toLongitude }
 
   useEffect(() => {
-    handleGraphQLRequest()
-  }, [])
+    handleGraphQLRequest(geoLocationData)
+  }, [geoLocationData])
 
-  const handleGraphQLRequest = async () => {
+  console.log(geoLocationData?.latitude, geoLocationData?.longitude)
+
+  const handleGraphQLRequest = async (geoLocationD: GeoLocationData | undefined) => {
     try {
+      if (!geoLocationD) {
+        return
+      }
+      const from = { lat: geoLocationD.latitude, lon: geoLocationD.longitude }
+      //console.log(from, to)
       const response = await axios.post(
         `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
@@ -85,6 +95,7 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
       )
       setData(response.data.data)
       setError(null)
+      setIsLoading(false)
     } catch (err) {
       setError(err + ' An error occurred while fetching data.')
       setData(null)
@@ -107,35 +118,45 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const mappedItineraries = data ? data.plan.itineraries.map((itinerary: Itinerary) => getFirstAndLast(itinerary)) : []
   const firstBusStopName = mappedItineraries[0]?.[0]?.from.name
   const lastBusStopName = mappedItineraries[0]?.[mappedItineraries[0].length - 1]?.to.name
+
+  const hasNoItinirary = !isLoading && data && !data.plan.itineraries.length
+  const showItinirary = !isLoading && data && data.plan.itineraries.length > 0
+
   return (
     <Grid container className="commute-container">
-      <Grid item xs={12}>
-        <Item>
-          {error && <p>{error}</p>}
-          {data &&
-            data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
-              getFirstWalk(itinerary).map((leg: Leg, legIndex: number) => (
-                <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
-                  {firstBusStopName && (
-                    <>
+      {error && <p>{error}</p>}
+
+      {isLoading && <p>Loading...</p>}
+      {hasNoItinirary && <p>Route couldn't be planned with current location!</p>}
+
+      {showItinirary && (
+        <Grid item xs={12}>
+          <Item>
+            {data &&
+              data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
+                getFirstWalk(itinerary).map((leg: Leg, legIndex: number) => (
+                  <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
+                    {firstBusStopName && (
+                      <>
+                        <p>
+                          {leg.mode} to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
+                        </p>
+                        <hr />
+                        <p> Nearest station: {firstBusStopName} </p>
+                      </>
+                    )}
+                    {legsWithWalkExcluded.length === 0 && (
                       <p>
-                        {leg.mode} to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
+                        {leg.mode} to destination {Math.round(leg.duration / 60)} minutes.
                       </p>
-                      <hr />
-                      <p> Nearest station: {firstBusStopName} </p>
-                    </>
-                  )}
-                  {legsWithWalkExcluded.length === 0 && (
-                    <p>
-                      {leg.mode} to destination {Math.round(leg.duration / 60)} minutes.
-                    </p>
-                  )}
-                  {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
-                </div>
-              ))
-            )}
-        </Item>
-      </Grid>
+                    )}
+                    {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
+                  </div>
+                ))
+              )}
+          </Item>
+        </Grid>
+      )}
     </Grid>
   )
 }
