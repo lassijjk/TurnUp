@@ -1,6 +1,6 @@
 # Project Name: Turn Up
 
-An app to help you find something to do in the city of Tampere e.g., when you are travelling for a business and have an evening to spend, or you are looking for something new or different to do
+An app to help you find something to do in the city of Tampere, e.g., when you are traveling for business and have an evening to spend, or you are looking for something new or different to do or any nearby events. The event locator helps users find the nearest events in Tampere and provides commuter directions on how to get there easily.
 
 ## Project Structure
 
