@@ -38,6 +38,7 @@ Including Jira (or other Project Management Tool) ticket numbers
 ## License
 
 This project is developed and maintained by Tampere University students and is licensed under the [MIT License](LICENSE).
+
 ## Author
 
   + Eero Laine: eero.laine@tuni.fi
