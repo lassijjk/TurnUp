@@ -1,36 +1,107 @@
+import  { useState, useRef } from 'react';
 import './Home.css'
-import { Box, Grid, Typography } from '@mui/material'
+import {  Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import { useTranslation } from 'react-i18next'
+
+import { useNavigate } from 'react-router-dom'
 import EventCard from '../components/Cards/EventCard.tsx'
 import { EventObj } from '../types/event.ts'
-import UseSingleEvent from '../api/UseSingleEvent.tsx'
-import { useStore } from '../stores/settingStore.tsx'
-import UseTodaysEvents from '../api/useTodaysEvents.tsx'
+import useTodaysEvents from '../api/useTodaysEvents.ts'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { FormControl} from '@mui/material';
+import { FaCalendarAlt } from 'react-icons/fa';
 
 const Home = () => {
-  const ITEMS_ON_PAGE: number = 16
-  const { t } = useTranslation()
-  const events = UseTodaysEvents(ITEMS_ON_PAGE)
-  const event = UseSingleEvent('609a0f81254a504749b51b3c')
+  const ITEMS_ON_PAGE: number = 16;
+ // const { t } = useTranslation();
+  const events = useTodaysEvents(ITEMS_ON_PAGE);
+  const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  //const [filterOption, setFilterOption] = useState<string>('all');
+  const calendarRef = useRef<DatePicker | null>(null);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+  };
+
+  const handleDatePickerClick = () => {
+    calendarRef.current?.setOpen(true);
+  };
+
+/*  const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFilterOption(event.target.value as string);
+  };
+*/
+  const handleEventClick = (eventId: string) => {
+    navigate(`/event/${eventId}`);
+  };
+
+  const filteredEvents = Array.isArray(events)
+    ? events.filter((event) => {
+        const eventStartDate = new Date(event.start_time);
+        const eventEndDate = new Date(event.end_time);
+
+        if (selectedDate) {
+          return selectedDate >= eventStartDate && selectedDate <= eventEndDate;
+        }
+
+        return true;
+      })
+    : Array.from(events.values()).flatMap((eventArr) =>
+        eventArr.filter((event) => {
+          const eventStartDate = new Date(event.start_time);
+          const eventEndDate = new Date(event.end_time);
+
+          if (selectedDate) {
+            return selectedDate >= eventStartDate && selectedDate <= eventEndDate;
+          }
+
+          return true;
+        })
+      );
 
   return (
     <>
       <Helmet>
-        <title>Turn Up</title>
+        <title>Turn Up </title>
       </Helmet>
-      <Grid container className="event-card-container">
+      <Grid container spacing={2} className="event-card-container">
         <Grid item xs={12}>
-          <Typography component="h1" className="home-title">
-            {t('EVENT_LIST.QUESTION')}
-          </Typography>
+          <div className="filter-container">
+            <FormControl fullWidth>
+              <div className="datepicker-container">
+                <div className="datepicker-button" onClick={handleDatePickerClick}>
+                  <FaCalendarAlt className="datepicker-icon" />
+                  {selectedDate ? selectedDate.toLocaleDateString() : 'Select a date'}
+                </div>
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={handleDateChange}
+                  dateFormat="dd/MM/yyyy"
+    
+                  className="datepicker-input"
+                  ref={calendarRef}
+                  popperPlacement="bottom-end"
+                  customInput={<></>}
+                />
+              </div>
+            </FormControl>
+          </div>
         </Grid>
-        {events.map((event: EventObj) => (
-          <EventCard event={event} key={event.id} />
+        {filteredEvents.map((event: EventObj) => (
+          <EventCard
+            event={event}
+            key={event.id}
+            onClick={() => {
+              const [id] = event.id.split('-');
+              handleEventClick(id);
+            }}
+          />
         ))}
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

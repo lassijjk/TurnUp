@@ -3,7 +3,11 @@ export enum QueryId {
 }
 
 export enum MaxCacheDuration {
-  TODAYS_EVENTS = { h: 1, m: 0, s: 0 },
+  TODAYS_EVENTS,
+}
+
+export const mapMaxCacheDuration = {
+  [MaxCacheDuration.TODAYS_EVENTS]: { h: 1, m: 0, s: 0 },
 }
 
 export type DurationStamp = {

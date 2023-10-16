@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import _, { keyBy } from 'lodash'
 import { EventObj } from '../types/event.ts'
-import { Language, useStore } from '../stores/settingStore'
+import { Language, useStore } from '../stores/settingStore.tsx'
 import { LanguageFullName } from '../types/language.ts'
 import { cacheQuery, rememberQuery } from './CacheManager.tsx'
 import { QueryId } from '../types/api.ts'
 
-const UseTodaysEvents = (max: number = 0) => {
+const useTodaysEvents = (max: number = 0) => {
   const { language } = useStore()
   const queryId: QueryId = QueryId.TODAYS_EVENTS
   const [events, setEvents] = useState<Map<string, EventObj[]>>(rememberQuery(queryId, language) ?? {})
@@ -38,4 +38,4 @@ const UseTodaysEvents = (max: number = 0) => {
   return max ? _.take(Object.values(events), max) : events
 }
 
-export default UseTodaysEvents
+export default useTodaysEvents

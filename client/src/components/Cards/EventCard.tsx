@@ -8,27 +8,20 @@ import getTags from '../Buttons/EventTagger.tsx'
 import { Box, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useStore } from '../../stores/settingStore.tsx'
+import { convertToReadableDate } from '../../utils/convertToReadableDate.ts'
 
 type EventCardProps = {
   event: EventObj
+  onClick: () => void
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
+const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps) => {
   const { language } = useStore()
   const { t } = useTranslation()
   const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
 
-  const convertToReadableTime = (time: string | Date): string => {
-    const inputDate = new Date(time)
-    const dayOfWeek = t('DATE.SHORT.' + inputDate.getUTCDay().toString())
-    const dayOfMonth = inputDate.getUTCDate()
-    const year = inputDate.getUTCFullYear()
-
-    // Format the date as "Day Date.Month.Year"
-    const formattedDate = `${dayOfWeek} ${dayOfMonth}.${inputDate.getUTCMonth() + 1}.${year}`
-
-    return formattedDate
-  }
+  const startTime = convertToReadableDate(event.start_time, t)
+  const endTime = convertToReadableDate(event.end_time, t)
 
   const getEventTags = (event: EventObj) => {
     const tags = getTags(event, 2, language)
@@ -42,7 +35,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
   }
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame">
+    <Grid item xs={12} sm={6} md={4} lg={3} className="event-card-frame" onClick={onClick}>
       <Box className="event-card-content">
         <Box>
           <img src={event.images[0].url} />
@@ -54,7 +47,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }: EventCardProps) => {
           <Box component="div" className="time-to">
             <CalendarMonthIcon sx={{ color: '#c83e36' }} />
             <Typography component="div" className="event-card-time">
-              {convertToReadableTime(event.start_time) + ' - ' + convertToReadableTime(event.end_time)}
+              {startTime + ' - ' + endTime}
             </Typography>
           </Box>
           <Box component="div" className="travel-time">

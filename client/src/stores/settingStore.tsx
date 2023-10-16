@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { LanguageFullName } from '../types/language'
 
 interface SettingState {
