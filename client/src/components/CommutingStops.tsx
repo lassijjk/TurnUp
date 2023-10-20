@@ -39,6 +39,8 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
               distance
               transitLeg
               from {
+                lat
+                lon
                 name
                 stop {
                   code
@@ -46,6 +48,8 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
                 }
               },
               to {
+                lat
+                lon
                 name
                  stop {
                   code
