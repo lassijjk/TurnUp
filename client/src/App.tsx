@@ -9,6 +9,7 @@ import i18next from 'i18next'
 import { useStore } from './stores/settingStore.tsx'
 import english from './translations/english.json'
 import finnish from './translations/finnish.json'
+import UserSetting from './pages/UserSetting.tsx'
 
 const App = () => {
   const { language } = useStore()
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/event/:id" element={<Event />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/settings" element={<UserSetting />} />
           </Routes>
         </BrowserRouter>
       </I18nextProvider>
