@@ -102,26 +102,28 @@ const Navbar: React.FC = () => {
             </Menu>
           </Box>
 
-          <Box className="navbar-link">
-            <IconButton onClick={handleUserSettingsClick}>
-              <DehazeIcon />
-            </IconButton>
+          {user && (
+            <Box className="navbar-link">
+              <IconButton onClick={handleUserSettingsClick}>
+                <DehazeIcon />
+              </IconButton>
 
-            <Menu
-              anchorEl={userSettingEl}
-              open={!!userSettingEl}
-              onClose={handleUserSettingsClose}
-              onClick={handleUserSettingsClose}
-            >
-              <MenuItem
-                onClick={() => {
-                  navigate('user-settings')
-                }}
+              <Menu
+                anchorEl={userSettingEl}
+                open={!!userSettingEl}
+                onClose={handleUserSettingsClose}
+                onClick={handleUserSettingsClose}
               >
-                User settings
-              </MenuItem>
-            </Menu>
-          </Box>
+                <MenuItem
+                  onClick={() => {
+                    navigate('user-settings')
+                  }}
+                >
+                  User settings
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
