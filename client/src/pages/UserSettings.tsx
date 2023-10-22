@@ -1,6 +1,6 @@
 import { Grid, Card, styled, Typography, Button, FormLabel, TextField } from '@mui/material'
 import { useState } from 'react'
-import './UserSetting.css'
+import './UserSettings.css'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -47,7 +47,7 @@ const LanguageButtonFin = styled(Button)(() => ({
   border: '2px solid Gray',
   color: 'black',
 }))
-const UserSetting = () => {
+const UserSettings = () => {
   // TODO: @finnan - get all the details from db
   const initialUserSetting = {
     firstName: '',
@@ -159,4 +159,4 @@ const UserSetting = () => {
   )
 }
 
-export default UserSetting
+export default UserSettings
