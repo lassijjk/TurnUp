@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import './UserSettings.css'
 import { useAuthUser } from '../hooks/userHooks'
 import { useGetUserData } from '../hooks/appSyncHooks'
-import { UserBySubQuery } from '../types/generatedAPI';
+import { UserBySubQuery } from '../types/graphqlAPI'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -45,28 +45,30 @@ const LanguageButtonEng = styled(Button)(() => ({
   borderRightWidth: '0',
   color: 'black',
 }))
+
 const LanguageButtonFin = styled(Button)(() => ({
   borderRadius: '0px 15px 15px 0px',
   border: '2px solid Gray',
   color: 'black',
 }))
 
-const UserSettings = () => {
-  // TODO: @finnan - get all the details from db
-  interface User {
-    username: string
-  }
+interface User {
+  username: string | null
+}
 
+const UserSettings = () => {
+  console.log('re-render')
+  // TODO: @finnan - get all the details from db
   const [userSub, setUserSub] = useState<string>('')
   const [userData, setUserData] = useState<UserBySubQuery | null>(null)
 
   const user = useAuthUser() as User | null
   
   useEffect(() => {
-    if (user && user.username) {
-      setUserSub(user.username)
+    if (user?.username) {
+      setUserSub(user?.username)
     }
-  }, [user])
+  }, [user?.username])
 
   const fetchedUserData = useGetUserData(userSub)
 
@@ -84,21 +86,29 @@ const UserSettings = () => {
     interests:  [] as (string | null)[],
   }
 
+  const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
-
+  
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
     if (userItem) {
-      const { givenName, familyName, email, language, interestTags } = userItem;
+      const { givenName, familyName, email, language, interestTags } = userItem
       setFormData({
         firstName: givenName || '',
         lastName: familyName || '',
         email: email || '',
         selectedLanguage: language || 'English',
         interests: interestTags || [],
-      });
+      })
+      setInitialFormData({
+        firstName: givenName || '',
+        lastName: familyName || '',
+        email: email || '',
+        selectedLanguage: language || 'English',
+        interests: interestTags || [],
+      })
     }
-  }, [userData]);
+  }, [userData])
 
   const toggleLanguage = (language: string) => {
     setFormData({ ...formData, selectedLanguage: language })
@@ -109,7 +119,7 @@ const UserSettings = () => {
   }
 
   const handleCancel = () => {
-    setFormData({ ...initialUserSetting })
+    setFormData({ ...initialFormData })
   }
 
   return (

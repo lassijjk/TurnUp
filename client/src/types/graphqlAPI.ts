@@ -1,4 +1,4 @@
-// Copied from server (do not update automatically if tables are updated)
+// Copied from server (not updated automatically if tables are updated)
 
 export type CreateItineraryInput = {
   id?: string | null,

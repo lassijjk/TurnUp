@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { API, GraphQLQuery } from '@aws-amplify/api'
-//import { userBySub } from '../graphql/queries'
 import * as queries from '../graphql/generatedQueries'
-import { UserBySubQuery } from '../types/generatedAPI';
+import { UserBySubQuery } from '../types/graphqlAPI'
 
 export const useGetUserData = (userSub: string) => {
   const [userData, setUserData] = useState<UserBySubQuery | null>(null)
