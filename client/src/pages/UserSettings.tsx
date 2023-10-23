@@ -2,8 +2,8 @@ import { Grid, Card, styled, Typography, Button, FormLabel, TextField } from '@m
 import { useState, useEffect } from 'react'
 import './UserSettings.css'
 import { useAuthUser } from '../hooks/userHooks'
-import { useGetUserData } from '../hooks/appSyncHooks'
-import { UserBySubQuery } from '../types/graphqlAPI'
+import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
+import { UserBySubQuery, UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -79,6 +79,7 @@ const UserSettings = () => {
   }, [fetchedUserData])
 
   const initialUserSetting = {
+    id: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -92,8 +93,9 @@ const UserSettings = () => {
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
     if (userItem) {
-      const { givenName, familyName, email, language, interestTags } = userItem
+      const { id, givenName, familyName, email, language, interestTags } = userItem
       setFormData({
+        id: id || '',
         firstName: givenName || '',
         lastName: familyName || '',
         email: email || '',
@@ -101,6 +103,7 @@ const UserSettings = () => {
         interests: interestTags || [],
       })
       setInitialFormData({
+        id: id || '',
         firstName: givenName || '',
         lastName: familyName || '',
         email: email || '',
@@ -114,8 +117,29 @@ const UserSettings = () => {
     setFormData({ ...formData, selectedLanguage: language })
   }
 
-  const handleSubmit = () => {
-    console.log('Settings saved successfully')
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    const inputData: UpdateUserInput = {
+      id: formData.id,
+      givenName: formData.firstName,
+      familyName: formData.lastName,
+      email: formData.email,
+      language: formData.selectedLanguage,
+      interestTags: formData.interests 
+    }
+
+    const response = await updateUserData(inputData) as UpdateUserMutation
+    if(response.updateUser){
+      setInitialFormData({
+        id: response.updateUser.id || '',
+        firstName: response.updateUser.givenName || '',
+        lastName: response.updateUser.familyName || '',
+        email: response.updateUser.email || '',
+        selectedLanguage: response.updateUser.language || 'English',
+        interests: response.updateUser.interestTags || [],
+      })
+      console.log('Settings saved successfully')
+    }
   }
 
   const handleCancel = () => {
