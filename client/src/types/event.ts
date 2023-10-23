@@ -14,6 +14,13 @@ export enum EventTagType {
   SPORTS = 'sports',
 }
 
+export interface EventLocationData {
+  id?: string
+  name?: string
+  latitude: number
+  longitude: number
+}
+
 export type EventObj = {
   id: string
   _id: string

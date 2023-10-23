@@ -73,15 +73,12 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
     handleGraphQLRequest(geoLocationData)
   }, [geoLocationData])
 
-  console.log(geoLocationData?.latitude, geoLocationData?.longitude)
-
   const handleGraphQLRequest = async (geoLocationD: GeoLocationData | undefined) => {
     try {
       if (!geoLocationD) {
         return
       }
       const from = { lat: geoLocationD.latitude, lon: geoLocationD.longitude }
-      //console.log(from, to)
       const response = await axios.post(
         `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
@@ -107,11 +104,13 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const walkToFirstStop = (itinerary: Itinerary) => itinerary.legs.filter((leg) => leg.mode == 'WALK')
 
   const getFirstAndLast = (itinerary: Itinerary) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [first, last, ..._] = legsWithWalkExcluded(itinerary)
     return [first, last]
   }
 
   const getFirstWalk = (itinerary: Itinerary) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [first, ..._] = walkToFirstStop(itinerary)
     return [first]
   }

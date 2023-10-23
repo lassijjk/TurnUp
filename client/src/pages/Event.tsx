@@ -10,8 +10,9 @@ import { Key, useState } from 'react'
 import CommutingStops from '../components/CommutingStops'
 import getTags from '../components/Buttons/EventTagger'
 import EventTag from '../components/Buttons/EventTag'
-import { EventObj } from '../types/event'
+import { EventLocationData, EventObj } from '../types/event'
 import { useStore } from '../stores/settingStore'
+import MapComponent from '../components/Map/MapComponent'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,16 +28,14 @@ const buttonStyle = {
   backgroundColor: '#418155',
   color: 'white',
 }
-interface EventLocationData {
-  latitude: number
-  longitude: number
-}
+
 const Event = () => {
   const { t } = useTranslation()
   const { id } = useParams()
   const event = useSingleEvent(id || '')
   const [showEvent, setShowEvent] = useState(false)
   const [showMore, setShowMore] = useState(true)
+  const [isShowMap, setIsShowMap] = useState<boolean>(false)
   const { language } = useStore()
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
@@ -54,9 +53,9 @@ const Event = () => {
   }
   const handleCommute = () => {
     setShowEvent(true)
-    const [longitude, latitude] = event.locations[0]?.geoIndex
+    const [longitude, latitude] = event.locations[0]?.geoIndex || []
     setEventLocationData({ latitude, longitude })
-
+    setIsShowMap(true)
     setShowMore(false)
   }
 
@@ -92,6 +91,11 @@ const Event = () => {
             </>
           )}
           {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
+          {isShowMap && (
+            <Box component="div" className="event-map-container">
+              <MapComponent eventLocationData={eventLocationData} />
+            </Box>
+          )}
         </Item>
       </Grid>
     </Grid>
