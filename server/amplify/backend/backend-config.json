@@ -1,13 +1,32 @@
 {
   "api": {
     "turnup": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "TurnUp"
+        }
+      ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authTurnUp"
+              }
+            }
+          ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
             },
             "authenticationType": "API_KEY"
           }
@@ -48,6 +67,52 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "fetchTampereTodayEvents": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "fetchTampereTodayEventsAPI": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_fetchTampereTodayEventsAPI_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchTampereTodayEventsAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchTampereTodayEventsAPI_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchTampereTodayEventsAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchTampereTodayEvents_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchTampereTodayEvents"
+        }
+      ]
+    },
+    "AMPLIFY_function_fetchTampereTodayEvents_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "fetchTampereTodayEvents"
+        }
+      ]
     }
   }
 }

@@ -10,12 +10,10 @@ import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
-import { getEvent } from "../graphql/queries";
-import { updateEvent } from "../graphql/mutations";
-export default function EventUpdateForm(props) {
+import { createUserEvent } from "../graphql/mutations";
+export default function UserEventCreateForm(props) {
   const {
-    id: idProp,
-    event: eventModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,45 +23,20 @@ export default function EventUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    title: "",
-    description: "",
-    location: "",
+    eventId: "",
+    owner: "",
   };
-  const [title, setTitle] = React.useState(initialValues.title);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
-  const [location, setLocation] = React.useState(initialValues.location);
+  const [eventId, setEventId] = React.useState(initialValues.eventId);
+  const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = eventRecord
-      ? { ...initialValues, ...eventRecord }
-      : initialValues;
-    setTitle(cleanValues.title);
-    setDescription(cleanValues.description);
-    setLocation(cleanValues.location);
+    setEventId(initialValues.eventId);
+    setOwner(initialValues.owner);
     setErrors({});
   };
-  const [eventRecord, setEventRecord] = React.useState(eventModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await API.graphql({
-              query: getEvent.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getEvent
-        : eventModelProp;
-      setEventRecord(record);
-    };
-    queryData();
-  }, [idProp, eventModelProp]);
-  React.useEffect(resetStateValues, [eventRecord]);
   const validations = {
-    title: [{ type: "Required" }],
-    description: [{ type: "Required" }],
-    location: [{ type: "Required" }],
+    eventId: [{ type: "Required" }],
+    owner: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -91,9 +64,8 @@ export default function EventUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
-          description,
-          location,
+          eventId,
+          owner,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -124,16 +96,18 @@ export default function EventUpdateForm(props) {
             }
           });
           await API.graphql({
-            query: updateEvent.replaceAll("__typename", ""),
+            query: createUserEvent.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: eventRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -142,100 +116,71 @@ export default function EventUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "EventUpdateForm")}
+      {...getOverrideProps(overrides, "UserEventCreateForm")}
       {...rest}
     >
       <TextField
-        label="Title"
+        label="Event id"
         isRequired={true}
         isReadOnly={false}
-        value={title}
+        value={eventId}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title: value,
-              description,
-              location,
+              eventId: value,
+              owner,
             };
             const result = onChange(modelFields);
-            value = result?.title ?? value;
+            value = result?.eventId ?? value;
           }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
+          if (errors.eventId?.hasError) {
+            runValidationTasks("eventId", value);
           }
-          setTitle(value);
+          setEventId(value);
         }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
+        onBlur={() => runValidationTasks("eventId", eventId)}
+        errorMessage={errors.eventId?.errorMessage}
+        hasError={errors.eventId?.hasError}
+        {...getOverrideProps(overrides, "eventId")}
       ></TextField>
       <TextField
-        label="Description"
-        isRequired={true}
+        label="Owner"
+        isRequired={false}
         isReadOnly={false}
-        value={description}
+        value={owner}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title,
-              description: value,
-              location,
+              eventId,
+              owner: value,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.owner ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.owner?.hasError) {
+            runValidationTasks("owner", value);
           }
-          setDescription(value);
+          setOwner(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
-      ></TextField>
-      <TextField
-        label="Location"
-        isRequired={true}
-        isReadOnly={false}
-        value={location}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              description,
-              location: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.location ?? value;
-          }
-          if (errors.location?.hasError) {
-            runValidationTasks("location", value);
-          }
-          setLocation(value);
-        }}
-        onBlur={() => runValidationTasks("location", location)}
-        errorMessage={errors.location?.errorMessage}
-        hasError={errors.location?.hasError}
-        {...getOverrideProps(overrides, "location")}
+        onBlur={() => runValidationTasks("owner", owner)}
+        errorMessage={errors.owner?.errorMessage}
+        hasError={errors.owner?.hasError}
+        {...getOverrideProps(overrides, "owner")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || eventModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -245,10 +190,7 @@ export default function EventUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || eventModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

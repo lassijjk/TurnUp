@@ -1,6 +1,9 @@
 import { Grid, Card, styled, Typography, Button, FormLabel, TextField } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './UserSettings.css'
+import { useAuthUser } from '../hooks/userHooks'
+import { useGetUserData } from '../hooks/appSyncHooks'
+import { UserBySubQuery } from '../types/generatedAPI';
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -47,17 +50,55 @@ const LanguageButtonFin = styled(Button)(() => ({
   border: '2px solid Gray',
   color: 'black',
 }))
+
 const UserSettings = () => {
   // TODO: @finnan - get all the details from db
+  interface User {
+    username: string
+  }
+
+  const [userSub, setUserSub] = useState<string>('')
+  const [userData, setUserData] = useState<UserBySubQuery | null>(null)
+
+  const user = useAuthUser() as User | null
+  
+  useEffect(() => {
+    if (user && user.username) {
+      setUserSub(user.username)
+    }
+  }, [user])
+
+  const fetchedUserData = useGetUserData(userSub)
+
+  useEffect(() => {
+    if(fetchedUserData) {
+      setUserData(fetchedUserData)
+    }
+  }, [fetchedUserData])
+
   const initialUserSetting = {
     firstName: '',
     lastName: '',
     email: '',
     selectedLanguage: 'English',
-    interests: [],
+    interests:  [] as (string | null)[],
   }
 
   const [formData, setFormData] = useState(initialUserSetting)
+
+  useEffect(() => {
+    const userItem = userData?.userBySub?.items[0]
+    if (userItem) {
+      const { givenName, familyName, email, language, interestTags } = userItem;
+      setFormData({
+        firstName: givenName || '',
+        lastName: familyName || '',
+        email: email || '',
+        selectedLanguage: language || 'English',
+        interests: interestTags || [],
+      });
+    }
+  }, [userData]);
 
   const toggleLanguage = (language: string) => {
     setFormData({ ...formData, selectedLanguage: language })
