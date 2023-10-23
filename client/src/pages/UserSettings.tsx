@@ -1,6 +1,19 @@
-import { Grid, Card, styled, Typography, Button, FormLabel, TextField } from '@mui/material'
+import {
+  Grid,
+  Card,
+  styled,
+  Typography,
+  Button,
+  FormLabel,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+} from '@mui/material'
 import { useState } from 'react'
 import './UserSettings.css'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import EventTag from '../components/Buttons/EventTag'
+import { EventTagType } from '../types/event'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -32,6 +45,8 @@ const InputWrapper = styled(Grid)(() => ({
 }))
 
 const InputLabelWrapper = styled(Grid)(() => ({
+  display: 'flex',
+  alignItems: 'center',
   width: '150px',
   textAlign: 'left',
 }))
@@ -47,6 +62,29 @@ const LanguageButtonFin = styled(Button)(() => ({
   border: '2px solid Gray',
   color: 'black',
 }))
+
+enum UserInterests {
+  ART = 'art',
+  CULTURE = 'culture',
+}
+
+const userInterests = {
+  [UserInterests.ART]: false,
+  [UserInterests.CULTURE]: false,
+}
+
+function mapEnumToBooleanEnum<T>(myEnum: T, condition: boolean) {
+  const result: { [key: string]: boolean } = {}
+
+  for (const key in myEnum) {
+    if (typeof myEnum[key] === 'string') {
+      result[key] = condition
+    }
+  }
+
+  return result
+}
+
 const UserSettings = () => {
   // TODO: @finnan - get all the details from db
   const initialUserSetting = {
@@ -58,13 +96,31 @@ const UserSettings = () => {
   }
 
   const [formData, setFormData] = useState(initialUserSetting)
+  const [selectedTag, setSelectedTag] = useState(userInterests)
 
-  const toggleLanguage = (language: string) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  const toggleLanguage = (_: React.MouseEvent<HTMLElement>, language: string) => {
     setFormData({ ...formData, selectedLanguage: language })
   }
 
+  const onSelectedtag = (interest: UserInterests) => {
+    setSelectedTag({ ...selectedTag, [interest]: !selectedTag[interest] })
+  }
+
+  const selectedTagCount = Object.values(selectedTag).filter((value) => value === true).length
+
   const handleSubmit = () => {
     console.log('Settings saved successfully')
+
+    // check if initail user setting is similar to the updated one and update
   }
 
   const handleCancel = () => {
@@ -74,10 +130,12 @@ const UserSettings = () => {
   return (
     <GridContainer container>
       <CardWrapper>
-        <Title variant="h5" align="left" fontWeight="bold">
-          User Settings
-        </Title>
-
+        <Grid container spacing={2} marginTop={1}>
+          <AccountCircleIcon fontSize="large"></AccountCircleIcon>
+          <Title variant="h6" align="left" className="title">
+            User Settings
+          </Title>
+        </Grid>
         <form onSubmit={handleSubmit} className="form-elements">
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={6} display="flex">
@@ -87,9 +145,10 @@ const UserSettings = () => {
               <TextField
                 type="text"
                 id="name"
+                name="firstName"
                 size="small"
                 value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                onChange={handleInputChange}
                 required
               />
             </InputWrapper>
@@ -99,10 +158,11 @@ const UserSettings = () => {
               </InputLabelWrapper>
               <TextField
                 type="text"
-                id="name"
+                id="lastName"
+                name="lastName"
                 size="small"
                 value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                onChange={handleInputChange}
                 required
               />
             </InputWrapper>
@@ -116,9 +176,10 @@ const UserSettings = () => {
               <TextField
                 type="email"
                 id="email"
+                name="email"
                 size="small"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={handleInputChange}
                 required
               />
             </InputWrapper>
@@ -129,19 +190,36 @@ const UserSettings = () => {
               <InputLabelWrapper>
                 <FormLabel>Language </FormLabel>
               </InputLabelWrapper>
-              <LanguageButtonEng
-                className={formData.selectedLanguage === 'English' ? 'selected' : 'lang-button'}
-                onClick={() => toggleLanguage('English')}
-              >
-                English
-              </LanguageButtonEng>
-              <LanguageButtonFin
-                className={formData.selectedLanguage === 'Finnish' ? 'selected' : 'lang-button'}
-                onClick={() => toggleLanguage('Finnish')}
-              >
-                Finnish
-              </LanguageButtonFin>
+
+              <ToggleButtonGroup color="info" value={formData.selectedLanguage} onChange={toggleLanguage} exclusive>
+                <ToggleButton value="English" size="small">
+                  English
+                </ToggleButton>
+                <ToggleButton value="Finnish" size="small">
+                  Finnish
+                </ToggleButton>
+              </ToggleButtonGroup>
             </InputWrapper>
+          </Grid>
+          <Grid container spacing={2} marginTop={2}>
+            <Typography>Interests ({selectedTagCount})</Typography>
+          </Grid>
+          <Grid container spacing={2} marginTop={2}>
+            <label>
+              <EventTag
+                variant={EventTagType.ART}
+                selected={selectedTag[UserInterests.ART]}
+                onClick={() => onSelectedtag(UserInterests.ART)}
+              ></EventTag>
+            </label>
+            <label>
+              <EventTag
+                variant={EventTagType.CULTURE}
+                selected={selectedTag[UserInterests.CULTURE]}
+                onClick={() => onSelectedtag(UserInterests.CULTURE)}
+              ></EventTag>
+            </label>
+            ​
           </Grid>
           <Grid container spacing={2} marginTop={2}>
             <div>

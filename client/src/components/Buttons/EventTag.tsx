@@ -21,9 +21,11 @@ import { Box, Button } from '@mui/material'
 
 interface EventTagProps {
   variant: EventTagType
+  onClick?: () => void
+  selected?: boolean
 }
 
-const EventTag: React.FC<EventTagProps> = ({ variant }) => {
+const EventTag: React.FC<EventTagProps> = ({ variant, onClick, selected }) => {
   const { t } = useTranslation()
   const getIcon = (variant: EventTagType) => {
     switch (variant) {
@@ -57,7 +59,11 @@ const EventTag: React.FC<EventTagProps> = ({ variant }) => {
   }
 
   return (
-    <Button variant="contained" className={'ripple-button event-tag-frame event-tag-frame-' + variant}>
+    <Button
+      variant="contained"
+      className={`ripple-button event-tag-frame event-tag-frame-${variant} ${selected ? 'selected' : ''}`}
+      onClick={onClick}
+    >
       <Box component="span" className="event-title">
         {t('EVENT_TAG.LABEL.' + variant)}
       </Box>

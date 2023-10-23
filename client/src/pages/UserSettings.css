@@ -25,3 +25,14 @@ Button.selected {
 .email {
   display: flex;
 }
+
+.form-elements{
+  margin:  0 3rem;
+}
+
+.title{
+    padding-left: 25px;
+    font-weight: bold;
+  }
+  
+ 
