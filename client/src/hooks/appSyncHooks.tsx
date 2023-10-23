@@ -3,16 +3,23 @@ import { API, GraphQLQuery } from '@aws-amplify/api'
 import * as queries from '../graphql/generatedQueries'
 import * as mutations from '../graphql/generatedMutations'
 import { UserBySubQuery, UpdateUserMutation, UpdateUserInput } from '../types/graphqlAPI'
+import { useAuthUser } from './userHooks'
 
-export const useGetUserData = (userSub: string) => {
+interface User {
+  username: string | null
+}
+
+export const useGetUserData = () => {
   const [userData, setUserData] = useState<UserBySubQuery | null>(null)
+  const user = useAuthUser() as User | null
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userDataResponse = await API.graphql<GraphQLQuery<UserBySubQuery>>({
           query: queries.userBySub,
           variables: {
-            userSub: userSub,
+            userSub: user?.username,
           },
           authMode: 'AMAZON_COGNITO_USER_POOLS'
         })
@@ -27,14 +34,14 @@ export const useGetUserData = (userSub: string) => {
 
     let ignore = false
     setUserData(null)
-    if(userSub && !ignore){
+    if(user?.username && !ignore){
       fetchData()
     }
 
     return () => {
       ignore = true
     }
-  }, [userSub])
+  }, [user])
 
   return userData
 }

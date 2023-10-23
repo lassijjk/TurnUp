@@ -1,7 +1,6 @@
 import { Grid, Card, styled, Typography, Button, FormLabel, TextField } from '@mui/material'
 import { useState, useEffect } from 'react'
 import './UserSettings.css'
-import { useAuthUser } from '../hooks/userHooks'
 import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
 import { UserBySubQuery, UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 
@@ -52,25 +51,12 @@ const LanguageButtonFin = styled(Button)(() => ({
   color: 'black',
 }))
 
-interface User {
-  username: string | null
-}
-
 const UserSettings = () => {
   console.log('re-render')
   // TODO: @finnan - get all the details from db
-  const [userSub, setUserSub] = useState<string>('')
   const [userData, setUserData] = useState<UserBySubQuery | null>(null)
 
-  const user = useAuthUser() as User | null
-  
-  useEffect(() => {
-    if (user?.username) {
-      setUserSub(user?.username)
-    }
-  }, [user?.username])
-
-  const fetchedUserData = useGetUserData(userSub)
+  const fetchedUserData = useGetUserData()
 
   useEffect(() => {
     if(fetchedUserData) {
