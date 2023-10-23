@@ -39,6 +39,8 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
               distance
               transitLeg
               from {
+                lat
+                lon
                 name
                 stop {
                   code
@@ -46,6 +48,8 @@ const getCommutingStopsQuery = (from: LocationPoint, to: LocationPoint) => {
                 }
               },
               to {
+                lat
+                lon
                 name
                  stop {
                   code
@@ -73,15 +77,12 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
     handleGraphQLRequest(geoLocationData)
   }, [geoLocationData])
 
-  console.log(geoLocationData?.latitude, geoLocationData?.longitude)
-
   const handleGraphQLRequest = async (geoLocationD: GeoLocationData | undefined) => {
     try {
       if (!geoLocationD) {
         return
       }
       const from = { lat: geoLocationD.latitude, lon: geoLocationD.longitude }
-      //console.log(from, to)
       const response = await axios.post(
         `${DIGI_TRANSIT_API_URL}?digitransit-subscription-key=${VITE_DIGI_TRANSIT_API_KEY}`,
         {
@@ -117,7 +118,10 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   }
   const mappedItineraries = data ? data.plan.itineraries.map((itinerary: Itinerary) => getFirstAndLast(itinerary)) : []
   const firstBusStopName = mappedItineraries[0]?.[0]?.from.name
-  const lastBusStopName = mappedItineraries[0]?.[mappedItineraries[0].length - 1]?.to.name
+  const lastBusStopName =
+    mappedItineraries[0]?.[1] !== undefined
+      ? mappedItineraries[0]?.[mappedItineraries[0].length - 1]?.to.name
+      : mappedItineraries[0]?.[0]?.to.name
 
   const hasNoItinirary = !isLoading && data && !data.plan.itineraries.length
   const showItinirary = !isLoading && data && data.plan.itineraries.length > 0
@@ -138,19 +142,15 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
                   <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
                     {firstBusStopName && (
                       <>
-                        <p>
-                          {leg.mode} to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
-                        </p>
+                        <p>Walk to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.</p>
                         <hr />
                         <p> Nearest station: {firstBusStopName} </p>
                       </>
                     )}
-                    {legsWithWalkExcluded.length === 0 && (
-                      <p>
-                        {leg.mode} to destination {Math.round(leg.duration / 60)} minutes.
-                      </p>
-                    )}
                     {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
+                    {mappedItineraries[0][0] == undefined && (
+                      <p>Walk to destination {Math.round(leg.duration / 60)} minutes.</p>
+                    )}
                   </div>
                 ))
               )}
