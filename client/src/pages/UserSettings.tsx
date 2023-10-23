@@ -51,18 +51,6 @@ const InputLabelWrapper = styled(Grid)(() => ({
   textAlign: 'left',
 }))
 
-const LanguageButtonEng = styled(Button)(() => ({
-  borderRadius: '15px 0px 0px 15px',
-  border: '2px solid Gray',
-  borderRightWidth: '0',
-  color: 'black',
-}))
-const LanguageButtonFin = styled(Button)(() => ({
-  borderRadius: '0px 15px 15px 0px',
-  border: '2px solid Gray',
-  color: 'black',
-}))
-
 enum UserInterests {
   ART = 'art',
   CULTURE = 'culture',
@@ -84,6 +72,8 @@ function mapEnumToBooleanEnum<T>(myEnum: T, condition: boolean) {
 
   return result
 }
+
+const supportedLanguages = ['English', 'Finnish']
 
 const UserSettings = () => {
   // TODO: @finnan - get all the details from db
@@ -192,12 +182,11 @@ const UserSettings = () => {
               </InputLabelWrapper>
 
               <ToggleButtonGroup color="info" value={formData.selectedLanguage} onChange={toggleLanguage} exclusive>
-                <ToggleButton value="English" size="small">
-                  English
-                </ToggleButton>
-                <ToggleButton value="Finnish" size="small">
-                  Finnish
-                </ToggleButton>
+                {supportedLanguages.map((language) => (
+                  <ToggleButton value={language} size="small">
+                    {language}
+                  </ToggleButton>
+                ))}
               </ToggleButtonGroup>
             </InputWrapper>
           </Grid>
@@ -205,21 +194,16 @@ const UserSettings = () => {
             <Typography>Interests ({selectedTagCount})</Typography>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
-            <label>
-              <EventTag
-                variant={EventTagType.ART}
-                selected={selectedTag[UserInterests.ART]}
-                onClick={() => onSelectedtag(UserInterests.ART)}
-              ></EventTag>
-            </label>
-            <label>
-              <EventTag
-                variant={EventTagType.CULTURE}
-                selected={selectedTag[UserInterests.CULTURE]}
-                onClick={() => onSelectedtag(UserInterests.CULTURE)}
-              ></EventTag>
-            </label>
-            ​
+            <EventTag
+              variant={EventTagType.ART}
+              selected={selectedTag[UserInterests.ART]}
+              onClick={() => onSelectedtag(UserInterests.ART)}
+            />
+            <EventTag
+              variant={EventTagType.CULTURE}
+              selected={selectedTag[UserInterests.CULTURE]}
+              onClick={() => onSelectedtag(UserInterests.CULTURE)}
+            />
           </Grid>
           <Grid container spacing={2} marginTop={2}>
             <div>
