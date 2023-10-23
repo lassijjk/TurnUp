@@ -51,28 +51,6 @@ const InputLabelWrapper = styled(Grid)(() => ({
   textAlign: 'left',
 }))
 
-enum UserInterests {
-  ART = 'art',
-  CULTURE = 'culture',
-}
-
-const userInterests = {
-  [UserInterests.ART]: false,
-  [UserInterests.CULTURE]: false,
-}
-
-function mapEnumToBooleanEnum<T>(myEnum: T, condition: boolean) {
-  const result: { [key: string]: boolean } = {}
-
-  for (const key in myEnum) {
-    if (typeof myEnum[key] === 'string') {
-      result[key] = condition
-    }
-  }
-
-  return result
-}
-
 const supportedLanguages = ['English', 'Finnish']
 
 const UserSettings = () => {
@@ -82,11 +60,11 @@ const UserSettings = () => {
     lastName: '',
     email: '',
     selectedLanguage: 'English',
-    interests: [],
+    interests: [EventTagType.ART, EventTagType.CULTURE],
   }
 
   const [formData, setFormData] = useState(initialUserSetting)
-  const [selectedTag, setSelectedTag] = useState(userInterests)
+  const [selectedInterests, setSelectedInterests] = useState(initialUserSetting.interests)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -101,11 +79,17 @@ const UserSettings = () => {
     setFormData({ ...formData, selectedLanguage: language })
   }
 
-  const onSelectedtag = (interest: UserInterests) => {
-    setSelectedTag({ ...selectedTag, [interest]: !selectedTag[interest] })
+  const onSelectInterest = (interest: EventTagType) => {
+    if (selectedInterests.includes(interest)) {
+      setSelectedInterests(selectedInterests.filter((item) => item !== interest))
+
+      return
+    }
+
+    setSelectedInterests([...selectedInterests, interest])
   }
 
-  const selectedTagCount = Object.values(selectedTag).filter((value) => value === true).length
+  const selectedInterestsCount = selectedInterests.length
 
   const handleSubmit = () => {
     console.log('Settings saved successfully')
@@ -191,19 +175,18 @@ const UserSettings = () => {
             </InputWrapper>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
-            <Typography>Interests ({selectedTagCount})</Typography>
+            <Typography>Interests ({selectedInterestsCount})</Typography>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
-            <EventTag
-              variant={EventTagType.ART}
-              selected={selectedTag[UserInterests.ART]}
-              onClick={() => onSelectedtag(UserInterests.ART)}
-            />
-            <EventTag
-              variant={EventTagType.CULTURE}
-              selected={selectedTag[UserInterests.CULTURE]}
-              onClick={() => onSelectedtag(UserInterests.CULTURE)}
-            />
+            {Object.values(EventTagType).map((interest) => {
+              return (
+                <EventTag
+                  variant={interest}
+                  selected={selectedInterests.includes(interest)}
+                  onClick={() => onSelectInterest(interest)}
+                />
+              )
+            })}
           </Grid>
           <Grid container spacing={2} marginTop={2}>
             <div>
