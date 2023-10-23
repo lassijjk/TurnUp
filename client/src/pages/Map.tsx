@@ -32,7 +32,7 @@ const Map: React.FC = () => {
         },
         properties: {
           name: eventLocations[i].name,
-          id: eventLocations[i].id
+          id: eventLocations[i].id,
         },
       })
     }
