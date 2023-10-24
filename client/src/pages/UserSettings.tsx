@@ -14,15 +14,15 @@ import './UserSettings.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import EventTag from '../components/Buttons/EventTag'
 import { EventTagType } from '../types/event'
+import { useNavigate } from 'react-router-dom'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
-  padding: theme.spacing(4, 3),
+  padding: theme.spacing(4, 6),
   marginTop: theme.spacing(3),
   borderRadius: theme.spacing(1),
   backgroundColor: '#fff',
   textAlign: 'center',
-  color: theme.palette.text.secondary,
 }))
 
 const GridContainer = styled(Grid)(({ theme }) => ({
@@ -32,8 +32,9 @@ const GridContainer = styled(Grid)(({ theme }) => ({
 }))
 
 const CardWrapper = styled(Item)(() => ({
-  width: '800px',
+  width: '1000px',
   margin: '0 auto',
+  color: 'black !important',
 }))
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -49,6 +50,7 @@ const InputLabelWrapper = styled(Grid)(() => ({
   alignItems: 'center',
   width: '150px',
   textAlign: 'left',
+  color: 'black !important',
 }))
 
 const supportedLanguages = ['English', 'Finnish']
@@ -65,7 +67,7 @@ const UserSettings = () => {
 
   const [formData, setFormData] = useState(initialUserSetting)
   const [selectedInterests, setSelectedInterests] = useState(initialUserSetting.interests)
-
+  const navigate = useNavigate()
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
@@ -104,9 +106,12 @@ const UserSettings = () => {
   return (
     <GridContainer container>
       <CardWrapper>
-        <Grid container spacing={2} marginTop={1}>
-          <AccountCircleIcon fontSize="large"></AccountCircleIcon>
-          <Title variant="h6" align="left" className="title">
+        <Button className="btn-frame btn-back" onClick={() => `${navigate('/')}`}>
+          Back
+        </Button>
+        <Grid container spacing={2} marginTop={2} className="icon">
+          <AccountCircleIcon sx={{ fontSize: 64 }}></AccountCircleIcon>
+          <Title variant="h4" align="left" className="title" style={{ lineHeight: '64px' }}>
             User Settings
           </Title>
         </Grid>
@@ -114,7 +119,7 @@ const UserSettings = () => {
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={6} display="flex">
               <InputLabelWrapper>
-                <FormLabel>First name </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>First name </FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="text"
@@ -128,7 +133,7 @@ const UserSettings = () => {
             </InputWrapper>
             <InputWrapper item xs={6} display="flex">
               <InputLabelWrapper>
-                <FormLabel>Last name </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>Last name </FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="text"
@@ -145,7 +150,7 @@ const UserSettings = () => {
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={12} display="flex">
               <InputLabelWrapper>
-                <FormLabel>Email </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>Email </FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="email"
@@ -162,12 +167,17 @@ const UserSettings = () => {
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={12} display="flex">
               <InputLabelWrapper>
-                <FormLabel>Language </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>Language </FormLabel>
               </InputLabelWrapper>
 
-              <ToggleButtonGroup color="info" value={formData.selectedLanguage} onChange={toggleLanguage} exclusive>
+              <ToggleButtonGroup value={formData.selectedLanguage} onChange={toggleLanguage} exclusive>
                 {supportedLanguages.map((language) => (
-                  <ToggleButton value={language} size="small">
+                  <ToggleButton
+                    value={language}
+                    size="small"
+                    key={language}
+                    className={`lang-button  ${formData.selectedLanguage === language ? 'selected-lan' : ''}`}
+                  >
                     {language}
                   </ToggleButton>
                 ))}
@@ -175,12 +185,13 @@ const UserSettings = () => {
             </InputWrapper>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
-            <Typography>Interests ({selectedInterestsCount})</Typography>
+            <Typography className="interest-text">Interests ({selectedInterestsCount})</Typography>
           </Grid>
-          <Grid container spacing={2} marginTop={2}>
+          <Grid container spacing={2} marginTop={1} className="interests-container">
             {Object.values(EventTagType).map((interest) => {
               return (
                 <EventTag
+                  key={interest}
                   variant={interest}
                   selected={selectedInterests.includes(interest)}
                   onClick={() => onSelectInterest(interest)}
@@ -188,15 +199,13 @@ const UserSettings = () => {
               )
             })}
           </Grid>
-          <Grid container spacing={2} marginTop={2}>
-            <div>
-              <Button type="submit" variant="contained">
-                Save
-              </Button>
-              <Button type="button" onClick={handleCancel}>
-                Cancel
-              </Button>
-            </div>
+          <Grid container spacing={2} marginTop={2} className="form-submission-btns">
+            <Button type="submit" className="btn-save btn-frame" variant="contained">
+              Save
+            </Button>
+            <Button type="button" className="btn-cancel btn-frame" onClick={handleCancel}>
+              Cancel
+            </Button>
           </Grid>
         </form>
       </CardWrapper>

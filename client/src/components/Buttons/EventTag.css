@@ -75,10 +75,9 @@
 }
 
 .selected {
-  background-color: var(--dark-gray) !important;
+  background-color: var(--deep-gray) !important;
   color: var(--white) !important;
 }
-
 
 .event-title {
   font-size: 10px !important;
