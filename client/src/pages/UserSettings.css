@@ -7,16 +7,8 @@
   padding-left: 3rem;
 }
 
-.name-label {
-  padding: 10px;
-}
-
-Button.selected {
-  background-color: #88bce7;
-}
-.lang-button {
-  border-radius: 0.25em;
-  border: solid;
+.selected-language {
+  background-color: var(--light-sky-blue);
 }
 
 .full-name {
@@ -24,4 +16,52 @@ Button.selected {
 }
 .email {
   display: flex;
+}
+
+.form-elements {
+  margin: 0 6.5rem;
+}
+
+.title {
+  padding-left: 25px;
+  font-weight: bold;
+}
+
+.interest-text {
+  padding: 16px;
+}
+.interests-container {
+  padding: 16px;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.btn-frame {
+  color: var(--white) !important;
+  width: 5.8125rem !important;
+  height: 2.0625rem !important;
+  border-radius: var(--border-radius-30) !important;
+  font-size: 12px !important;
+}
+.btn-cancel {
+  background-color: var(--red-violet) !important;
+  margin-left: 20px !important;
+}
+.btn-save {
+  background-color: var(--dark-blue) !important;
+}
+
+.form-submission-btns {
+  justify-content: flex-end;
+  padding-top: 40px;
+}
+
+button.btn-back {
+  background-color: var(--red-violet) !important;
+  display: flex;
+  align-self: flex-start;
+}
+.icon {
+  display: flex !important;
+  padding-left: 30px !important;
 }

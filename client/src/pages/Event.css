@@ -22,13 +22,10 @@
   text-align: left;
 }
 
-.lets-go-button {
-  background-color: #418155;
+button.lets-go-button {
+  background-color: var(--warm-green) !important;
   color: white;
-  display: flex;
   align-self: center;
-}
-.list-of-dates {
 }
 
 .commute-container {
