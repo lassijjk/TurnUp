@@ -6,8 +6,9 @@ import {
   Button,
   FormLabel,
   TextField,
-  ToggleButton,
-  ToggleButtonGroup,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from '@mui/material'
 import { useState } from 'react'
 import './UserSettings.css'
@@ -53,6 +54,30 @@ const InputLabelWrapper = styled(Grid)(() => ({
   color: 'black !important',
 }))
 
+const StyledFormControlLabel = styled(FormControlLabel)(() => ({
+  '& .MuiRadio-root': {
+    display: 'none',
+  },
+}))
+
+const StyledRadioGroup = styled(RadioGroup)(() => ({
+  '& .MuiFormControlLabel-root': {
+    border: '2px solid #333',
+    borderRadius: '6px',
+    margin: 0,
+    padding: '8px 16px',
+  },
+  '& :first-of-type': {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    borderRightWidth: 0,
+  },
+  '& :last-child': {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+  },
+}))
+
 const supportedLanguages = ['English', 'Finnish']
 
 const UserSettings = () => {
@@ -66,8 +91,8 @@ const UserSettings = () => {
   }
 
   const [formData, setFormData] = useState(initialUserSetting)
-  const [selectedInterests, setSelectedInterests] = useState(initialUserSetting.interests)
   const navigate = useNavigate()
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
 
@@ -77,21 +102,27 @@ const UserSettings = () => {
     })
   }
 
-  const toggleLanguage = (_: React.MouseEvent<HTMLElement>, language: string) => {
-    setFormData({ ...formData, selectedLanguage: language })
+  const toggleLanguage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, selectedLanguage: event.target.value })
   }
 
   const onSelectInterest = (interest: EventTagType) => {
-    if (selectedInterests.includes(interest)) {
-      setSelectedInterests(selectedInterests.filter((item) => item !== interest))
+    if (formData.interests.includes(interest)) {
+      setFormData({
+        ...formData,
+        interests: formData.interests.filter((item) => item !== interest),
+      })
 
       return
     }
 
-    setSelectedInterests([...selectedInterests, interest])
+    setFormData({
+      ...formData,
+      interests: [...formData.interests, interest],
+    })
   }
 
-  const selectedInterestsCount = selectedInterests.length
+  const selectedInterestsCount = formData.interests.length
 
   const handleSubmit = () => {
     console.log('Settings saved successfully')
@@ -170,18 +201,17 @@ const UserSettings = () => {
                 <FormLabel sx={{ color: 'black' }}>Language </FormLabel>
               </InputLabelWrapper>
 
-              <ToggleButtonGroup value={formData.selectedLanguage} onChange={toggleLanguage} exclusive>
+              <StyledRadioGroup name="language" onChange={toggleLanguage} row>
                 {supportedLanguages.map((language) => (
-                  <ToggleButton
+                  <StyledFormControlLabel
                     value={language}
-                    size="small"
                     key={language}
-                    className={`lang-button  ${formData.selectedLanguage === language ? 'selected-lan' : ''}`}
-                  >
-                    {language}
-                  </ToggleButton>
+                    control={<Radio sx={{ color: 'transparent' }} />}
+                    label={language}
+                    className={`lang-button ${formData.selectedLanguage === language ? 'selected-language' : ''}`}
+                  />
                 ))}
-              </ToggleButtonGroup>
+              </StyledRadioGroup>
             </InputWrapper>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
@@ -193,7 +223,7 @@ const UserSettings = () => {
                 <EventTag
                   key={interest}
                   variant={interest}
-                  selected={selectedInterests.includes(interest)}
+                  selected={formData.interests.includes(interest)}
                   onClick={() => onSelectInterest(interest)}
                 />
               )

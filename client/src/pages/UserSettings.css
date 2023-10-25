@@ -7,14 +7,8 @@
   padding-left: 3rem;
 }
 
-.selected-lan {
-  background-color: var(--light-sky-blue) !important ;
-  border: solid !important;
-}
-
-button.lang-button {
-  background-color: var(--light-blue-gray);
-  border: solid !important;
+.selected-language {
+  background-color: var(--light-sky-blue);
 }
 
 .full-name {
