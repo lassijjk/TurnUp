@@ -2,18 +2,34 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
+import * as APITypes from "../API";
+type GeneratedSubscription<InputType, OutputType> = string & {
+  __generatedSubscriptionInput: InputType;
+  __generatedSubscriptionOutput: OutputType;
+};
+
+export const onCreateItinerary = /* GraphQL */ `subscription OnCreateItinerary(
+  $filter: ModelSubscriptionItineraryFilterInput
+  $owner: String
+) {
+  onCreateItinerary(filter: $filter, owner: $owner) {
+    id
+    user {
       id
-      name
-      events {
+      userSub
+      givenName
+      familyName
+      email
+      language
+      interestTags
+      itineraries {
         items {
           id
           title
+          owner
           createdAt
           updatedAt
-          userEventsId
+          userItinerariesId
           __typename
         }
         nextToken
@@ -23,20 +39,62 @@ export const onCreateUser = /* GraphQL */ `
       updatedAt
       __typename
     }
+    title
+    owner
+    events {
+      items {
+        id
+        eventId
+        itinerary {
+          id
+          title
+          owner
+          createdAt
+          updatedAt
+          userItinerariesId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        itineraryEventsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    userItinerariesId
+    __typename
   }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateItinerarySubscriptionVariables,
+  APITypes.OnCreateItinerarySubscription
+>;
+export const onUpdateItinerary = /* GraphQL */ `subscription OnUpdateItinerary(
+  $filter: ModelSubscriptionItineraryFilterInput
+  $owner: String
+) {
+  onUpdateItinerary(filter: $filter, owner: $owner) {
+    id
+    user {
       id
-      name
-      events {
+      userSub
+      givenName
+      familyName
+      email
+      language
+      interestTags
+      itineraries {
         items {
           id
           title
+          owner
           createdAt
           updatedAt
-          userEventsId
+          userItinerariesId
           __typename
         }
         nextToken
@@ -46,20 +104,62 @@ export const onUpdateUser = /* GraphQL */ `
       updatedAt
       __typename
     }
+    title
+    owner
+    events {
+      items {
+        id
+        eventId
+        itinerary {
+          id
+          title
+          owner
+          createdAt
+          updatedAt
+          userItinerariesId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        itineraryEventsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    userItinerariesId
+    __typename
   }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateItinerarySubscriptionVariables,
+  APITypes.OnUpdateItinerarySubscription
+>;
+export const onDeleteItinerary = /* GraphQL */ `subscription OnDeleteItinerary(
+  $filter: ModelSubscriptionItineraryFilterInput
+  $owner: String
+) {
+  onDeleteItinerary(filter: $filter, owner: $owner) {
+    id
+    user {
       id
-      name
-      events {
+      userSub
+      givenName
+      familyName
+      email
+      language
+      interestTags
+      itineraries {
         items {
           id
           title
+          owner
           createdAt
           updatedAt
-          userEventsId
+          userItinerariesId
           __typename
         }
         nextToken
@@ -69,17 +169,208 @@ export const onDeleteUser = /* GraphQL */ `
       updatedAt
       __typename
     }
+    title
+    owner
+    events {
+      items {
+        id
+        eventId
+        itinerary {
+          id
+          title
+          owner
+          createdAt
+          updatedAt
+          userItinerariesId
+          __typename
+        }
+        owner
+        createdAt
+        updatedAt
+        itineraryEventsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    userItinerariesId
+    __typename
   }
-`;
-export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent($filter: ModelSubscriptionEventFilterInput) {
-    onCreateEvent(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteItinerarySubscriptionVariables,
+  APITypes.OnDeleteItinerarySubscription
+>;
+export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $userSub: String
+) {
+  onCreateUser(filter: $filter, userSub: $userSub) {
+    id
+    userSub
+    givenName
+    familyName
+    email
+    language
+    interestTags
+    itineraries {
+      items {
+        id
+        user {
+          id
+          userSub
+          givenName
+          familyName
+          email
+          language
+          interestTags
+          createdAt
+          updatedAt
+          __typename
+        }
+        title
+        owner
+        events {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userItinerariesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserSubscriptionVariables,
+  APITypes.OnCreateUserSubscription
+>;
+export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $userSub: String
+) {
+  onUpdateUser(filter: $filter, userSub: $userSub) {
+    id
+    userSub
+    givenName
+    familyName
+    email
+    language
+    interestTags
+    itineraries {
+      items {
+        id
+        user {
+          id
+          userSub
+          givenName
+          familyName
+          email
+          language
+          interestTags
+          createdAt
+          updatedAt
+          __typename
+        }
+        title
+        owner
+        events {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userItinerariesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserSubscriptionVariables,
+  APITypes.OnUpdateUserSubscription
+>;
+export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
+  $filter: ModelSubscriptionUserFilterInput
+  $userSub: String
+) {
+  onDeleteUser(filter: $filter, userSub: $userSub) {
+    id
+    userSub
+    givenName
+    familyName
+    email
+    language
+    interestTags
+    itineraries {
+      items {
+        id
+        user {
+          id
+          userSub
+          givenName
+          familyName
+          email
+          language
+          interestTags
+          createdAt
+          updatedAt
+          __typename
+        }
+        title
+        owner
+        events {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        userItinerariesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserSubscriptionVariables,
+  APITypes.OnDeleteUserSubscription
+>;
+export const onCreateUserEvent = /* GraphQL */ `subscription OnCreateUserEvent(
+  $filter: ModelSubscriptionUserEventFilterInput
+  $owner: String
+) {
+  onCreateUserEvent(filter: $filter, owner: $owner) {
+    id
+    eventId
+    itinerary {
       id
-      title
       user {
         id
-        name
-        events {
+        userSub
+        givenName
+        familyName
+        email
+        language
+        interestTags
+        itineraries {
           nextToken
           __typename
         }
@@ -87,22 +378,55 @@ export const onCreateEvent = /* GraphQL */ `
         updatedAt
         __typename
       }
+      title
+      owner
+      events {
+        items {
+          id
+          eventId
+          owner
+          createdAt
+          updatedAt
+          itineraryEventsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userEventsId
+      userItinerariesId
       __typename
     }
+    owner
+    createdAt
+    updatedAt
+    itineraryEventsId
+    __typename
   }
-`;
-export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent($filter: ModelSubscriptionEventFilterInput) {
-    onUpdateEvent(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateUserEventSubscriptionVariables,
+  APITypes.OnCreateUserEventSubscription
+>;
+export const onUpdateUserEvent = /* GraphQL */ `subscription OnUpdateUserEvent(
+  $filter: ModelSubscriptionUserEventFilterInput
+  $owner: String
+) {
+  onUpdateUserEvent(filter: $filter, owner: $owner) {
+    id
+    eventId
+    itinerary {
       id
-      title
       user {
         id
-        name
-        events {
+        userSub
+        givenName
+        familyName
+        email
+        language
+        interestTags
+        itineraries {
           nextToken
           __typename
         }
@@ -110,22 +434,55 @@ export const onUpdateEvent = /* GraphQL */ `
         updatedAt
         __typename
       }
+      title
+      owner
+      events {
+        items {
+          id
+          eventId
+          owner
+          createdAt
+          updatedAt
+          itineraryEventsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userEventsId
+      userItinerariesId
       __typename
     }
+    owner
+    createdAt
+    updatedAt
+    itineraryEventsId
+    __typename
   }
-`;
-export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent($filter: ModelSubscriptionEventFilterInput) {
-    onDeleteEvent(filter: $filter) {
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateUserEventSubscriptionVariables,
+  APITypes.OnUpdateUserEventSubscription
+>;
+export const onDeleteUserEvent = /* GraphQL */ `subscription OnDeleteUserEvent(
+  $filter: ModelSubscriptionUserEventFilterInput
+  $owner: String
+) {
+  onDeleteUserEvent(filter: $filter, owner: $owner) {
+    id
+    eventId
+    itinerary {
       id
-      title
       user {
         id
-        name
-        events {
+        userSub
+        givenName
+        familyName
+        email
+        language
+        interestTags
+        itineraries {
           nextToken
           __typename
         }
@@ -133,10 +490,34 @@ export const onDeleteEvent = /* GraphQL */ `
         updatedAt
         __typename
       }
+      title
+      owner
+      events {
+        items {
+          id
+          eventId
+          owner
+          createdAt
+          updatedAt
+          itineraryEventsId
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      userEventsId
+      userItinerariesId
       __typename
     }
+    owner
+    createdAt
+    updatedAt
+    itineraryEventsId
+    __typename
   }
-`;
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteUserEventSubscriptionVariables,
+  APITypes.OnDeleteUserEventSubscription
+>;

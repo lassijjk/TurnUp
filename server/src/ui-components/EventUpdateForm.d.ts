@@ -15,14 +15,20 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type EventUpdateFormInputValues = {
     title?: string;
+    description?: string;
+    location?: string;
 };
 export declare type EventUpdateFormValidationValues = {
     title?: ValidationFunction<string>;
+    description?: ValidationFunction<string>;
+    location?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type EventUpdateFormOverridesProps = {
     EventUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
+    location?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type EventUpdateFormProps = React.PropsWithChildren<{
     overrides?: EventUpdateFormOverridesProps | undefined | null;

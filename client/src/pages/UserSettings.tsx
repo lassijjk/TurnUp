@@ -10,12 +10,14 @@ import {
   FormControlLabel,
   Radio,
 } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './UserSettings.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import EventTag from '../components/Buttons/EventTag'
 import { EventTagType } from '../types/event'
 import { useNavigate } from 'react-router-dom'
+import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
+import { UserBySubQuery, UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -81,17 +83,53 @@ const StyledRadioGroup = styled(RadioGroup)(() => ({
 const supportedLanguages = ['English', 'Finnish']
 
 const UserSettings = () => {
+  console.log('re-render')
   // TODO: @finnan - get all the details from db
+  const [userData, setUserData] = useState<UserBySubQuery | null>(null)
+
+  const fetchedUserData = useGetUserData()
+
+  useEffect(() => {
+    if (fetchedUserData) {
+      setUserData(fetchedUserData)
+    }
+  }, [fetchedUserData])
+
   const initialUserSetting = {
+    id: '',
     firstName: '',
     lastName: '',
     email: '',
     selectedLanguage: 'English',
-    interests: [EventTagType.ART, EventTagType.CULTURE],
+    interests: [] as (string | null)[],
   }
 
+  const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const userItem = userData?.userBySub?.items[0]
+    if (userItem) {
+      const { id, givenName, familyName, email, language, interestTags } = userItem
+      setFormData({
+        id: id || '',
+        firstName: givenName || '',
+        lastName: familyName || '',
+        email: email || '',
+        selectedLanguage: language || 'English',
+        interests: interestTags || [],
+      })
+      setInitialFormData({
+        id: id || '',
+        firstName: givenName || '',
+        lastName: familyName || '',
+        email: email || '',
+        selectedLanguage: language || 'English',
+        interests: interestTags || [],
+      })
+    }
+  }, [userData])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -124,14 +162,33 @@ const UserSettings = () => {
 
   const selectedInterestsCount = formData.interests.length
 
-  const handleSubmit = () => {
-    console.log('Settings saved successfully')
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    const inputData: UpdateUserInput = {
+      id: formData.id,
+      givenName: formData.firstName,
+      familyName: formData.lastName,
+      email: formData.email,
+      language: formData.selectedLanguage,
+      interestTags: formData.interests,
+    }
 
-    // check if initail user setting is similar to the updated one and update
+    const response = (await updateUserData(inputData)) as UpdateUserMutation
+    if (response.updateUser) {
+      setInitialFormData({
+        id: response.updateUser.id || '',
+        firstName: response.updateUser.givenName || '',
+        lastName: response.updateUser.familyName || '',
+        email: response.updateUser.email || '',
+        selectedLanguage: response.updateUser.language || 'English',
+        interests: response.updateUser.interestTags || [],
+      })
+      console.log('Settings saved successfully')
+    }
   }
 
   const handleCancel = () => {
-    setFormData({ ...initialUserSetting })
+    setFormData({ ...initialFormData })
   }
 
   return (

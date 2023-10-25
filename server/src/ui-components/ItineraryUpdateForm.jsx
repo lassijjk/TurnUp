@@ -10,12 +10,12 @@ import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { fetchByPath, validateField } from "./utils";
 import { API } from "aws-amplify";
-import { getEvent } from "../graphql/queries";
-import { updateEvent } from "../graphql/mutations";
-export default function EventUpdateForm(props) {
+import { getItinerary } from "../graphql/queries";
+import { updateItinerary } from "../graphql/mutations";
+export default function ItineraryUpdateForm(props) {
   const {
     id: idProp,
-    event: eventModelProp,
+    itinerary: itineraryModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -26,44 +26,39 @@ export default function EventUpdateForm(props) {
   } = props;
   const initialValues = {
     title: "",
-    description: "",
-    location: "",
+    owner: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
-  const [location, setLocation] = React.useState(initialValues.location);
+  const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = eventRecord
-      ? { ...initialValues, ...eventRecord }
+    const cleanValues = itineraryRecord
+      ? { ...initialValues, ...itineraryRecord }
       : initialValues;
     setTitle(cleanValues.title);
-    setDescription(cleanValues.description);
-    setLocation(cleanValues.location);
+    setOwner(cleanValues.owner);
     setErrors({});
   };
-  const [eventRecord, setEventRecord] = React.useState(eventModelProp);
+  const [itineraryRecord, setItineraryRecord] =
+    React.useState(itineraryModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await API.graphql({
-              query: getEvent.replaceAll("__typename", ""),
+              query: getItinerary.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
-          )?.data?.getEvent
-        : eventModelProp;
-      setEventRecord(record);
+          )?.data?.getItinerary
+        : itineraryModelProp;
+      setItineraryRecord(record);
     };
     queryData();
-  }, [idProp, eventModelProp]);
-  React.useEffect(resetStateValues, [eventRecord]);
+  }, [idProp, itineraryModelProp]);
+  React.useEffect(resetStateValues, [itineraryRecord]);
   const validations = {
-    title: [{ type: "Required" }],
-    description: [{ type: "Required" }],
-    location: [{ type: "Required" }],
+    title: [],
+    owner: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -91,9 +86,8 @@ export default function EventUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
-          description,
-          location,
+          title: title ?? null,
+          owner: owner ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -124,10 +118,10 @@ export default function EventUpdateForm(props) {
             }
           });
           await API.graphql({
-            query: updateEvent.replaceAll("__typename", ""),
+            query: updateItinerary.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: eventRecord.id,
+                id: itineraryRecord.id,
                 ...modelFields,
               },
             },
@@ -142,12 +136,12 @@ export default function EventUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "EventUpdateForm")}
+      {...getOverrideProps(overrides, "ItineraryUpdateForm")}
       {...rest}
     >
       <TextField
         label="Title"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={title}
         onChange={(e) => {
@@ -155,8 +149,7 @@ export default function EventUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               title: value,
-              description,
-              location,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -172,56 +165,29 @@ export default function EventUpdateForm(props) {
         {...getOverrideProps(overrides, "title")}
       ></TextField>
       <TextField
-        label="Description"
-        isRequired={true}
+        label="Owner"
+        isRequired={false}
         isReadOnly={false}
-        value={description}
+        value={owner}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               title,
-              description: value,
-              location,
+              owner: value,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.owner ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.owner?.hasError) {
+            runValidationTasks("owner", value);
           }
-          setDescription(value);
+          setOwner(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
-      ></TextField>
-      <TextField
-        label="Location"
-        isRequired={true}
-        isReadOnly={false}
-        value={location}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              description,
-              location: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.location ?? value;
-          }
-          if (errors.location?.hasError) {
-            runValidationTasks("location", value);
-          }
-          setLocation(value);
-        }}
-        onBlur={() => runValidationTasks("location", location)}
-        errorMessage={errors.location?.errorMessage}
-        hasError={errors.location?.hasError}
-        {...getOverrideProps(overrides, "location")}
+        onBlur={() => runValidationTasks("owner", owner)}
+        errorMessage={errors.owner?.errorMessage}
+        hasError={errors.owner?.hasError}
+        {...getOverrideProps(overrides, "owner")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -234,7 +200,7 @@ export default function EventUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || eventModelProp)}
+          isDisabled={!(idProp || itineraryModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -246,7 +212,7 @@ export default function EventUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || eventModelProp) ||
+              !(idProp || itineraryModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}
