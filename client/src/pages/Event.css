@@ -9,7 +9,8 @@
 .event-tag {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
+  justify-content: center;
   padding: 1rem;
 }
 

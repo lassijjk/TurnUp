@@ -1,0 +1,10 @@
+.mapboxgl-popup-content {
+  width: 200px !important;
+  height: 150px !important;
+  border-radius: 25px !important;
+}
+
+.mapboxgl-popup-close-button {
+  font-size: 18px !important;
+  margin-right: 4px !important;
+}

@@ -6,13 +6,14 @@ import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import { Box } from '@mui/material'
 import useGeoLocation, { GeoLocationData } from '../../api/useGeoLocation'
 import { EventLocationData } from '../../types/event'
+import { VITE_MAP_BOX_KEY } from '../../constants'
 
 type MapComponentProps = {
   eventLocationData: EventLocationData
 }
 
 const initMap = (container: HTMLDivElement, eventLocation: EventLocationData, userLocation: GeoLocationData) => {
-  mapboxgl.accessToken = import.meta.env.VITE_MAP_BOX_KEY as string
+  mapboxgl.accessToken = VITE_MAP_BOX_KEY
   const map = new mapboxgl.Map({
     container,
     style: 'mapbox://styles/mapbox/streets-v12',

@@ -1,20 +1,45 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
+import './Map.css'
 import mapboxgl from 'mapbox-gl'
 import { Helmet } from 'react-helmet-async'
 import { EventLocationData } from '../types/event'
 import useGeoLocation from '../api/useGeoLocation'
+import { useTranslation } from 'react-i18next'
 import eventIcon from '../assets/event_icon.png'
 import { Feature } from '../types/map'
+import { VITE_MAP_BOX_KEY, VITE_MAP_EVENT_API } from '../constants'
+import { convertToReadableDate } from '../utils/convertToReadableDate'
+import { useNavigate } from 'react-router-dom'
 
 // Replace with your Mapbox access token
-mapboxgl.accessToken = import.meta.env.VITE_MAP_BOX_KEY as string
+mapboxgl.accessToken = VITE_MAP_BOX_KEY
 
 const Map: React.FC = () => {
-  const [eventLocations, setEventLocations] = useState<EventLocationData[]>([])
+  const { t } = useTranslation()
   const { geoLocationData } = useGeoLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
+    fetchLocations()
+  }, [])
+
+  const fetchLocations = async () => {
+    const res = await axios.get(`${VITE_MAP_EVENT_API}?isFetchOnlyLocation=true`)
+    const locations: EventLocationData[] = res.data.data.map(
+      (location: { id: string; name: string; geoIndex: [string, string] }) => {
+        return {
+          id: location.id,
+          name: location.name,
+          latitude: location.geoIndex[1],
+          longitude: location.geoIndex[0],
+        }
+      }
+    )
+    initializeMap(locations)
+  }
+
+  const initializeMap = (eventLocations: EventLocationData[]) => {
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v12',
@@ -75,19 +100,39 @@ const Map: React.FC = () => {
           },
         })
 
-        map.on('click', 'points', (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
+        map.on('click', 'points', async (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
           // Copy coordinates array.
           const coordinates = e.features[0].geometry.coordinates.slice()
-          const description = e.features[0].properties.name
+          const eventId = e.features[0].properties.id
+          axios.get(`${VITE_MAP_EVENT_API}?eventId=${e.features[0].properties.id}`).then((res) => {
+            const event = res.data.data[0]
+            const innerHtmlContent = `
+              <div class="mapbox-modal">
+                <div>Name: ${event.name}</div>
+                <div>${
+                  convertToReadableDate(event.startTime, t) + ' - ' + convertToReadableDate(event.endTime, t)
+                }</div>
+              </div>
+            `
 
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
-          }
+            const divElement = document.createElement('div')
+            const assignBtn = document.createElement('div')
+            assignBtn.innerHTML = `<button class="btn btn-success btn-simple text-white">Go to event</button>`
+            divElement.innerHTML = innerHtmlContent
+            divElement.appendChild(assignBtn)
+            // btn.className = 'btn';
+            assignBtn.addEventListener('click', () => {
+              navigate(`/event/${eventId}`)
+            })
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
+            }
 
-          new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map)
+            new mapboxgl.Popup().setLngLat(coordinates).setDOMContent(divElement).addTo(map)
+          })
         })
 
         // Change the cursor to a pointer when the mouse is over the places layer.
@@ -101,29 +146,6 @@ const Map: React.FC = () => {
         })
       })
     })
-
-    return () => {
-      map.remove()
-    }
-  }, [eventLocations, geoLocationData])
-
-  useEffect(() => {
-    fetchLocations()
-  }, [])
-
-  const fetchLocations = async () => {
-    const res = await axios.get('https://l199cimgf2.execute-api.eu-north-1.amazonaws.com/dev?isFetchOnlyLocation=true')
-    const locations: EventLocationData[] = res.data.data.map(
-      (location: { id: string; name: string; geoIndex: [string, string] }) => {
-        return {
-          id: location.id,
-          name: location.name,
-          latitude: location.geoIndex[1],
-          longitude: location.geoIndex[0],
-        }
-      }
-    )
-    setEventLocations(locations)
   }
 
   return (

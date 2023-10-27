@@ -534,3 +534,19 @@ export enum KnownAddress {
   // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
   AKERLUNDINKATU_6 = 'åkerlundinkatu 6',
 }
+
+export interface SingleEvent {
+  id: string
+  dates: { end: string; start: string }[]
+  description: string
+  endTime: string
+  image: { url: string; height: string; width: string; type: string }[]
+  isFree: boolean
+  links: { url: string; name: string }[]
+  locations: { address: string; geoIndex: [string, string] }[]
+  startTime: string
+  topics: Array<EventApiTopic | FinnishTopicName>
+  targets: Array<EventApiTarget | FinnishTargetName>
+  url: string
+  name: string
+}
