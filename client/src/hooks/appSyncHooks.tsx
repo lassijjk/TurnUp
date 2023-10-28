@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { API, GraphQLQuery } from '@aws-amplify/api'
-import * as queries from '../graphql/generatedQueries'
-import * as mutations from '../graphql/generatedMutations'
+import * as queries from '../operations/generatedQueries'
+import * as mutations from '../operations/generatedMutations'
 import { UserBySubQuery, UpdateUserMutation, UpdateUserInput } from '../types/graphqlAPI'
 import { useAuthUser } from './userHooks'
 

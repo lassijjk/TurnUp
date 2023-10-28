@@ -8,9 +8,9 @@ type Itinerary @model
 }
 
 type User @model
-  @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [update, delete, read] }, { allow: public, operations: [create] }] ) {
+  @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [update, delete, read] }] ) {
   id: ID!
-  userSub: String @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [read] }, { allow: public, operations: [create] }] ) @index(name: "bySub", queryField: "userBySub")
+  userSub: String @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [read] }] ) @index(name: "bySub", queryField: "userBySub")
   givenName: String
   familyName: String
   email: String
