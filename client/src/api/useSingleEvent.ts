@@ -1,4 +1,4 @@
-import { rememberQuery } from './CacheManager.tsx'
+import { rememberQuery } from './cacheManager.tsx'
 import { QueryId } from '../types/api.ts'
 import { useStore } from '../stores/settingStore.tsx'
 import { useMemo } from 'react'

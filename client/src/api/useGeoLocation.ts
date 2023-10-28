@@ -5,18 +5,17 @@ export interface GeoLocationData {
   longitude: number
 }
 
-//const DEFAULT_FROM = { latitude: 61.4984, longitude: 23.7730}
 export default function useGeoLocation() {
   const [error, setError] = useState<string | null>()
   const [geoLocationData, setGeoLocationData] = useState<GeoLocationData>()
   const [permissionAlert, setPermissionAlert] = useState(true)
 
-  const successHandler = (e: any) => {
+  const successHandler = (position: GeolocationPosition) => {
     setError(null)
-    setGeoLocationData({ latitude: e.coords.latitude, longitude: e.coords.longitude })
+    setGeoLocationData({ latitude: position.coords.latitude, longitude: position.coords.longitude })
   }
-  const errorHandler = (e: any) => {
-    setError(e)
+  const errorHandler = (error: GeolocationPositionError) => {
+    setError(error.message)
   }
 
   useEffect(() => {

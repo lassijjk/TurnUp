@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import _, { keyBy } from 'lodash'
+import _ from 'lodash'
 import { EventObj } from '../types/event.ts'
-import { Language, useStore } from '../stores/settingStore.tsx'
+import { useStore } from '../stores/settingStore.tsx'
 import { LanguageFullName } from '../types/language.ts'
-import { cacheQuery, rememberQuery } from './CacheManager.tsx'
+import { cacheQuery, rememberQuery } from './cacheManager.tsx'
 import { QueryId } from '../types/api.ts'
 
 const useTodaysEvents = (max: number = 0) => {
@@ -23,7 +23,8 @@ const useTodaysEvents = (max: number = 0) => {
         )
         .then((response) => {
           const data = _.keyBy(response.data, '_id')
-          setEvents(data)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          setEvents(data as any)
           cacheQuery(queryId, language, data)
         })
         .catch((error) => {

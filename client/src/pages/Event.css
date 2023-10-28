@@ -9,7 +9,8 @@
 .event-tag {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row-reverse;
+  /* flex-direction: row-reverse; */
+  justify-content: center;
   padding: 1rem;
 }
 
@@ -28,10 +29,12 @@
   display: flex;
   align-self: center;
 }
-.list-of-dates {
-}
 
 .commute-container {
   max-width: fit-content;
   margin: 0 auto;
+}
+
+.event-map-container {
+  margin-top: 1rem !important;
 }

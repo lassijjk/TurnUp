@@ -108,11 +108,13 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
   const walkToFirstStop = (itinerary: Itinerary) => itinerary.legs.filter((leg) => leg.mode == 'WALK')
 
   const getFirstAndLast = (itinerary: Itinerary) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [first, last, ..._] = legsWithWalkExcluded(itinerary)
     return [first, last]
   }
 
   const getFirstWalk = (itinerary: Itinerary) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [first, ..._] = walkToFirstStop(itinerary)
     return [first]
   }

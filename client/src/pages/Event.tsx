@@ -1,17 +1,19 @@
 import { useParams } from 'react-router-dom'
-import useSingleEvent from '../api/useSingleEvent'
+import axios from 'axios'
 import './event.css'
 import { Button, Grid, Card, Typography, Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
 import { convertToReadableTime } from '../utils/convertToReadableTime'
 import { useTranslation } from 'react-i18next'
-import { Key, useState } from 'react'
+import { Key, useEffect, useState } from 'react'
 import CommutingStops from '../components/CommutingStops'
-import getTags from '../components/Buttons/EventTagger'
-import EventTag from '../components/Buttons/EventTag'
-import { EventObj } from '../types/event'
-import { useStore } from '../stores/settingStore'
+// import getTags from '../components/Buttons/EventTagger'
+// import EventTag from '../components/Buttons/EventTag'
+import { EventLocationData, SingleEvent } from '../types/event'
+// import { useStore } from '../stores/settingStore'
+import MapComponent from '../components/Map/MapComponent'
+import { VITE_MAP_EVENT_API } from '../constants'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -27,72 +29,94 @@ const buttonStyle = {
   backgroundColor: '#418155',
   color: 'white',
 }
-interface EventLocationData {
-  latitude: number
-  longitude: number
-}
+
 const Event = () => {
   const { t } = useTranslation()
   const { id } = useParams()
-  const event = useSingleEvent(id || '')
+  const [event, setEvent] = useState<SingleEvent>()
   const [showEvent, setShowEvent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [showMore, setShowMore] = useState(true)
-  const { language } = useStore()
+  const [isShowMap, setIsShowMap] = useState<boolean>(false)
+  // const { language } = useStore()
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
   const [eventLocationData, setEventLocationData] = useState<EventLocationData>(DEFAULT_TO)
 
-  const getEventTags = (event: EventObj) => {
-    const tags = getTags(event, 2, language)
-    return (
-      <>
-        {tags.map((tag) => (
-          <EventTag key={tag} variant={tag}></EventTag>
-        ))}
-      </>
-    )
-  }
+  // const getEventTags = (event: EventObj) => {
+  //   const tags = getTags(event, 2, language)
+  //   return (
+  //     <>
+  //       {tags.map((tag) => (
+  //         <EventTag key={tag} variant={tag}></EventTag>
+  //       ))}
+  //     </>
+  //   )
+  // }
   const handleCommute = () => {
     setShowEvent(true)
-    const [longitude, latitude] = event.locations[0]?.geoIndex
+    const eventLocation = event && event.locations ? event.locations[0].geoIndex : []
+    const latitude = parseFloat(eventLocation[0])
+    const longitude = parseFloat(eventLocation[1])
     setEventLocationData({ latitude, longitude })
-
+    setIsShowMap(true)
     setShowMore(false)
+  }
+
+  useEffect(() => {
+    fetchEventById()
+  }, [])
+
+  const fetchEventById = async () => {
+    setIsLoading(true)
+    const data = await axios.get(`${VITE_MAP_EVENT_API}?eventId=${id}`)
+    setEvent(data.data.data[0])
+    setIsLoading(false)
   }
 
   return (
     <Grid container className="event-container">
       <Grid item xs={12}>
-        <Item>
-          <Typography component="div" variant="h1" className="event-name">
-            {event.name}
-          </Typography>
-          {showMore && (
-            <>
-              <Typography component="div">
-                <ul style={{ listStyleType: 'none' }}>
-                  {event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
-                    <li key={`${date.start}-${index}`} className="list-of-dates">
-                      <p>
-                        {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </Typography>
-              <Typography component="div" className="event-tag">
+        {isLoading ? (
+          <Item>Loading</Item>
+        ) : (
+          <Item>
+            <Typography component="div" variant="h1" className="event-name">
+              {event ? event.name : ''}
+            </Typography>
+            {showMore && (
+              <>
+                <Typography component="div">
+                  <ul style={{ listStyleType: 'none' }}>
+                    {event &&
+                      event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
+                        <li key={`${date.start}-${index}`} className="list-of-dates">
+                          <p>
+                            {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
+                          </p>
+                        </li>
+                      ))}
+                  </ul>
+                </Typography>
+                {/* <Typography component="div" className="event-tag">
                 {getEventTags(event)}
-              </Typography>
-              {event.description !== '-' && <Box className="event-description">{event.description}</Box>}
-              <Typography component="div">Address: {event.locations[0]?.address}</Typography>
+              </Typography> */}
+                {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
+                <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
 
-              <Button style={buttonStyle} className="lets-go-button" onClick={handleCommute}>
-                Let's Go
-              </Button>
-            </>
-          )}
-          {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
-        </Item>
+                <Button style={buttonStyle} className="lets-go-button" onClick={handleCommute}>
+                  Let's Go
+                </Button>
+              </>
+            )}
+            {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
+            {isShowMap && (
+              <Box component="div" className="event-map-container">
+                <MapComponent eventLocationData={eventLocationData} />
+              </Box>
+            )}
+          </Item>
+        )}
       </Grid>
     </Grid>
   )
