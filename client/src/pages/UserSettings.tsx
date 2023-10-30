@@ -17,7 +17,7 @@ import EventTag from '../components/Buttons/EventTag'
 import { EventTagType } from '../types/event'
 import { useNavigate } from 'react-router-dom'
 import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
-import { UserBySubQuery, UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
+import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -82,28 +82,17 @@ const StyledRadioGroup = styled(RadioGroup)(() => ({
 
 const supportedLanguages = ['English', 'Finnish']
 
+const initialUserSetting = {
+  id: '',
+  firstName: '',
+  lastName: '',
+  email: '',
+  selectedLanguage: 'English',
+  interests: [] as (string | null)[],
+}
+
 const UserSettings = () => {
-  console.log('re-render')
-  // TODO: @finnan - get all the details from db
-  const [userData, setUserData] = useState<UserBySubQuery | null>(null)
-
-  const fetchedUserData = useGetUserData()
-
-  useEffect(() => {
-    if (fetchedUserData) {
-      setUserData(fetchedUserData)
-    }
-  }, [fetchedUserData])
-
-  const initialUserSetting = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    selectedLanguage: 'English',
-    interests: [] as (string | null)[],
-  }
-
+  const userData = useGetUserData()
   const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
   const navigate = useNavigate()
