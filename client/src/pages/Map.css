@@ -1,15 +1,10 @@
-.map {
-  background-color: var(--light-petrol);
-  min-height: calc(100vh - 85px) !important;
-  padding-right: 3rem;
-  padding-left: 3rem;
+.mapboxgl-popup-content {
+  width: 200px !important;
+  height: 150px !important;
+  border-radius: 25px !important;
 }
 
-.map-title {
-  font-size: 32px !important;
-  font-weight: bold !important;
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
-  padding-left: 1rem !important;
-  color: var(--dark-black-vintage) !important;
+.mapboxgl-popup-close-button {
+  font-size: 18px !important;
+  margin-right: 4px !important;
 }

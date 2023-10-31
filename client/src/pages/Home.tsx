@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import './Home.css'
-import { Box, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -28,7 +29,7 @@ const Home = () => {
             {t('EVENT_LIST.QUESTION')}
           </Typography>
         </Grid>
-        {events.map((event: EventObj) => (
+        {(events as any[]).map((event: EventObj) => (
           <EventCard
             event={event}
             key={event.id}

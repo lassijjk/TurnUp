@@ -29,3 +29,59 @@ TurnUp server is using AWS Amplify with GraphQL and DynamoDB. The server is desi
 4. Add new environment `amplify env add`
 5. Switch between environments `amplify env checkout ENVIRONMENT_NAME`
 6. List of environments `amplify env list`
+
+# API Guidelines
+
+## Base URL
+The base URL for the API is: `https://l199cimgf2.execute-api.eu-north-1.amazonaws.com/dev`
+
+## Method: GET
+
+## Query String Parameters
+
+### `eventId`
+- Description: Return an event with the specified event ID.
+- Type: Integer
+- Example: `eventId=123`
+
+### `limit`
+- Description: Limit the number of results returned.
+- Type: Integer
+- Example: `limit=10`
+
+### `offset`
+- Description: Offset the results by a certain number.
+- Type: Integer
+- Example: `offset=20`
+
+### `nameSearch`
+- Description: Search for events by event name.
+- Type: String
+- Example: `nameSearch=concert`
+
+### `startDate`
+- Description: Return events with a start date greater than the input start date.
+- Type: Date (format: YYYY-MM-DD)
+- Example: `startDate=2023-01-01`
+
+### `endDate`
+- Description: Return events with an end date less than the input end date.
+- Type: Date (format: YYYY-MM-DD)
+- Example: `endDate=2023-12-31`
+
+### `userLat` and `userLon`
+- Description: User location latitude and longitude coordinates.
+- Type: Decimal
+- Example: `userLat=61.4978` (Tampere latitude)
+- Example: `userLon=23.7610` (Tampere longitude)
+
+### `radius`
+- Description: Define a bounding box to find events within a certain radius of the user's location. Requires `userLat` and `userLon` parameters.
+- Type: Decimal
+- Example: `radius=50` (within 50 km of the user's location)
+
+**Note:** When using the `radius` parameter, you must also provide `userLat` and `userLon`.
+
+### Example API Request
+```http
+GET https://l199cimgf2.execute-api.eu-north-1.amazonaws.com/dev?eventId=123&userLat=61.4978&userLon=23.7610&radius=50

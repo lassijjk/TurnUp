@@ -41,7 +41,8 @@ function now() {
   return new Date().getTime()
 }
 
-export const cacheQuery = (queryId: QueryId, extension: string, data) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const cacheQuery = (queryId: QueryId, extension: string, data: any) => {
   sessionStorage.setItem(buildQueryId(queryId, extension), JSON.stringify(data))
   sessionStorage.setItem(getTimeStampId(queryId, extension), now().toString())
 }
