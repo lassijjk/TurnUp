@@ -18,6 +18,10 @@ export const getItinerary = /* GraphQL */ `query GetItinerary($id: ID!) {
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -85,6 +89,10 @@ export const listItineraries = /* GraphQL */ `query ListItineraries(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -130,6 +138,10 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -141,6 +153,10 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -179,6 +195,10 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -223,6 +243,10 @@ export const userBySub = /* GraphQL */ `query UserBySub(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -259,6 +283,10 @@ export const getUserEvent = /* GraphQL */ `query GetUserEvent($id: ID!) {
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -317,6 +345,10 @@ export const listUserEvents = /* GraphQL */ `query ListUserEvents(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt

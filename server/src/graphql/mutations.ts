@@ -21,6 +21,10 @@ export const createItinerary = /* GraphQL */ `mutation CreateItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -86,6 +90,10 @@ export const updateItinerary = /* GraphQL */ `mutation UpdateItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -151,6 +159,10 @@ export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -214,6 +226,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -225,6 +241,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -264,6 +284,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -275,6 +299,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -314,6 +342,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -325,6 +357,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -369,6 +405,10 @@ export const createUserEvent = /* GraphQL */ `mutation CreateUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -425,6 +465,10 @@ export const updateUserEvent = /* GraphQL */ `mutation UpdateUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -481,6 +525,10 @@ export const deleteUserEvent = /* GraphQL */ `mutation DeleteUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken

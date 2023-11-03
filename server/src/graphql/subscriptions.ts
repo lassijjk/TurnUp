@@ -21,6 +21,10 @@ export const onCreateItinerary = /* GraphQL */ `subscription OnCreateItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -86,6 +90,10 @@ export const onUpdateItinerary = /* GraphQL */ `subscription OnUpdateItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -151,6 +159,10 @@ export const onDeleteItinerary = /* GraphQL */ `subscription OnDeleteItinerary(
       familyName
       email
       language
+      loginWizard
+      remaineder1
+      remaineder2
+      advanceTime
       interestTags
       itineraries {
         items {
@@ -214,6 +226,10 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -225,6 +241,10 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -264,6 +284,10 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -275,6 +299,10 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -314,6 +342,10 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
     familyName
     email
     language
+    loginWizard
+    remaineder1
+    remaineder2
+    advanceTime
     interestTags
     itineraries {
       items {
@@ -325,6 +357,10 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
           familyName
           email
           language
+          loginWizard
+          remaineder1
+          remaineder2
+          advanceTime
           interestTags
           createdAt
           updatedAt
@@ -369,6 +405,10 @@ export const onCreateUserEvent = /* GraphQL */ `subscription OnCreateUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -425,6 +465,10 @@ export const onUpdateUserEvent = /* GraphQL */ `subscription OnUpdateUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken
@@ -481,6 +525,10 @@ export const onDeleteUserEvent = /* GraphQL */ `subscription OnDeleteUserEvent(
         familyName
         email
         language
+        loginWizard
+        remaineder1
+        remaineder2
+        advanceTime
         interestTags
         itineraries {
           nextToken

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './Navbar.css'
 import { useNavigate } from 'react-router-dom'
 import { AppBar, Toolbar, Box, Container, Menu, MenuItem, Typography, IconButton } from '@mui/material'
@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
 import { useAuthUser, useLogin, useLogout } from '../hooks/userHooks'
 import { LanguageFullName } from '../types/language'
+import LoginWizard from './LoginWizard/LoginWizard'
+import { useGetUserData } from '../hooks/appSyncHooks'
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
@@ -18,7 +20,16 @@ const Navbar: React.FC = () => {
   const { language, changeLanguage } = useStore()
   const languages: LanguageFullName[] = [LanguageFullName.ENGLISH, LanguageFullName.FINNISH]
 
+  const [showLoginWizard, setShowLoginWizard] = useState(false)
+
   const user = useAuthUser()
+  const userData = useGetUserData()
+  useEffect(() => {
+    if(!userData?.userBySub?.items[0]?.loginWizard){
+      setShowLoginWizard(true)
+    }
+  }, [userData])
+
   const { loginWithGoogle } = useLogin()
   const { logout } = useLogout()
 
@@ -126,6 +137,7 @@ const Navbar: React.FC = () => {
           )}
         </Toolbar>
       </Container>
+      <LoginWizard open={showLoginWizard} onClose={() => setShowLoginWizard(false)}/>
     </AppBar>
   )
 }
