@@ -18,6 +18,7 @@ import { EventTagType } from '../types/event'
 import { useNavigate } from 'react-router-dom'
 import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
 import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
+import { useStore } from '../stores/settingStore'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -96,6 +97,7 @@ const UserSettings = () => {
   const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
   const navigate = useNavigate()
+  const { changeLanguage } = useStore()
 
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
@@ -172,6 +174,7 @@ const UserSettings = () => {
         selectedLanguage: response.updateUser.language || 'English',
         interests: response.updateUser.interestTags || [],
       })
+      changeLanguage(response.updateUser.language || 'English')
       console.log('Settings saved successfully')
     }
   }
