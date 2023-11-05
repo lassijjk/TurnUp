@@ -1,0 +1,7 @@
+.interests-container {
+  display: flex;
+  padding: 16px;
+  gap: 20px;
+  max-width: 800px;
+  justify-content: center;
+}

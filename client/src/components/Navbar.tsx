@@ -25,10 +25,10 @@ const Navbar: React.FC = () => {
   const user = useAuthUser()
   const userData = useGetUserData()
   useEffect(() => {
-    if(!userData?.userBySub?.items[0]?.loginWizard){
+    if(user && !userData?.userBySub?.items[0]?.loginWizard){
       setShowLoginWizard(true)
     }
-  }, [userData])
+  }, [user, userData])
 
   const { loginWithGoogle } = useLogin()
   const { logout } = useLogout()

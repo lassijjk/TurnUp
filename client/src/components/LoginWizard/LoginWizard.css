@@ -1,0 +1,30 @@
+.dialog-content {
+  height: 200px;
+}
+
+.dialog-actions {
+  justify-content: space-between !important;
+  padding: 1rem !important;
+  padding-top: 0 !important;
+}
+
+.dialog-button {
+  background-color: #397368 !important;
+}
+
+.dialog-button:hover {
+  color: #000000 !important;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 200px;
+  align-items: center;
+}
+
+.page-title {
+  text-align: center;
+  padding-bottom: 0;
+}
