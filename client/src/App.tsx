@@ -11,6 +11,8 @@ import english from './translations/english.json'
 import finnish from './translations/finnish.json'
 import UserSettings from './pages/UserSettings.tsx'
 import { useAuthUser } from './hooks/userHooks.tsx'
+import { useGetUserData } from './hooks/appSyncHooks.tsx'
+import { useEffect } from 'react'
 
 interface ProtectedRouteProps {
   isLoggedInUser: boolean
@@ -26,8 +28,17 @@ const ProtectedRoute = ({ isLoggedInUser, children }: ProtectedRouteProps) => {
 }
 
 const App = () => {
-  const { language } = useStore()
+  const { language, changeLanguage } = useStore()
   const isLoggedInUser = useAuthUser()
+  const userData = useGetUserData()
+
+  useEffect(() => {
+    const userItem = userData?.userBySub?.items[0]
+    if (userItem && userItem.language) {
+      changeLanguage(userItem.language)
+    }
+  }, [userData])
+
   i18next.init({
     resources: {
       English: { translation: english },
