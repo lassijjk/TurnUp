@@ -60,6 +60,9 @@
     "SAVE":"Tallenna",
     "CANCEL":"Peruuta",
     "BACK": "Takaisin",
+    "EVENT_ARRIVAL_BUFFER": "Tapahtuman saapumispuskuri",
+    "INITIAL_NOTIFICATION": "Ensimmäinen ilmoitus",
+    "FINAL_NOTIFICATION":"Lopullinen ilmoitus",  
     "ALERT": "Asetuksen tallennus onnistui!"
   }
 }

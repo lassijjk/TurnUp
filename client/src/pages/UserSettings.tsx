@@ -11,6 +11,7 @@ import {
   Radio,
   Snackbar,
   Alert,
+  Switch,
 } from '@mui/material'
 import { useState, useEffect } from 'react'
 import './UserSettings.css'
@@ -101,6 +102,14 @@ const UserSettings = () => {
   const [formData, setFormData] = useState(initialUserSetting)
   const [openAlert, setOpenAlert] = useState(false)
 
+  const [initialNotification, setInitialNotification] = useState(true)
+  const [finalNotification, setFinalNotification] = useState(true)
+
+  const [initialNotificationTime, setInitialNotificationTime] = useState(30)
+  const [finalNotificationTime, setFinalNotificationTime] = useState(5)
+
+  const [arrivalBuffer, setArrivalBuffer] = useState(10)
+
   const navigate = useNavigate()
   const { changeLanguage } = useStore()
   const { t } = useTranslation()
@@ -158,6 +167,33 @@ const UserSettings = () => {
 
   const selectedInterestsCount = formData.interests.length
 
+  const handleNotificationToggle = (notification: 'initialNotification' | 'finalNotification') => () => {
+    if (notification === 'initialNotification') {
+      setInitialNotification(!initialNotification)
+    } else {
+      setFinalNotification(!finalNotification)
+    }
+  }
+  const handleTimeChange =
+    (notification: 'initialNotification' | 'finalNotification') => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value
+      const numericValue = parseInt(value, 10)
+      if (!isNaN(numericValue)) {
+        if (notification === 'initialNotification') {
+          setInitialNotificationTime(Math.max(0, numericValue))
+        } else {
+          setFinalNotificationTime(Math.max(0, numericValue))
+        }
+      }
+    }
+
+  const handleArrivalBufferChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    const numericValue = parseInt(value, 10)
+    if (!isNaN(numericValue)) {
+      setArrivalBuffer(Math.max(0, numericValue))
+    }
+  }
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     const inputData: UpdateUserInput = {
@@ -281,7 +317,58 @@ const UserSettings = () => {
 
           <Interests interests={formData.interests} onSelectInterest={onSelectInterest} />
 
-          <Grid container spacing={2} marginTop={2} className="form-submission-btns">
+          <Grid container spacing={2} marginTop={5}>
+            <InputWrapper item xs={6} display="flex">
+              <FormLabel className="event-buffer notification-label">{t('SETTING.EVENT_ARRIVAL_BUFFER')}</FormLabel>
+              <TextField
+                className="time-input"
+                type="number"
+                label="Time (min)"
+                value={arrivalBuffer}
+                onChange={handleArrivalBufferChange}
+              />
+            </InputWrapper>
+          </Grid>
+          <Grid container spacing={2} marginTop={3}>
+            <InputWrapper item xs={6} display="flex">
+              <FormControlLabel
+                className="notification-label"
+                control={
+                  <Switch checked={initialNotification} onChange={handleNotificationToggle('initialNotification')} />
+                }
+                label={t('SETTING.INITIAL_NOTIFICATION')}
+              />
+              <TextField
+                className="time-input"
+                type="number"
+                label="Time (min)"
+                value={initialNotificationTime}
+                onChange={handleTimeChange('initialNotification')}
+                disabled={!initialNotification}
+              />
+            </InputWrapper>
+          </Grid>
+          <Grid container spacing={2} marginTop={3}>
+            <InputWrapper item xs={6} display="flex">
+              <FormControlLabel
+                className="notification-label"
+                control={
+                  <Switch checked={finalNotification} onChange={handleNotificationToggle('finalNotification')} />
+                }
+                label={t('SETTING.FINAL_NOTIFICATION')}
+              />
+              <TextField
+                className="time-input"
+                type="number"
+                label="Time (min)"
+                value={finalNotificationTime}
+                onChange={handleTimeChange('finalNotification')}
+                disabled={!finalNotification}
+              />
+            </InputWrapper>
+          </Grid>
+
+          <Grid container spacing={2} marginTop={6} className="form-submission-btns">
             <Button type="submit" className="btn-save btn-frame" variant="contained">
               {t('SETTING.SAVE')}
             </Button>
