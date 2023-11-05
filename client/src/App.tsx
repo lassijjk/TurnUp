@@ -12,7 +12,8 @@ import finnish from './translations/finnish.json'
 import UserSettings from './pages/UserSettings.tsx'
 import { useAuthUser } from './hooks/userHooks.tsx'
 import { useGetUserData } from './hooks/appSyncHooks.tsx'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import LoginWizard from './components/LoginWizard/LoginWizard.tsx'
 
 interface ProtectedRouteProps {
   isLoggedInUser: boolean
@@ -31,11 +32,16 @@ const App = () => {
   const { language, changeLanguage } = useStore()
   const isLoggedInUser = useAuthUser()
   const userData = useGetUserData()
+  const [showLoginWizard, setShowLoginWizard] = useState(false)
 
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
     if (userItem && userItem.language) {
       changeLanguage(userItem.language)
+    }
+
+    if(userData && !userData?.userBySub?.items[0]?.loginWizard){
+      setShowLoginWizard(true)
     }
   }, [userData])
 
@@ -52,6 +58,7 @@ const App = () => {
       <I18nextProvider i18n={i18next}>
         <BrowserRouter>
           <Navbar />
+          <LoginWizard open={showLoginWizard} onClose={() => setShowLoginWizard(false)}/>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/event/:id" element={<Event />} />

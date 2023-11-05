@@ -1,6 +1,9 @@
 import './LoginWizard.css'
-import InterestsTags from '../InterestsTags/InterestsTags'
+import Interests from '../Interests'
 import { Dispatch, SetStateAction } from 'react'
+import { EventTagType } from '../../types/event'
+import '../Buttons/EventTag.css'
+import { useTranslation } from 'react-i18next'
 
 type InterestsPageProps = {
   interests: (string | null)[],
@@ -8,13 +11,21 @@ type InterestsPageProps = {
 }
 
 const InterestsPage: React.FC<InterestsPageProps> = ({ interests, setInterests }) => {
-  console.log(interests)
-  console.log(setInterests)
+  const { t } = useTranslation()
+
+  const onSelectInterest = (interest: EventTagType) => {
+    if (interests.includes(interest)) {
+      setInterests((interests) => interests.filter((item) => item !== interest))
+      return
+    }
+
+    setInterests((interests) => [...interests, interest])
+  }
 
   return (
     <div className='page-container'>
-      <h1 className='page-title'>Interests Page</h1>
-      <InterestsTags interests={interests}/>
+      <h1 className='page-title'>{t('LOGIN_WIZARD.INTERESTS_TITLE')}</h1>
+      <Interests interests={interests} onSelectInterest={onSelectInterest}/>
     </div>
   )
 }

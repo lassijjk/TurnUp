@@ -21,7 +21,7 @@ import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
 import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
-import Interests from '../components/Intersets'
+import Interests from '../components/Interests'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,

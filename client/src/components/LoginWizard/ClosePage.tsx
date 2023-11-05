@@ -1,10 +1,13 @@
 import './LoginWizard.css'
+import { useTranslation } from 'react-i18next'
 
 const ClosePage = () => {
+  const { t } = useTranslation()
+
   return (
     <div className='page-container'>
-      <h1 className="page-title">Updated successfully</h1>
-      <h4>You can edit your settings at any time on the settings page</h4>
+      <h1 className="page-title">{t('LOGIN_WIZARD.CLOSE_TITLE')}</h1>
+      <h4>{t('LOGIN_WIZARD.CLOSE_TEXT')}</h4>
     </div>
   )
 }

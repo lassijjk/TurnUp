@@ -19,6 +19,7 @@
   align-items: center !important;
   justify-content: center !important;
   font-weight: 700 !important;
+  text-align: center;
 }
 
 .navbar-link:hover {

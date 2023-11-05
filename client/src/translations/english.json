@@ -41,6 +41,7 @@
     "FINNISH": "Finnish"
   },
   "LOGIN": "Login",
+  "REGISTER": "Register",
   "LOGOUT": "Logout",
   "MAP": {
     "DESCRIPTION": "This is map screen",
@@ -62,5 +63,19 @@
     "CANCEL":"Cancel",
     "BACK": "Back",
     "ALERT": "Setting saved successfully!"
+  },
+
+  "LOGIN_WIZARD":{
+    "SKIP": "Skip",
+    "NEXT": "Next",
+    "SAVE": "Save",
+    "BACK": "Back",
+    "SETTINGS": "Settings",
+    "CLOSE": "Close",
+    "WELCOME_TITLE": "Welcome To TurnUp",
+    "WELCOME_TEXT": "First, configure your user settings to improve the user experience",
+    "INTERESTS_TITLE": "Select your interests",
+    "CLOSE_TITLE":  "Updated successfully",
+    "CLOSE_TEXT": "You can edit your settings at any time on the settings page"
   }
 }

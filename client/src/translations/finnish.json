@@ -41,6 +41,7 @@
     "FINNISH": "Suomi"
   },
   "LOGIN": "Kirjaudu sisään",
+  "REGISTER": "Rekisteröidy",
   "LOGOUT": "Kirjaudu ulos",
   "MAP": {
     "DESCRIPTION": "Tämä on karttanäkymä",
@@ -61,5 +62,19 @@
     "CANCEL":"Peruuta",
     "BACK": "Takaisin",
     "ALERT": "Asetuksen tallennus onnistui!"
+  },
+
+  "LOGIN_WIZARD":{
+    "SKIP": "Ohita",
+    "NEXT": "Seuraava",
+    "SAVE": "Tallenna",
+    "BACK": "Takaisin",
+    "SETTINGS": "Asetukset",
+    "CLOSE": "Sulje",
+    "WELCOME_TITLE": "Tervetuloa TurnUp sivustolle",
+    "WELCOME_TEXT": "Määrittele aluksi käyttäjän asetukset parantaaksesi käyttäjäkokemustasi",
+    "INTERESTS_TITLE": "Valitse kiinnostuksen kohteesi",
+    "CLOSE_TITLE":  "Päivitys onnistui",
+    "CLOSE_TEXT": "Voit muuttaa asetuksia milloin vain asetukset sivulta"
   }
 }

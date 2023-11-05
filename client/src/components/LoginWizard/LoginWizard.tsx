@@ -8,6 +8,7 @@ import './LoginWizard.css'
 import { UpdateUserMutation } from '../../types/graphqlAPI'
 import { updateUserData } from '../../hooks/appSyncHooks'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 type LoginWizardProps = {
   open: boolean
@@ -20,6 +21,7 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
   const navigate = useNavigate()
   const userData = useGetUserData()
   const id = userData?.userBySub?.items[0]?.id
+  const { t } = useTranslation()
 
   const PageDisplay = () => {
     if (page === 0) {
@@ -31,8 +33,8 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
     }
   }
 
-  const backButtonText = page === 0 ? 'Skip' : page === 2 ? 'Settings': 'Back';
-  const confirmButtonText = page === 1 ? 'Save' : page === 2 ? 'Close' : 'Next';
+  const backButtonText = page === 0 ? t('LOGIN_WIZARD.SKIP') : page === 2 ? t('LOGIN_WIZARD.SETTINGS'): t('LOGIN_WIZARD.BACK');
+  const confirmButtonText = page === 1 ? t('LOGIN_WIZARD.SAVE') : page === 2 ? t('LOGIN_WIZARD.CLOSE') : t('LOGIN_WIZARD.NEXT');
 
   const handleSave = async () => {
     const inputData = {
@@ -54,14 +56,22 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
     const response = (await updateUserData(inputData)) as UpdateUserMutation
     console.log(response)
   }
+
+  const handleClose = (reason: string) => {
+    if (reason !== "backdropClick"){
+      onClose();
+    }
+  }
     
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={(_, reason) => handleClose(reason)}
       maxWidth='md'
       fullWidth={true}
       className="login-wizard"
+      classes={{ root: 'app' }}
+      disableEscapeKeyDown={true}
     >
       <DialogContent className="dialog-content">
         {PageDisplay()}
