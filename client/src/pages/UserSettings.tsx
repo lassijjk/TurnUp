@@ -9,16 +9,19 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import { useState, useEffect } from 'react'
 import './UserSettings.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import EventTag from '../components/Buttons/EventTag'
 import { EventTagType } from '../types/event'
 import { useNavigate } from 'react-router-dom'
 import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
 import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 import { useStore } from '../stores/settingStore'
+import { useTranslation } from 'react-i18next'
+import Interests from '../components/Intersets'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -96,9 +99,11 @@ const UserSettings = () => {
   const userData = useGetUserData()
   const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
+  const [openAlert, setOpenAlert] = useState(false)
+
   const navigate = useNavigate()
   const { changeLanguage } = useStore()
-
+  const { t } = useTranslation()
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
     if (userItem) {
@@ -175,31 +180,36 @@ const UserSettings = () => {
         interests: response.updateUser.interestTags || [],
       })
       changeLanguage(response.updateUser.language || 'English')
-      console.log('Settings saved successfully')
+      setOpenAlert(true)
     }
   }
 
   const handleCancel = () => {
     setFormData({ ...initialFormData })
   }
-
+  const handleAlertClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenAlert(false)
+  }
   return (
     <GridContainer container>
       <CardWrapper>
         <Button className="btn-frame btn-back" onClick={() => `${navigate('/')}`}>
-          Back
+          {t('SETTING.BACK')}
         </Button>
         <Grid container spacing={2} marginTop={2} className="icon">
           <AccountCircleIcon sx={{ fontSize: 64 }}></AccountCircleIcon>
           <Title variant="h4" align="left" className="title" style={{ lineHeight: '64px' }}>
-            User Settings
+            {t('SETTING.USER_SETTINGS')}
           </Title>
         </Grid>
         <form onSubmit={handleSubmit} className="form-elements">
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={6} display="flex">
               <InputLabelWrapper>
-                <FormLabel sx={{ color: 'black' }}>First name </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>{t('SETTING.FIRST_NAME')} </FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="text"
@@ -213,7 +223,7 @@ const UserSettings = () => {
             </InputWrapper>
             <InputWrapper item xs={6} display="flex">
               <InputLabelWrapper>
-                <FormLabel sx={{ color: 'black' }}>Last name </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>{t('SETTING.LAST_NAME')}</FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="text"
@@ -230,7 +240,7 @@ const UserSettings = () => {
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={12} display="flex">
               <InputLabelWrapper>
-                <FormLabel sx={{ color: 'black' }}>Email </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>{t('SETTING.EMAIL')} </FormLabel>
               </InputLabelWrapper>
               <TextField
                 type="email"
@@ -247,7 +257,7 @@ const UserSettings = () => {
           <Grid container spacing={2} marginTop={2}>
             <InputWrapper item xs={12} display="flex">
               <InputLabelWrapper>
-                <FormLabel sx={{ color: 'black' }}>Language </FormLabel>
+                <FormLabel sx={{ color: 'black' }}>{t('SETTING.LANGUAGE')} </FormLabel>
               </InputLabelWrapper>
 
               <StyledRadioGroup name="language" onChange={toggleLanguage} row>
@@ -256,7 +266,7 @@ const UserSettings = () => {
                     value={language}
                     key={language}
                     control={<Radio sx={{ color: 'transparent' }} />}
-                    label={language}
+                    label={t('LANGUAGE.' + language.toUpperCase())}
                     className={`lang-button ${formData.selectedLanguage === language ? 'selected-language' : ''}`}
                   />
                 ))}
@@ -264,27 +274,25 @@ const UserSettings = () => {
             </InputWrapper>
           </Grid>
           <Grid container spacing={2} marginTop={2}>
-            <Typography className="interest-text">Interests ({selectedInterestsCount})</Typography>
+            <Typography className="interest-text">
+              {t('SETTING.INTERESTS')} ({selectedInterestsCount})
+            </Typography>
           </Grid>
-          <Grid container spacing={2} marginTop={1} className="interests-container">
-            {Object.values(EventTagType).map((interest) => {
-              return (
-                <EventTag
-                  key={interest}
-                  variant={interest}
-                  selected={formData.interests.includes(interest)}
-                  onClick={() => onSelectInterest(interest)}
-                />
-              )
-            })}
-          </Grid>
+
+          <Interests interests={formData.interests} onSelectInterest={onSelectInterest} />
+
           <Grid container spacing={2} marginTop={2} className="form-submission-btns">
             <Button type="submit" className="btn-save btn-frame" variant="contained">
-              Save
+              {t('SETTING.SAVE')}
             </Button>
             <Button type="button" className="btn-cancel btn-frame" onClick={handleCancel}>
-              Cancel
+              {t('SETTING.CANCEL')}
             </Button>
+            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleAlertClose}>
+              <Alert onClose={handleAlertClose} sx={{ width: '100%' }} className="snack-bar">
+                {t('SETTING.ALERT')}
+              </Alert>
+            </Snackbar>
           </Grid>
         </form>
       </CardWrapper>

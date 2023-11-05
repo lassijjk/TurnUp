@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
                     navigate('user-settings')
                   }}
                 >
-                  User settings
+                  {t('SETTING.USER_SETTINGS')}
                 </MenuItem>
               </Menu>
             </Box>

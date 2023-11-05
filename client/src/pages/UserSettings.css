@@ -65,3 +65,11 @@ button.btn-back {
   display: flex !important;
   padding-left: 30px !important;
 }
+.snack-bar{
+  margin-left: 230px;
+  background-color: var(--warm-green) !important;
+  color: white !important;
+}
+.css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
+  color: white !important;
+}
