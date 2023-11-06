@@ -21,10 +21,10 @@ export const useGetUserData = () => {
           variables: {
             userSub: user?.username,
           },
-          authMode: 'AMAZON_COGNITO_USER_POOLS'
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
         })
         const userBySubResult = userDataResponse.data as UserBySubQuery
-        if(!ignore){
+        if (!ignore) {
           setUserData(userBySubResult)
         }
       } catch (error) {
@@ -34,7 +34,7 @@ export const useGetUserData = () => {
 
     let ignore = false
     setUserData(null)
-    if(user?.username && !ignore){
+    if (user?.username && !ignore) {
       fetchData()
     }
 
@@ -59,10 +59,13 @@ export const updateUserData = async (inputData: UpdateUserInput) => {
           givenName: inputData.givenName,
           language: inputData.language,
           interestTags: inputData.interestTags,
-          loginWizard: inputData.loginWizard
-        }
+          loginWizard: inputData.loginWizard,
+          reminder1: inputData.reminder1,
+          reminder2: inputData.reminder2,
+          advanceTime: inputData.advanceTime,
+        },
       },
-      authMode: 'AMAZON_COGNITO_USER_POOLS'
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
     response = userDataResponse.data as UpdateUserMutation
   } catch (error) {

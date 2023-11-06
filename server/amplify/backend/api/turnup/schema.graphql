@@ -16,8 +16,8 @@ type User @model
   email: String
   language: String
   loginWizard: Boolean @default(value: "false")
-  remaineder1: Int @default(value: "30")
-  remaineder2: Int @default(value: "5")
+  reminder1: Int @default(value: "30")
+  reminder2: Int @default(value: "5")
   advanceTime: Int @default(value: "10")
   interestTags: [String]
   itineraries: [Itinerary] @hasMany

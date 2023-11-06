@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// this file is copied from server, make sure it is up to date
+// Copied from server (not updated automatically if tables are updated)
 
 export type CreateItineraryInput = {
   id?: string | null,

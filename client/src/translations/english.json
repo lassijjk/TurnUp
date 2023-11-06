@@ -62,6 +62,9 @@
     "SAVE":"Save",
     "CANCEL":"Cancel",
     "BACK": "Back",
+    "EVENT_ARRIVAL_BUFFER": "Event arrival buffer",
+    "INITIAL_NOTIFICATION": "Initial notification",
+    "FINAL_NOTIFICATION":"Final notification",
     "ALERT": "Setting saved successfully!"
   },
 
