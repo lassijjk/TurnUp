@@ -49,5 +49,20 @@
   "NAVBAR": {
     "APP_NAME": "Turn up",
     "VALUE_PROPOSITION": "Löydä hauskaa tekemistä"
+  },
+  "SETTING":{
+    "USER_SETTINGS": "Käyttäjäasetukset",
+    "FIRST_NAME": "Etunimi",
+    "LAST_NAME": "Sukunimi",
+    "EMAIL": "Sähköposti",
+    "LANGUAGE": "Kieli",
+    "INTERESTS": "Kiinnostuksen kohteet",
+    "SAVE":"Tallenna",
+    "CANCEL":"Peruuta",
+    "BACK": "Takaisin",
+    "EVENT_ARRIVAL_BUFFER": "Tapahtuman saapumispuskuri",
+    "INITIAL_NOTIFICATION": "Ensimmäinen ilmoitus",
+    "FINAL_NOTIFICATION":"Lopullinen ilmoitus",  
+    "ALERT": "Asetuksen tallennus onnistui!"
   }
 }

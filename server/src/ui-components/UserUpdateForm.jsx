@@ -6,12 +6,178 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { fetchByPath, validateField } from "./utils";
+import {
+  Badge,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Icon,
+  ScrollView,
+  SwitchField,
+  Text,
+  TextField,
+  useTheme,
+} from "@aws-amplify/ui-react";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { API } from "aws-amplify";
 import { getUser } from "../graphql/queries";
 import { updateUser } from "../graphql/mutations";
+function ArrayField({
+  items = [],
+  onChange,
+  label,
+  inputFieldRef,
+  children,
+  hasError,
+  setFieldValue,
+  currentFieldValue,
+  defaultFieldValue,
+  lengthLimit,
+  getBadgeText,
+  runValidationTasks,
+  errorMessage,
+}) {
+  const labelElement = <Text>{label}</Text>;
+  const {
+    tokens: {
+      components: {
+        fieldmessages: { error: errorStyles },
+      },
+    },
+  } = useTheme();
+  const [selectedBadgeIndex, setSelectedBadgeIndex] = React.useState();
+  const [isEditing, setIsEditing] = React.useState();
+  React.useEffect(() => {
+    if (isEditing) {
+      inputFieldRef?.current?.focus();
+    }
+  }, [isEditing]);
+  const removeItem = async (removeIndex) => {
+    const newItems = items.filter((value, index) => index !== removeIndex);
+    await onChange(newItems);
+    setSelectedBadgeIndex(undefined);
+  };
+  const addItem = async () => {
+    const { hasError } = runValidationTasks();
+    if (
+      currentFieldValue !== undefined &&
+      currentFieldValue !== null &&
+      currentFieldValue !== "" &&
+      !hasError
+    ) {
+      const newItems = [...items];
+      if (selectedBadgeIndex !== undefined) {
+        newItems[selectedBadgeIndex] = currentFieldValue;
+        setSelectedBadgeIndex(undefined);
+      } else {
+        newItems.push(currentFieldValue);
+      }
+      await onChange(newItems);
+      setIsEditing(false);
+    }
+  };
+  const arraySection = (
+    <React.Fragment>
+      {!!items?.length && (
+        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
+          {items.map((value, index) => {
+            return (
+              <Badge
+                key={index}
+                style={{
+                  cursor: "pointer",
+                  alignItems: "center",
+                  marginRight: 3,
+                  marginTop: 3,
+                  backgroundColor:
+                    index === selectedBadgeIndex ? "#B8CEF9" : "",
+                }}
+                onClick={() => {
+                  setSelectedBadgeIndex(index);
+                  setFieldValue(items[index]);
+                  setIsEditing(true);
+                }}
+              >
+                {getBadgeText ? getBadgeText(value) : value.toString()}
+                <Icon
+                  style={{
+                    cursor: "pointer",
+                    paddingLeft: 3,
+                    width: 20,
+                    height: 20,
+                  }}
+                  viewBox={{ width: 20, height: 20 }}
+                  paths={[
+                    {
+                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
+                      stroke: "black",
+                    },
+                  ]}
+                  ariaLabel="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    removeItem(index);
+                  }}
+                />
+              </Badge>
+            );
+          })}
+        </ScrollView>
+      )}
+      <Divider orientation="horizontal" marginTop={5} />
+    </React.Fragment>
+  );
+  if (lengthLimit !== undefined && items.length >= lengthLimit && !isEditing) {
+    return (
+      <React.Fragment>
+        {labelElement}
+        {arraySection}
+      </React.Fragment>
+    );
+  }
+  return (
+    <React.Fragment>
+      {labelElement}
+      {isEditing && children}
+      {!isEditing ? (
+        <>
+          <Button
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          >
+            Add item
+          </Button>
+          {errorMessage && hasError && (
+            <Text color={errorStyles.color} fontSize={errorStyles.fontSize}>
+              {errorMessage}
+            </Text>
+          )}
+        </>
+      ) : (
+        <Flex justifyContent="flex-end">
+          {(currentFieldValue || isEditing) && (
+            <Button
+              children="Cancel"
+              type="button"
+              size="small"
+              onClick={() => {
+                setFieldValue(defaultFieldValue);
+                setIsEditing(false);
+                setSelectedBadgeIndex(undefined);
+              }}
+            ></Button>
+          )}
+          <Button size="small" variation="link" onClick={addItem}>
+            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
+          </Button>
+        </Flex>
+      )}
+      {arraySection}
+    </React.Fragment>
+  );
+}
 export default function UserUpdateForm(props) {
   const {
     id: idProp,
@@ -25,15 +191,49 @@ export default function UserUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
+    userSub: "",
+    givenName: "",
+    familyName: "",
+    email: "",
+    language: "",
+    loginWizard: false,
+    reminder1: "",
+    reminder2: "",
+    advanceTime: "",
+    interestTags: [],
   };
-  const [name, setName] = React.useState(initialValues.name);
+  const [userSub, setUserSub] = React.useState(initialValues.userSub);
+  const [givenName, setGivenName] = React.useState(initialValues.givenName);
+  const [familyName, setFamilyName] = React.useState(initialValues.familyName);
+  const [email, setEmail] = React.useState(initialValues.email);
+  const [language, setLanguage] = React.useState(initialValues.language);
+  const [loginWizard, setLoginWizard] = React.useState(
+    initialValues.loginWizard
+  );
+  const [reminder1, setReminder1] = React.useState(initialValues.reminder1);
+  const [reminder2, setReminder2] = React.useState(initialValues.reminder2);
+  const [advanceTime, setAdvanceTime] = React.useState(
+    initialValues.advanceTime
+  );
+  const [interestTags, setInterestTags] = React.useState(
+    initialValues.interestTags
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
       ? { ...initialValues, ...userRecord }
       : initialValues;
-    setName(cleanValues.name);
+    setUserSub(cleanValues.userSub);
+    setGivenName(cleanValues.givenName);
+    setFamilyName(cleanValues.familyName);
+    setEmail(cleanValues.email);
+    setLanguage(cleanValues.language);
+    setLoginWizard(cleanValues.loginWizard);
+    setReminder1(cleanValues.reminder1);
+    setReminder2(cleanValues.reminder2);
+    setAdvanceTime(cleanValues.advanceTime);
+    setInterestTags(cleanValues.interestTags ?? []);
+    setCurrentInterestTagsValue("");
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -42,7 +242,7 @@ export default function UserUpdateForm(props) {
       const record = idProp
         ? (
             await API.graphql({
-              query: getUser,
+              query: getUser.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getUser
@@ -52,8 +252,20 @@ export default function UserUpdateForm(props) {
     queryData();
   }, [idProp, userModelProp]);
   React.useEffect(resetStateValues, [userRecord]);
+  const [currentInterestTagsValue, setCurrentInterestTagsValue] =
+    React.useState("");
+  const interestTagsRef = React.createRef();
   const validations = {
-    name: [{ type: "Required" }],
+    userSub: [],
+    givenName: [],
+    familyName: [],
+    email: [],
+    language: [],
+    loginWizard: [],
+    reminder1: [],
+    reminder2: [],
+    advanceTime: [],
+    interestTags: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -81,7 +293,16 @@ export default function UserUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          name,
+          userSub: userSub ?? null,
+          givenName: givenName ?? null,
+          familyName: familyName ?? null,
+          email: email ?? null,
+          language: language ?? null,
+          loginWizard: loginWizard ?? null,
+          reminder1: reminder1 ?? null,
+          reminder2: reminder2 ?? null,
+          advanceTime: advanceTime ?? null,
+          interestTags: interestTags ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -112,7 +333,7 @@ export default function UserUpdateForm(props) {
             }
           });
           await API.graphql({
-            query: updateUser,
+            query: updateUser.replaceAll("__typename", ""),
             variables: {
               input: {
                 id: userRecord.id,
@@ -134,29 +355,370 @@ export default function UserUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Name"
-        isRequired={true}
+        label="User sub"
+        isRequired={false}
         isReadOnly={false}
-        value={name}
+        value={userSub}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              name: value,
+              userSub: value,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.userSub ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.userSub?.hasError) {
+            runValidationTasks("userSub", value);
           }
-          setName(value);
+          setUserSub(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        onBlur={() => runValidationTasks("userSub", userSub)}
+        errorMessage={errors.userSub?.errorMessage}
+        hasError={errors.userSub?.hasError}
+        {...getOverrideProps(overrides, "userSub")}
       ></TextField>
+      <TextField
+        label="Given name"
+        isRequired={false}
+        isReadOnly={false}
+        value={givenName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName: value,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.givenName ?? value;
+          }
+          if (errors.givenName?.hasError) {
+            runValidationTasks("givenName", value);
+          }
+          setGivenName(value);
+        }}
+        onBlur={() => runValidationTasks("givenName", givenName)}
+        errorMessage={errors.givenName?.errorMessage}
+        hasError={errors.givenName?.hasError}
+        {...getOverrideProps(overrides, "givenName")}
+      ></TextField>
+      <TextField
+        label="Family name"
+        isRequired={false}
+        isReadOnly={false}
+        value={familyName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName: value,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.familyName ?? value;
+          }
+          if (errors.familyName?.hasError) {
+            runValidationTasks("familyName", value);
+          }
+          setFamilyName(value);
+        }}
+        onBlur={() => runValidationTasks("familyName", familyName)}
+        errorMessage={errors.familyName?.errorMessage}
+        hasError={errors.familyName?.hasError}
+        {...getOverrideProps(overrides, "familyName")}
+      ></TextField>
+      <TextField
+        label="Email"
+        isRequired={false}
+        isReadOnly={false}
+        value={email}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email: value,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.email ?? value;
+          }
+          if (errors.email?.hasError) {
+            runValidationTasks("email", value);
+          }
+          setEmail(value);
+        }}
+        onBlur={() => runValidationTasks("email", email)}
+        errorMessage={errors.email?.errorMessage}
+        hasError={errors.email?.hasError}
+        {...getOverrideProps(overrides, "email")}
+      ></TextField>
+      <TextField
+        label="Language"
+        isRequired={false}
+        isReadOnly={false}
+        value={language}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language: value,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.language ?? value;
+          }
+          if (errors.language?.hasError) {
+            runValidationTasks("language", value);
+          }
+          setLanguage(value);
+        }}
+        onBlur={() => runValidationTasks("language", language)}
+        errorMessage={errors.language?.errorMessage}
+        hasError={errors.language?.hasError}
+        {...getOverrideProps(overrides, "language")}
+      ></TextField>
+      <SwitchField
+        label="Login wizard"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={loginWizard}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard: value,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.loginWizard ?? value;
+          }
+          if (errors.loginWizard?.hasError) {
+            runValidationTasks("loginWizard", value);
+          }
+          setLoginWizard(value);
+        }}
+        onBlur={() => runValidationTasks("loginWizard", loginWizard)}
+        errorMessage={errors.loginWizard?.errorMessage}
+        hasError={errors.loginWizard?.hasError}
+        {...getOverrideProps(overrides, "loginWizard")}
+      ></SwitchField>
+      <TextField
+        label="Reminder1"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={reminder1}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1: value,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.reminder1 ?? value;
+          }
+          if (errors.reminder1?.hasError) {
+            runValidationTasks("reminder1", value);
+          }
+          setReminder1(value);
+        }}
+        onBlur={() => runValidationTasks("reminder1", reminder1)}
+        errorMessage={errors.reminder1?.errorMessage}
+        hasError={errors.reminder1?.hasError}
+        {...getOverrideProps(overrides, "reminder1")}
+      ></TextField>
+      <TextField
+        label="Reminder2"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={reminder2}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2: value,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.reminder2 ?? value;
+          }
+          if (errors.reminder2?.hasError) {
+            runValidationTasks("reminder2", value);
+          }
+          setReminder2(value);
+        }}
+        onBlur={() => runValidationTasks("reminder2", reminder2)}
+        errorMessage={errors.reminder2?.errorMessage}
+        hasError={errors.reminder2?.hasError}
+        {...getOverrideProps(overrides, "reminder2")}
+      ></TextField>
+      <TextField
+        label="Advance time"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={advanceTime}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime: value,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.advanceTime ?? value;
+          }
+          if (errors.advanceTime?.hasError) {
+            runValidationTasks("advanceTime", value);
+          }
+          setAdvanceTime(value);
+        }}
+        onBlur={() => runValidationTasks("advanceTime", advanceTime)}
+        errorMessage={errors.advanceTime?.errorMessage}
+        hasError={errors.advanceTime?.hasError}
+        {...getOverrideProps(overrides, "advanceTime")}
+      ></TextField>
+      <ArrayField
+        onChange={async (items) => {
+          let values = items;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags: values,
+            };
+            const result = onChange(modelFields);
+            values = result?.interestTags ?? values;
+          }
+          setInterestTags(values);
+          setCurrentInterestTagsValue("");
+        }}
+        currentFieldValue={currentInterestTagsValue}
+        label={"Interest tags"}
+        items={interestTags}
+        hasError={errors?.interestTags?.hasError}
+        runValidationTasks={async () =>
+          await runValidationTasks("interestTags", currentInterestTagsValue)
+        }
+        errorMessage={errors?.interestTags?.errorMessage}
+        setFieldValue={setCurrentInterestTagsValue}
+        inputFieldRef={interestTagsRef}
+        defaultFieldValue={""}
+      >
+        <TextField
+          label="Interest tags"
+          isRequired={false}
+          isReadOnly={false}
+          value={currentInterestTagsValue}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (errors.interestTags?.hasError) {
+              runValidationTasks("interestTags", value);
+            }
+            setCurrentInterestTagsValue(value);
+          }}
+          onBlur={() =>
+            runValidationTasks("interestTags", currentInterestTagsValue)
+          }
+          errorMessage={errors.interestTags?.errorMessage}
+          hasError={errors.interestTags?.hasError}
+          ref={interestTagsRef}
+          labelHidden={true}
+          {...getOverrideProps(overrides, "interestTags")}
+        ></TextField>
+      </ArrayField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

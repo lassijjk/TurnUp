@@ -3,6 +3,7 @@ import './Navbar.css'
 import { useNavigate } from 'react-router-dom'
 import { AppBar, Toolbar, Box, Container, Menu, MenuItem, Typography, IconButton } from '@mui/material'
 import LanguageIcon from '@mui/icons-material/Language'
+import DehazeIcon from '@mui/icons-material/Dehaze'
 import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
@@ -13,6 +14,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null)
+  const [userSettingEl, setUserSettingEl] = React.useState<null | HTMLElement>(null)
   const { language, changeLanguage } = useStore()
   const languages: LanguageFullName[] = [LanguageFullName.ENGLISH, LanguageFullName.FINNISH]
 
@@ -26,6 +28,13 @@ const Navbar: React.FC = () => {
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElLanguage(event.currentTarget)
+  }
+
+  const handleUserSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
+    setUserSettingEl(event.currentTarget)
+  }
+  const handleUserSettingsClose = () => {
+    setUserSettingEl(null)
   }
 
   return (
@@ -92,6 +101,29 @@ const Navbar: React.FC = () => {
               ))}
             </Menu>
           </Box>
+
+          {user && (
+            <Box className="navbar-link">
+              <IconButton onClick={handleUserSettingsClick}>
+                <DehazeIcon />
+              </IconButton>
+
+              <Menu
+                anchorEl={userSettingEl}
+                open={!!userSettingEl}
+                onClose={handleUserSettingsClose}
+                onClick={handleUserSettingsClose}
+              >
+                <MenuItem
+                  onClick={() => {
+                    navigate('user-settings')
+                  }}
+                >
+                  {t('SETTING.USER_SETTINGS')}
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

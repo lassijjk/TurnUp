@@ -12,31 +12,28 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type EventCreateFormInputValues = {
+export declare type ItineraryCreateFormInputValues = {
     title?: string;
-    description?: string;
-    location?: string;
+    owner?: string;
 };
-export declare type EventCreateFormValidationValues = {
+export declare type ItineraryCreateFormValidationValues = {
     title?: ValidationFunction<string>;
-    description?: ValidationFunction<string>;
-    location?: ValidationFunction<string>;
+    owner?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type EventCreateFormOverridesProps = {
-    EventCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type ItineraryCreateFormOverridesProps = {
+    ItineraryCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
-    description?: PrimitiveOverrideProps<TextFieldProps>;
-    location?: PrimitiveOverrideProps<TextFieldProps>;
+    owner?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type EventCreateFormProps = React.PropsWithChildren<{
-    overrides?: EventCreateFormOverridesProps | undefined | null;
+export declare type ItineraryCreateFormProps = React.PropsWithChildren<{
+    overrides?: ItineraryCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: EventCreateFormInputValues) => EventCreateFormInputValues;
-    onSuccess?: (fields: EventCreateFormInputValues) => void;
-    onError?: (fields: EventCreateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: EventCreateFormInputValues) => EventCreateFormInputValues;
-    onValidate?: EventCreateFormValidationValues;
+    onSubmit?: (fields: ItineraryCreateFormInputValues) => ItineraryCreateFormInputValues;
+    onSuccess?: (fields: ItineraryCreateFormInputValues) => void;
+    onError?: (fields: ItineraryCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: ItineraryCreateFormInputValues) => ItineraryCreateFormInputValues;
+    onValidate?: ItineraryCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function EventCreateForm(props: EventCreateFormProps): React.ReactElement;
+export default function ItineraryCreateForm(props: ItineraryCreateFormProps): React.ReactElement;

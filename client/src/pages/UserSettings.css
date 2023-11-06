@@ -1,0 +1,88 @@
+.setting-container {
+  background-color: var(--light-petrol);
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
+
+.selected-language {
+  background-color: var(--light-sky-blue);
+}
+
+.full-name {
+  display: flex;
+}
+.email {
+  display: flex;
+}
+
+.form-elements {
+  margin: 0 6.5rem;
+}
+
+.title {
+  padding-left: 25px;
+  font-weight: bold;
+}
+
+.interest-text {
+  padding: 16px;
+}
+.interests-container {
+  padding: 16px;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.btn-frame {
+  color: var(--white) !important;
+  width: 5.8125rem !important;
+  height: 2.0625rem !important;
+  border-radius: var(--border-radius-30) !important;
+  font-size: 12px !important;
+}
+.btn-cancel {
+  background-color: var(--red-violet) !important;
+  margin-left: 20px !important;
+}
+.btn-save {
+  background-color: var(--dark-blue) !important;
+}
+
+.form-submission-btns {
+  justify-content: flex-end;
+  padding-top: 40px;
+}
+
+button.btn-back {
+  background-color: var(--red-violet) !important;
+  display: flex;
+  align-self: flex-start;
+}
+.icon {
+  display: flex !important;
+  padding-left: 30px !important;
+}
+.snack-bar {
+  margin-left: 230px;
+  background-color: var(--warm-green) !important;
+  color: white !important;
+}
+.css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
+  color: white !important;
+}
+.time-input {
+  width: 100px;
+}
+.event-buffer {
+  margin-right: 5px;
+}
+.notification-label {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: black !important;
+}

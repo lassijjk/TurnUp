@@ -20,7 +20,7 @@ import { LanguageFullName } from '../../types/language.ts'
 const domainRegex = /^(?:https?:\/\/)?(?:w{3,}\.)?([^\/]+)/
 const addressRegex: RegExp = /^[^,]+/
 
-const getTags = (event: EventObj, max: number, language: LanguageFullName) => {
+const getTags = (event: EventObj, max: number, language: string) => {
   const needsTranslation = language === LanguageFullName.FINNISH
   const tagsRaw: Array<EventTagType> = [
     ...tagCategories(

@@ -1,7 +1,4 @@
-/* tslint:disable */
-/* eslint-disable */
-//  This file was automatically generated and should not be edited.
-
+// Copied from server (not updated automatically if tables are updated)
 export type CreateItineraryInput = {
   id?: string | null,
   title: string,

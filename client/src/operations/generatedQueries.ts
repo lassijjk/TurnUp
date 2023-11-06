@@ -1,8 +1,6 @@
-/* tslint:disable */
-/* eslint-disable */
-// this is an auto generated file. This will be overwritten
+// Copied from server (not updated automatically if tables are updated)
 
-import * as APITypes from "../API";
+import * as APITypes from "../types/graphqlAPI";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;

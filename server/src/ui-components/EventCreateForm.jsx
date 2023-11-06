@@ -24,15 +24,25 @@ export default function EventCreateForm(props) {
   } = props;
   const initialValues = {
     title: "",
+    description: "",
+    location: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
+  const [location, setLocation] = React.useState(initialValues.location);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setTitle(initialValues.title);
+    setDescription(initialValues.description);
+    setLocation(initialValues.location);
     setErrors({});
   };
   const validations = {
     title: [{ type: "Required" }],
+    description: [{ type: "Required" }],
+    location: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -61,6 +71,8 @@ export default function EventCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           title,
+          description,
+          location,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -91,7 +103,7 @@ export default function EventCreateForm(props) {
             }
           });
           await API.graphql({
-            query: createEvent,
+            query: createEvent.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,
@@ -124,6 +136,8 @@ export default function EventCreateForm(props) {
           if (onChange) {
             const modelFields = {
               title: value,
+              description,
+              location,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -137,6 +151,58 @@ export default function EventCreateForm(props) {
         errorMessage={errors.title?.errorMessage}
         hasError={errors.title?.hasError}
         {...getOverrideProps(overrides, "title")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={true}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              description: value,
+              location,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Location"
+        isRequired={true}
+        isReadOnly={false}
+        value={location}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              title,
+              description,
+              location: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.location ?? value;
+          }
+          if (errors.location?.hasError) {
+            runValidationTasks("location", value);
+          }
+          setLocation(value);
+        }}
+        onBlur={() => runValidationTasks("location", location)}
+        errorMessage={errors.location?.errorMessage}
+        hasError={errors.location?.hasError}
+        {...getOverrideProps(overrides, "location")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -22,13 +22,8 @@ const Item = styled(Card)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   backgroundColor: '#fff',
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: 'black',
 }))
-
-const buttonStyle = {
-  backgroundColor: '#418155',
-  color: 'white',
-}
 
 const Event = () => {
   const { t } = useTranslation()
@@ -104,7 +99,7 @@ const Event = () => {
                 {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
                 <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
 
-                <Button style={buttonStyle} className="lets-go-button" onClick={handleCommute}>
+                <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go
                 </Button>
               </>

@@ -49,5 +49,21 @@
   "NAVBAR": {
     "APP_NAME": "Turn up",
     "VALUE_PROPOSITION": "Find something fun to do"
+  },
+  
+  "SETTING":{
+    "USER_SETTINGS": "User Settings",
+    "FIRST_NAME": "First name",
+    "LAST_NAME": "Last name",
+    "EMAIL": "Email",
+    "LANGUAGE": "Language",
+    "INTERESTS": "Interests",
+    "SAVE":"Save",
+    "CANCEL":"Cancel",
+    "BACK": "Back",
+    "EVENT_ARRIVAL_BUFFER": "Event arrival buffer",
+    "INITIAL_NOTIFICATION": "Initial notification",
+    "FINAL_NOTIFICATION":"Final notification",
+    "ALERT": "Setting saved successfully!"
   }
 }
