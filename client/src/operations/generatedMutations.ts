@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// this is an auto generated file. This will be overwritten
+// this file is copied from server, make sure it is up to date
 
 import * as APITypes from "../types/graphqlAPI";
 type GeneratedMutation<InputType, OutputType> = string & {

@@ -33,6 +33,7 @@ const Navbar: React.FC = () => {
   const handleUserSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
     setUserSettingEl(event.currentTarget)
   }
+
   const handleUserSettingsClose = () => {
     setUserSettingEl(null)
   }
@@ -74,7 +75,7 @@ const Navbar: React.FC = () => {
             </Typography>
           ) : (
             <Typography className="navbar-link" onClick={loginWithGoogle}>
-              {t('LOGIN')}
+              {t('LOGIN') + "/"}<br/>{t('REGISTER')}
             </Typography>
           )}
 

@@ -1,0 +1,32 @@
+type Itinerary @model
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  user: User! @belongsTo
+  title: String!
+  owner: String @auth(rules: [{ allow: owner, operations: [read] }])
+  events: [UserEvent] @hasMany
+}
+
+type User @model
+  @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [update, delete, read] }] ) {
+  id: ID!
+  userSub: String @auth(rules: [{ allow: owner, ownerField: "userSub", operations: [read] }] ) @index(name: "bySub", queryField: "userBySub")
+  givenName: String
+  familyName: String
+  email: String
+  language: String
+  loginWizard: Boolean @default(value: "false")
+  reminder1: Int @default(value: "30")
+  reminder2: Int @default(value: "5")
+  advanceTime: Int @default(value: "10")
+  interestTags: [String]
+  itineraries: [Itinerary] @hasMany
+}
+
+type UserEvent @model
+  @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  eventId: String!
+  itinerary: Itinerary! @belongsTo
+  owner: String @auth(rules: [{ allow: owner, operations: [read] }])
+}

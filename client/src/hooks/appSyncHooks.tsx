@@ -59,6 +59,7 @@ export const updateUserData = async (inputData: UpdateUserInput) => {
           givenName: inputData.givenName,
           language: inputData.language,
           interestTags: inputData.interestTags,
+          loginWizard: inputData.loginWizard,
           reminder1: inputData.reminder1,
           reminder2: inputData.reminder2,
           advanceTime: inputData.advanceTime,
