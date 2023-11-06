@@ -22,8 +22,8 @@ export const onCreateItinerary = /* GraphQL */ `subscription OnCreateItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -91,8 +91,8 @@ export const onUpdateItinerary = /* GraphQL */ `subscription OnUpdateItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -160,8 +160,8 @@ export const onDeleteItinerary = /* GraphQL */ `subscription OnDeleteItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -227,8 +227,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -242,8 +242,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -285,8 +285,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -300,8 +300,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -343,8 +343,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -358,8 +358,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -406,8 +406,8 @@ export const onCreateUserEvent = /* GraphQL */ `subscription OnCreateUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -466,8 +466,8 @@ export const onUpdateUserEvent = /* GraphQL */ `subscription OnUpdateUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -526,8 +526,8 @@ export const onDeleteUserEvent = /* GraphQL */ `subscription OnDeleteUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {

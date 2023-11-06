@@ -19,8 +19,8 @@ export const getItinerary = /* GraphQL */ `query GetItinerary($id: ID!) {
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -90,8 +90,8 @@ export const listItineraries = /* GraphQL */ `query ListItineraries(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -139,8 +139,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -154,8 +154,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -196,8 +196,8 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -244,8 +244,8 @@ export const userBySub = /* GraphQL */ `query UserBySub(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -284,8 +284,8 @@ export const getUserEvent = /* GraphQL */ `query GetUserEvent($id: ID!) {
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -346,8 +346,8 @@ export const listUserEvents = /* GraphQL */ `query ListUserEvents(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt

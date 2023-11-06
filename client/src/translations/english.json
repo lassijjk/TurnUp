@@ -73,9 +73,11 @@
     "SETTINGS": "Settings",
     "CLOSE": "Close",
     "WELCOME_TITLE": "Welcome To TurnUp",
-    "WELCOME_TEXT": "First, configure your user settings to improve the user experience",
+    "WELCOME_TEXT": "First, configure your user settings to improve the user experience. You will only see this dialog once.",
     "INTERESTS_TITLE": "Select your interests",
     "CLOSE_TITLE":  "Updated successfully",
-    "CLOSE_TEXT": "You can edit your settings at any time on the settings page"
+    "CLOSE_TEXT": "You can edit your interests and other settings at any time on the settings page.",
+    "SKIP_TITLE": "Settings",
+    "SKIP_TEXT": "You can edit your settings at any time on the settings page."
   }
 }

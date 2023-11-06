@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Button, Dialog, DialogContent, DialogActions } from '@mui/material'
 import { useGetUserData } from '../../hooks/appSyncHooks'
-import WelcomePage from './WelcomePage'
 import InterestsPage from './InterestsPage'
-import ClosePage from './ClosePage'
+import InfoPage from './InfoPage'
 import './LoginWizard.css'
-import { UpdateUserMutation } from '../../types/graphqlAPI'
 import { updateUserData } from '../../hooks/appSyncHooks'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -24,37 +22,33 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
   const { t } = useTranslation()
 
   const PageDisplay = () => {
-    if (page === 0) {
-      return <WelcomePage/>
-    } else if (page === 1) {
+    if (page === 1) {
       return <InterestsPage interests={interests} setInterests={setInterests}/>
-    } else if (page === 2) {
-      return <ClosePage/>
+    } else {
+      return <InfoPage index={page}/>
     }
   }
 
-  const backButtonText = page === 0 ? t('LOGIN_WIZARD.SKIP') : page === 2 ? t('LOGIN_WIZARD.SETTINGS'): t('LOGIN_WIZARD.BACK');
-  const confirmButtonText = page === 1 ? t('LOGIN_WIZARD.SAVE') : page === 2 ? t('LOGIN_WIZARD.CLOSE') : t('LOGIN_WIZARD.NEXT');
-
+  const backButtonText = page === 0 ? t('LOGIN_WIZARD.SKIP') : (page === 2 || page === -1) ? t('LOGIN_WIZARD.SETTINGS') : t('LOGIN_WIZARD.BACK');
+  const confirmButtonText = page === 1 ? t('LOGIN_WIZARD.SAVE') : (page === 2 || page === -1) ? t('LOGIN_WIZARD.CLOSE') : t('LOGIN_WIZARD.NEXT');
+  
   const handleSave = async () => {
     const inputData = {
       interestTags: interests || [],
       id: id || '',
-      //loginWizard: true
+      loginWizard: true
     }
 
-    const response = (await updateUserData(inputData)) as UpdateUserMutation
-    console.log(response)
+    await updateUserData(inputData)
   }
 
   const handleSkip = async () => {
     const inputData = {
       id: id || '',
-      //loginWizard: true
+      loginWizard: true
     }
 
-    const response = (await updateUserData(inputData)) as UpdateUserMutation
-    console.log(response)
+    await updateUserData(inputData)
   }
 
   const handleClose = (reason: string) => {
@@ -81,12 +75,12 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
           variant="contained"
           className="dialog-button"
           onClick={() => {
-            if (page === 0) {
-              handleSkip()
-              onClose()
-            } else if (page === 2){
+            if (page === 2 || page === -1){
               navigate('/user-settings')
               onClose()
+            } else if (page === 0){
+              handleSkip()
+              setPage(page - 1)
             } else {
               setPage(page - 1)
             }
@@ -100,7 +94,7 @@ const LoginWizard: React.FC<LoginWizardProps> = ({ open, onClose }: LoginWizardP
             if (page === 1) {
               handleSave()
               setPage(page + 1)
-            } else if (page === 2) {
+            } else if (page === 2 || page === -1) {
               onClose()
             } else {
               setPage(page + 1)

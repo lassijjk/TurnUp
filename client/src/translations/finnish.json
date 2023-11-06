@@ -72,9 +72,11 @@
     "SETTINGS": "Asetukset",
     "CLOSE": "Sulje",
     "WELCOME_TITLE": "Tervetuloa TurnUp sivustolle",
-    "WELCOME_TEXT": "Määrittele aluksi käyttäjän asetukset parantaaksesi käyttäjäkokemustasi",
+    "WELCOME_TEXT": "Määrittele aluksi käyttäjän asetukset parantaaksesi käyttäjäkokemustasi. Näet tämän dialogin vain kerran.",
     "INTERESTS_TITLE": "Valitse kiinnostuksen kohteesi",
     "CLOSE_TITLE":  "Päivitys onnistui",
-    "CLOSE_TEXT": "Voit muuttaa asetuksia milloin vain asetukset sivulta"
+    "CLOSE_TEXT": "Voit muuttaa mielenkiinnon kohteitasi ja muita asetuksiasi milloin vain asetukset sivulta.",
+    "SKIP_TITLE": "Asetukset",
+    "SKIP_TEXT": "Voit muuttaa asetuksiasi myöhemmin milloin vain asetukset sivulta"
   }
 }

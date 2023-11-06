@@ -58,7 +58,8 @@ export const updateUserData = async (inputData: UpdateUserInput) => {
           familyName: inputData.familyName,
           givenName: inputData.givenName,
           language: inputData.language,
-          interestTags: inputData.interestTags
+          interestTags: inputData.interestTags,
+          loginWizard: inputData.loginWizard
         }
       },
       authMode: 'AMAZON_COGNITO_USER_POOLS'

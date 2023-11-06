@@ -22,8 +22,8 @@ export const createItinerary = /* GraphQL */ `mutation CreateItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -91,8 +91,8 @@ export const updateItinerary = /* GraphQL */ `mutation UpdateItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -160,8 +160,8 @@ export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
       email
       language
       loginWizard
-      remaineder1
-      remaineder2
+      reminder1
+      reminder2
       advanceTime
       interestTags
       itineraries {
@@ -227,8 +227,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -242,8 +242,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -285,8 +285,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -300,8 +300,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -343,8 +343,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     email
     language
     loginWizard
-    remaineder1
-    remaineder2
+    reminder1
+    reminder2
     advanceTime
     interestTags
     itineraries {
@@ -358,8 +358,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
           email
           language
           loginWizard
-          remaineder1
-          remaineder2
+          reminder1
+          reminder2
           advanceTime
           interestTags
           createdAt
@@ -406,8 +406,8 @@ export const createUserEvent = /* GraphQL */ `mutation CreateUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -466,8 +466,8 @@ export const updateUserEvent = /* GraphQL */ `mutation UpdateUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
@@ -526,8 +526,8 @@ export const deleteUserEvent = /* GraphQL */ `mutation DeleteUserEvent(
         email
         language
         loginWizard
-        remaineder1
-        remaineder2
+        reminder1
+        reminder2
         advanceTime
         interestTags
         itineraries {
