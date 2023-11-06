@@ -22,7 +22,7 @@ import { useGetUserData, updateUserData } from '../hooks/appSyncHooks'
 import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
 import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
-import Interests from '../components/Intersets'
+import Interests from '../components/Interests'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -94,9 +94,13 @@ const initialUserSetting = {
   email: '',
   selectedLanguage: 'English',
   interests: [] as (string | null)[],
+  reminder1: 30,
+  reminder2: 5,
+  advanceTime: 10
 }
 
 const UserSettings = () => {
+  //TODO: Implement notification times and arrival buffer
   const userData = useGetUserData()
   const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
@@ -116,7 +120,7 @@ const UserSettings = () => {
   useEffect(() => {
     const userItem = userData?.userBySub?.items[0]
     if (userItem) {
-      const { id, givenName, familyName, email, language, interestTags } = userItem
+      const { id, givenName, familyName, email, language, interestTags, reminder1, reminder2, advanceTime } = userItem
       setFormData({
         id: id || '',
         firstName: givenName || '',
@@ -124,6 +128,9 @@ const UserSettings = () => {
         email: email || '',
         selectedLanguage: language || 'English',
         interests: interestTags || [],
+        reminder1:  reminder1 || 30,
+        reminder2: reminder2 || 5,
+        advanceTime: advanceTime || 10
       })
       setInitialFormData({
         id: id || '',
@@ -132,6 +139,9 @@ const UserSettings = () => {
         email: email || '',
         selectedLanguage: language || 'English',
         interests: interestTags || [],
+        reminder1: reminder1 || 30,
+        reminder2: reminder2 || 5,
+        advanceTime: advanceTime || 10
       })
     }
   }, [userData])
@@ -174,6 +184,7 @@ const UserSettings = () => {
       setFinalNotification(!finalNotification)
     }
   }
+
   const handleTimeChange =
     (notification: 'initialNotification' | 'finalNotification') => (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value
@@ -203,6 +214,9 @@ const UserSettings = () => {
       email: formData.email,
       language: formData.selectedLanguage,
       interestTags: formData.interests,
+      reminder1: formData.reminder1 || 30,
+      reminder2: formData.reminder2 || 5,
+      advanceTime: formData.advanceTime || 10
     }
 
     const response = (await updateUserData(inputData)) as UpdateUserMutation
@@ -214,6 +228,9 @@ const UserSettings = () => {
         email: response.updateUser.email || '',
         selectedLanguage: response.updateUser.language || 'English',
         interests: response.updateUser.interestTags || [],
+        reminder1: response.updateUser.reminder1 || 30,
+        reminder2: response.updateUser.reminder2 || 5,
+        advanceTime: response.updateUser.advanceTime || 10
       })
       changeLanguage(response.updateUser.language || 'English')
       setOpenAlert(true)
@@ -229,6 +246,7 @@ const UserSettings = () => {
     }
     setOpenAlert(false)
   }
+
   return (
     <GridContainer container>
       <CardWrapper>
