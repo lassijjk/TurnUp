@@ -94,13 +94,12 @@ const initialUserSetting = {
   email: '',
   selectedLanguage: 'English',
   interests: [] as (string | null)[],
-  reminder1: 30,
-  reminder2: 5,
-  advanceTime: 10
+  initialNotificationTime: 30,
+  finalNotificationTime: 5,
+  arrivalBuffer: 10,
 }
 
 const UserSettings = () => {
-  //TODO: Implement notification times and arrival buffer
   const userData = useGetUserData()
   const [initialFormData, setInitialFormData] = useState(initialUserSetting)
   const [formData, setFormData] = useState(initialUserSetting)
@@ -108,11 +107,6 @@ const UserSettings = () => {
 
   const [initialNotification, setInitialNotification] = useState(true)
   const [finalNotification, setFinalNotification] = useState(true)
-
-  const [initialNotificationTime, setInitialNotificationTime] = useState(30)
-  const [finalNotificationTime, setFinalNotificationTime] = useState(5)
-
-  const [arrivalBuffer, setArrivalBuffer] = useState(10)
 
   const navigate = useNavigate()
   const { changeLanguage } = useStore()
@@ -128,9 +122,9 @@ const UserSettings = () => {
         email: email || '',
         selectedLanguage: language || 'English',
         interests: interestTags || [],
-        reminder1:  reminder1 || 30,
-        reminder2: reminder2 || 5,
-        advanceTime: advanceTime || 10
+        initialNotificationTime: reminder1 || 30,
+        finalNotificationTime: reminder2 || 5,
+        arrivalBuffer: advanceTime || 10,
       })
       setInitialFormData({
         id: id || '',
@@ -139,9 +133,9 @@ const UserSettings = () => {
         email: email || '',
         selectedLanguage: language || 'English',
         interests: interestTags || [],
-        reminder1: reminder1 || 30,
-        reminder2: reminder2 || 5,
-        advanceTime: advanceTime || 10
+        initialNotificationTime: reminder1 || 30,
+        finalNotificationTime: reminder2 || 5,
+        arrivalBuffer: advanceTime || 10,
       })
     }
   }, [userData])
@@ -184,6 +178,23 @@ const UserSettings = () => {
       setFinalNotification(!finalNotification)
     }
   }
+  useEffect(() => {
+    if (!initialNotification) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        initialNotificationTime: 0,
+      }))
+    }
+  }, [initialNotification])
+
+  useEffect(() => {
+    if (!finalNotification) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        finalNotificationTime: 0,
+      }))
+    }
+  }, [finalNotification])
 
   const handleTimeChange =
     (notification: 'initialNotification' | 'finalNotification') => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -191,9 +202,9 @@ const UserSettings = () => {
       const numericValue = parseInt(value, 10)
       if (!isNaN(numericValue)) {
         if (notification === 'initialNotification') {
-          setInitialNotificationTime(Math.max(0, numericValue))
+          setFormData({ ...formData, initialNotificationTime: Math.max(0, numericValue) })
         } else {
-          setFinalNotificationTime(Math.max(0, numericValue))
+          setFormData({ ...formData, finalNotificationTime: Math.max(0, numericValue) })
         }
       }
     }
@@ -202,7 +213,7 @@ const UserSettings = () => {
     const value = event.target.value
     const numericValue = parseInt(value, 10)
     if (!isNaN(numericValue)) {
-      setArrivalBuffer(Math.max(0, numericValue))
+      setFormData({ ...formData, arrivalBuffer: Math.max(0, numericValue) })
     }
   }
   const handleSubmit = async (event: React.FormEvent) => {
@@ -214,9 +225,9 @@ const UserSettings = () => {
       email: formData.email,
       language: formData.selectedLanguage,
       interestTags: formData.interests,
-      reminder1: formData.reminder1 || 30,
-      reminder2: formData.reminder2 || 5,
-      advanceTime: formData.advanceTime || 10
+      reminder1: formData.initialNotificationTime,
+      reminder2: formData.finalNotificationTime,
+      advanceTime: formData.arrivalBuffer,
     }
 
     const response = (await updateUserData(inputData)) as UpdateUserMutation
@@ -228,15 +239,14 @@ const UserSettings = () => {
         email: response.updateUser.email || '',
         selectedLanguage: response.updateUser.language || 'English',
         interests: response.updateUser.interestTags || [],
-        reminder1: response.updateUser.reminder1 || 30,
-        reminder2: response.updateUser.reminder2 || 5,
-        advanceTime: response.updateUser.advanceTime || 10
+        initialNotificationTime: response.updateUser.reminder1 || 30,
+        finalNotificationTime: response.updateUser.reminder2 || 5,
+        arrivalBuffer: response.updateUser.advanceTime || 10,
       })
       changeLanguage(response.updateUser.language || 'English')
       setOpenAlert(true)
     }
   }
-
   const handleCancel = () => {
     setFormData({ ...initialFormData })
   }
@@ -246,7 +256,6 @@ const UserSettings = () => {
     }
     setOpenAlert(false)
   }
-
   return (
     <GridContainer container>
       <CardWrapper>
@@ -340,9 +349,10 @@ const UserSettings = () => {
               <FormLabel className="event-buffer notification-label">{t('SETTING.EVENT_ARRIVAL_BUFFER')}</FormLabel>
               <TextField
                 className="time-input"
+                id="advanceTime"
                 type="number"
                 label="Time (min)"
-                value={arrivalBuffer}
+                value={formData.arrivalBuffer}
                 onChange={handleArrivalBufferChange}
               />
             </InputWrapper>
@@ -358,9 +368,10 @@ const UserSettings = () => {
               />
               <TextField
                 className="time-input"
+                id="reminder1"
                 type="number"
                 label="Time (min)"
-                value={initialNotificationTime}
+                value={formData.initialNotificationTime}
                 onChange={handleTimeChange('initialNotification')}
                 disabled={!initialNotification}
               />
@@ -377,9 +388,10 @@ const UserSettings = () => {
               />
               <TextField
                 className="time-input"
+                id="reminder2"
                 type="number"
                 label="Time (min)"
-                value={finalNotificationTime}
+                value={formData.finalNotificationTime}
                 onChange={handleTimeChange('finalNotification')}
                 disabled={!finalNotification}
               />

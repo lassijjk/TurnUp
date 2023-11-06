@@ -14,12 +14,12 @@ import {
   Grid,
   Icon,
   ScrollView,
+  SwitchField,
   Text,
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { fetchByPath, validateField } from "./utils";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { API } from "aws-amplify";
 import { createUser } from "../graphql/mutations";
 function ArrayField({
@@ -194,6 +194,10 @@ export default function UserCreateForm(props) {
     familyName: "",
     email: "",
     language: "",
+    loginWizard: false,
+    reminder1: "",
+    reminder2: "",
+    advanceTime: "",
     interestTags: [],
   };
   const [userSub, setUserSub] = React.useState(initialValues.userSub);
@@ -201,6 +205,14 @@ export default function UserCreateForm(props) {
   const [familyName, setFamilyName] = React.useState(initialValues.familyName);
   const [email, setEmail] = React.useState(initialValues.email);
   const [language, setLanguage] = React.useState(initialValues.language);
+  const [loginWizard, setLoginWizard] = React.useState(
+    initialValues.loginWizard
+  );
+  const [reminder1, setReminder1] = React.useState(initialValues.reminder1);
+  const [reminder2, setReminder2] = React.useState(initialValues.reminder2);
+  const [advanceTime, setAdvanceTime] = React.useState(
+    initialValues.advanceTime
+  );
   const [interestTags, setInterestTags] = React.useState(
     initialValues.interestTags
   );
@@ -211,6 +223,10 @@ export default function UserCreateForm(props) {
     setFamilyName(initialValues.familyName);
     setEmail(initialValues.email);
     setLanguage(initialValues.language);
+    setLoginWizard(initialValues.loginWizard);
+    setReminder1(initialValues.reminder1);
+    setReminder2(initialValues.reminder2);
+    setAdvanceTime(initialValues.advanceTime);
     setInterestTags(initialValues.interestTags);
     setCurrentInterestTagsValue("");
     setErrors({});
@@ -224,6 +240,10 @@ export default function UserCreateForm(props) {
     familyName: [],
     email: [],
     language: [],
+    loginWizard: [],
+    reminder1: [],
+    reminder2: [],
+    advanceTime: [],
     interestTags: [],
   };
   const runValidationTasks = async (
@@ -257,6 +277,10 @@ export default function UserCreateForm(props) {
           familyName,
           email,
           language,
+          loginWizard,
+          reminder1,
+          reminder2,
+          advanceTime,
           interestTags,
         };
         const validationResponses = await Promise.all(
@@ -325,6 +349,10 @@ export default function UserCreateForm(props) {
               familyName,
               email,
               language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags,
             };
             const result = onChange(modelFields);
@@ -354,6 +382,10 @@ export default function UserCreateForm(props) {
               familyName,
               email,
               language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags,
             };
             const result = onChange(modelFields);
@@ -383,6 +415,10 @@ export default function UserCreateForm(props) {
               familyName: value,
               email,
               language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags,
             };
             const result = onChange(modelFields);
@@ -412,6 +448,10 @@ export default function UserCreateForm(props) {
               familyName,
               email: value,
               language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags,
             };
             const result = onChange(modelFields);
@@ -441,6 +481,10 @@ export default function UserCreateForm(props) {
               familyName,
               email,
               language: value,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags,
             };
             const result = onChange(modelFields);
@@ -456,6 +500,150 @@ export default function UserCreateForm(props) {
         hasError={errors.language?.hasError}
         {...getOverrideProps(overrides, "language")}
       ></TextField>
+      <SwitchField
+        label="Login wizard"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={loginWizard}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard: value,
+              reminder1,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.loginWizard ?? value;
+          }
+          if (errors.loginWizard?.hasError) {
+            runValidationTasks("loginWizard", value);
+          }
+          setLoginWizard(value);
+        }}
+        onBlur={() => runValidationTasks("loginWizard", loginWizard)}
+        errorMessage={errors.loginWizard?.errorMessage}
+        hasError={errors.loginWizard?.hasError}
+        {...getOverrideProps(overrides, "loginWizard")}
+      ></SwitchField>
+      <TextField
+        label="Reminder1"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={reminder1}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1: value,
+              reminder2,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.reminder1 ?? value;
+          }
+          if (errors.reminder1?.hasError) {
+            runValidationTasks("reminder1", value);
+          }
+          setReminder1(value);
+        }}
+        onBlur={() => runValidationTasks("reminder1", reminder1)}
+        errorMessage={errors.reminder1?.errorMessage}
+        hasError={errors.reminder1?.hasError}
+        {...getOverrideProps(overrides, "reminder1")}
+      ></TextField>
+      <TextField
+        label="Reminder2"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={reminder2}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2: value,
+              advanceTime,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.reminder2 ?? value;
+          }
+          if (errors.reminder2?.hasError) {
+            runValidationTasks("reminder2", value);
+          }
+          setReminder2(value);
+        }}
+        onBlur={() => runValidationTasks("reminder2", reminder2)}
+        errorMessage={errors.reminder2?.errorMessage}
+        hasError={errors.reminder2?.hasError}
+        {...getOverrideProps(overrides, "reminder2")}
+      ></TextField>
+      <TextField
+        label="Advance time"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={advanceTime}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              userSub,
+              givenName,
+              familyName,
+              email,
+              language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime: value,
+              interestTags,
+            };
+            const result = onChange(modelFields);
+            value = result?.advanceTime ?? value;
+          }
+          if (errors.advanceTime?.hasError) {
+            runValidationTasks("advanceTime", value);
+          }
+          setAdvanceTime(value);
+        }}
+        onBlur={() => runValidationTasks("advanceTime", advanceTime)}
+        errorMessage={errors.advanceTime?.errorMessage}
+        hasError={errors.advanceTime?.hasError}
+        {...getOverrideProps(overrides, "advanceTime")}
+      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
@@ -466,6 +654,10 @@ export default function UserCreateForm(props) {
               familyName,
               email,
               language,
+              loginWizard,
+              reminder1,
+              reminder2,
+              advanceTime,
               interestTags: values,
             };
             const result = onChange(modelFields);

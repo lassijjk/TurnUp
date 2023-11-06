@@ -65,7 +65,7 @@ button.btn-back {
   display: flex !important;
   padding-left: 30px !important;
 }
-.snack-bar{
+.snack-bar {
   margin-left: 230px;
   background-color: var(--warm-green) !important;
   color: white !important;
@@ -73,13 +73,13 @@ button.btn-back {
 .css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
   color: white !important;
 }
-.time-input{
+.time-input {
   width: 100px;
 }
-.event-buffer{
+.event-buffer {
   margin-right: 5px;
 }
-.notification-label{
+.notification-label {
   width: 250px;
   display: flex;
   align-items: center;

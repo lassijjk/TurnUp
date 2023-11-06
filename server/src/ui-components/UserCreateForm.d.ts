@@ -5,8 +5,17 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+export declare type EscapeHatchProps = {
+    [elementHierarchy: string]: Record<string, unknown>;
+} | null;
+export declare type VariantValues = {
+    [key: string]: string;
+};
+export declare type Variant = {
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
+};
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -18,6 +27,10 @@ export declare type UserCreateFormInputValues = {
     familyName?: string;
     email?: string;
     language?: string;
+    loginWizard?: boolean;
+    reminder1?: number;
+    reminder2?: number;
+    advanceTime?: number;
     interestTags?: string[];
 };
 export declare type UserCreateFormValidationValues = {
@@ -26,6 +39,10 @@ export declare type UserCreateFormValidationValues = {
     familyName?: ValidationFunction<string>;
     email?: ValidationFunction<string>;
     language?: ValidationFunction<string>;
+    loginWizard?: ValidationFunction<boolean>;
+    reminder1?: ValidationFunction<number>;
+    reminder2?: ValidationFunction<number>;
+    advanceTime?: ValidationFunction<number>;
     interestTags?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -36,6 +53,10 @@ export declare type UserCreateFormOverridesProps = {
     familyName?: PrimitiveOverrideProps<TextFieldProps>;
     email?: PrimitiveOverrideProps<TextFieldProps>;
     language?: PrimitiveOverrideProps<TextFieldProps>;
+    loginWizard?: PrimitiveOverrideProps<SwitchFieldProps>;
+    reminder1?: PrimitiveOverrideProps<TextFieldProps>;
+    reminder2?: PrimitiveOverrideProps<TextFieldProps>;
+    advanceTime?: PrimitiveOverrideProps<TextFieldProps>;
     interestTags?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UserCreateFormProps = React.PropsWithChildren<{
