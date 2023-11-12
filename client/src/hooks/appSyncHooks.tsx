@@ -2,8 +2,31 @@ import { useEffect, useState } from 'react'
 import { API, GraphQLQuery } from '@aws-amplify/api'
 import * as queries from '../operations/generatedQueries'
 import * as mutations from '../operations/generatedMutations'
-import { UserBySubQuery, UpdateUserMutation, UpdateUserInput } from '../types/graphqlAPI'
+import {
+  UserBySubQuery,
+  UpdateUserMutation,
+  UpdateUserInput,
+  CreateItineraryMutation,
+  CreateItineraryInput,
+  Itinerary,
+} from '../types/graphqlAPI'
 import { useAuthUser } from './userHooks'
+
+export const createItinerary = async (inputData: Itinerary) => {
+  try {
+    await API.graphql<GraphQLQuery<CreateItineraryMutation>>({
+      query: mutations.createItinerary,
+      variables: {
+        input: {
+          title: inputData.title,
+          user: inputData.user,
+        },
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 interface User {
   username: string | null

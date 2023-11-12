@@ -14,6 +14,8 @@ import { EventLocationData, SingleEvent } from '../types/event'
 // import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
 import { VITE_MAP_EVENT_API } from '../constants'
+import AddToItinerary from '../components/AddToItinerary'
+import { useAuthUser } from '../hooks/userHooks'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -33,6 +35,8 @@ const Event = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showMore, setShowMore] = useState(true)
   const [isShowMap, setIsShowMap] = useState<boolean>(false)
+  const isLoggedInUser = useAuthUser()
+
   // const { language } = useStore()
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
@@ -102,6 +106,7 @@ const Event = () => {
                 <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go
                 </Button>
+                {isLoggedInUser && <AddToItinerary event={event} />}
               </>
             )}
             {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
