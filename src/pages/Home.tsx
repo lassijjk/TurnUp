@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
 import axios from 'axios'
-import { Grid, Typography, TextField, InputAdornment, Pagination, Box } from '@mui/material'
+import { Grid, Typography, TextField, InputAdornment, Pagination, Box, CircularProgress } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import EventCard from '../components/Cards/EventCard.tsx'
 import { EventObj } from '../types/event.ts'
 import SearchIcon from '@mui/icons-material/Search'
@@ -29,6 +29,7 @@ const Home = () => {
     setCurrentPage(value)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setSearchParams({ ['page']: value } as any)
+    window.scrollTo(0, 0)
   }
 
   const fetchEvents = async () => {
@@ -57,29 +58,32 @@ const Home = () => {
           <Typography component="h1" className="home-title">
             {t('EVENT_LIST.QUESTION')}
           </Typography>
-        </Grid>
-        <Grid item xs={12} className="search-event-container">
-          <Grid container>
-            <Grid item xs={8}>
-              <TextField
-                fullWidth
-                label="Search events"
-                id="fullWidth"
-                className="search-event"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+          {isLoading && (
+            <Box className="event-loader">
+              <CircularProgress color="secondary" />
+            </Box>
+          )}
+          {!isLoading && (
+            <Grid container className="search-event-container">
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Search events"
+                  id="fullWidth"
+                  className="search-event"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Grid>
-        {isLoading ? (
-          <Box>Loading...</Box>
-        ) : (
+        {!isLoading &&
           events &&
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (events as any[]).map((event: EventObj) => (
@@ -91,17 +95,18 @@ const Home = () => {
                 handleEventClick(id)
               }}
             />
-          ))
+          ))}
+        {!isLoading && (
+          <Grid item xs={12} className="event-pagination-container">
+            <Pagination
+              count={totalPage}
+              color="primary"
+              className="event-pagination"
+              page={currentPage}
+              onChange={handleChange}
+            />
+          </Grid>
         )}
-        <Grid item xs={12} className="event-pagination-container">
-          <Pagination
-            count={totalPage}
-            color="primary"
-            className="event-pagination"
-            page={currentPage}
-            onChange={handleChange}
-          />
-        </Grid>
       </Grid>
     </>
   )

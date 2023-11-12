@@ -17,17 +17,23 @@
   background-color: var(--light-petrol);
   min-height: 100vh;
   display: flex;
-  flex-wrap: wrap;
   padding-right: 3rem;
   padding-left: 3rem;
   padding-bottom: 2rem;
 }
 
 .search-event-container {
-  margin: 0.5rem 1rem !important;
+  padding: 0.5rem 1rem !important;
 }
 
 .event-pagination-container {
   display: flex !important;
   justify-content: center !important;
+}
+
+.event-loader {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
 }
