@@ -8,10 +8,10 @@ import { convertToReadableTime } from '../utils/convertToReadableTime'
 import { useTranslation } from 'react-i18next'
 import { Key, useEffect, useState } from 'react'
 import CommutingStops from '../components/CommutingStops'
-// import getTags from '../components/Buttons/EventTagger'
-// import EventTag from '../components/Buttons/EventTag'
-import { EventLocationData, SingleEvent } from '../types/event'
-// import { useStore } from '../stores/settingStore'
+import getTags from '../components/Buttons/EventTagger'
+import EventTag from '../components/Buttons/EventTag'
+import { EventLocationData, EventObj, SingleEvent } from '../types/event'
+import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
 import { VITE_MAP_EVENT_API } from '../constants'
 
@@ -33,21 +33,21 @@ const Event = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showMore, setShowMore] = useState(true)
   const [isShowMap, setIsShowMap] = useState<boolean>(false)
-  // const { language } = useStore()
+  const { language } = useStore()
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
   const [eventLocationData, setEventLocationData] = useState<EventLocationData>(DEFAULT_TO)
 
-  // const getEventTags = (event: EventObj) => {
-  //   const tags = getTags(event, 2, language)
-  //   return (
-  //     <>
-  //       {tags.map((tag) => (
-  //         <EventTag key={tag} variant={tag}></EventTag>
-  //       ))}
-  //     </>
-  //   )
-  // }
+  const getEventTags = (event: EventObj) => {
+    const tags = getTags(event, 2, language)
+    return (
+      <>
+        {tags.map((tag) => (
+          <EventTag key={tag} variant={tag}></EventTag>
+        ))}
+      </>
+    )
+  }
   const handleCommute = () => {
     setShowEvent(true)
     const eventLocation = event && event.locations ? event.locations[0].geoIndex : []
@@ -93,9 +93,9 @@ const Event = () => {
                       ))}
                   </ul>
                 </Typography>
-                {/* <Typography component="div" className="event-tag">
-                {getEventTags(event)}
-              </Typography> */}
+                {event && <Typography component="div" className="event-tag">
+                  {getEventTags(event as unknown as EventObj)}
+                </Typography>}
                 {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
                 <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
 

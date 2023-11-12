@@ -21,15 +21,6 @@ const initMap = (container: HTMLDivElement, eventLocation: EventLocationData, us
     zoom: 13,
   })
 
-  if (userLocation) {
-    new mapboxgl.Marker({
-      color: '#ff1500',
-      draggable: false,
-    })
-      .setLngLat([eventLocation.longitude, eventLocation.latitude])
-      .addTo(map)
-  }
-
   return map
 }
 

@@ -20,4 +20,14 @@
   flex-wrap: wrap;
   padding-right: 3rem;
   padding-left: 3rem;
+  padding-bottom: 2rem;
+}
+
+.search-event-container {
+  margin: 0.5rem 1rem !important;
+}
+
+.event-pagination-container {
+  display: flex !important;
+  justify-content: center !important;
 }

@@ -27,8 +27,8 @@ export type EventObj = {
   creationDate: string
   modificationDate: string
   name: string
-  start_time: string
-  end_time: string
+  startTime: string
+  endTime: string
   locations: Array<EventApiLocation>
   dates: Array<EventApiDate>
   links: Array<EventApiLink>

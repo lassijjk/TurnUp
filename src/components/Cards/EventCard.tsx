@@ -18,10 +18,10 @@ type EventCardProps = {
 const EventCard: React.FC<EventCardProps> = ({ event, onClick }: EventCardProps) => {
   const { language } = useStore()
   const { t } = useTranslation()
-  const dayTemp = String(new Date(event.start_time).getUTCDate()).padStart(2, '0')
+  const dayTemp = String(new Date(event.startTime).getUTCDate()).padStart(2, '0')
 
-  const startTime = convertToReadableDate(event.start_time, t)
-  const endTime = convertToReadableDate(event.end_time, t)
+  const startTime = convertToReadableDate(event.startTime, t)
+  const endTime = convertToReadableDate(event.endTime, t)
 
   const getEventTags = (event: EventObj) => {
     const tags = getTags(event, 2, language)

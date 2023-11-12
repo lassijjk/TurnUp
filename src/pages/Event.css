@@ -3,8 +3,6 @@
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  padding-right: 3rem;
-  padding-left: 3rem;
 }
 .event-tag {
   display: flex;
@@ -36,4 +34,19 @@ button.lets-go-button {
 
 .event-map-container {
   margin-top: 1rem !important;
+}
+
+@media (min-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .event-container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+@media (min-width: 801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .event-container {
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
 }

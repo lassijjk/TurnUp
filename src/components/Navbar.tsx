@@ -35,7 +35,13 @@ const Navbar: React.FC = () => {
         <Toolbar>
           <Box sx={{ flexGrow: 1 }} className="navbar-app-name">
             <Box>
-              <img src={logo} className="navbar-logo" />
+              <img
+                src={logo}
+                className="navbar-logo"
+                onClick={() => {
+                  navigate('/')
+                }}
+              />
             </Box>
             <Box className="navbar-title-container">
               <Typography component="div" className="navbar-title">

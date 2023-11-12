@@ -17,6 +17,7 @@ import {
 import _ from 'lodash'
 import { LanguageFullName } from '../../types/language.ts'
 
+// eslint-disable-next-line no-useless-escape
 const domainRegex = /^(?:https?:\/\/)?(?:w{3,}\.)?([^\/]+)/
 const addressRegex: RegExp = /^[^,]+/
 
