@@ -2,11 +2,11 @@
 /* eslint-disable */
 // this file is copied from server, make sure it is up to date
 
-import * as APITypes from "../types/graphqlAPI";
+import * as APITypes from '../types/graphqlAPI'
 type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+  __generatedQueryInput: InputType
+  __generatedQueryOutput: OutputType
+}
 
 export const getItinerary = /* GraphQL */ `query GetItinerary($id: ID!) {
   getItinerary(id: $id) {
@@ -70,10 +70,7 @@ export const getItinerary = /* GraphQL */ `query GetItinerary($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetItineraryQueryVariables,
-  APITypes.GetItineraryQuery
->;
+` as GeneratedQuery<APITypes.GetItineraryQueryVariables, APITypes.GetItineraryQuery>
 export const listItineraries = /* GraphQL */ `query ListItineraries(
   $filter: ModelItineraryFilterInput
   $limit: Int
@@ -126,10 +123,7 @@ export const listItineraries = /* GraphQL */ `query ListItineraries(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListItinerariesQueryVariables,
-  APITypes.ListItinerariesQuery
->;
+` as GeneratedQuery<APITypes.ListItinerariesQueryVariables, APITypes.ListItinerariesQuery>
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -181,7 +175,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>
 export const listUsers = /* GraphQL */ `query ListUsers(
   $filter: ModelUserFilterInput
   $limit: Int
@@ -221,7 +215,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>
 export const userBySub = /* GraphQL */ `query UserBySub(
   $userSub: String!
   $sortDirection: ModelSortDirection
@@ -269,7 +263,7 @@ export const userBySub = /* GraphQL */ `query UserBySub(
     __typename
   }
 }
-` as GeneratedQuery<APITypes.UserBySubQueryVariables, APITypes.UserBySubQuery>;
+` as GeneratedQuery<APITypes.UserBySubQueryVariables, APITypes.UserBySubQuery>
 export const getUserEvent = /* GraphQL */ `query GetUserEvent($id: ID!) {
   getUserEvent(id: $id) {
     id
@@ -323,10 +317,7 @@ export const getUserEvent = /* GraphQL */ `query GetUserEvent($id: ID!) {
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.GetUserEventQueryVariables,
-  APITypes.GetUserEventQuery
->;
+` as GeneratedQuery<APITypes.GetUserEventQueryVariables, APITypes.GetUserEventQuery>
 export const listUserEvents = /* GraphQL */ `query ListUserEvents(
   $filter: ModelUserEventFilterInput
   $limit: Int
@@ -375,7 +366,4 @@ export const listUserEvents = /* GraphQL */ `query ListUserEvents(
     __typename
   }
 }
-` as GeneratedQuery<
-  APITypes.ListUserEventsQueryVariables,
-  APITypes.ListUserEventsQuery
->;
+` as GeneratedQuery<APITypes.ListUserEventsQueryVariables, APITypes.ListUserEventsQuery>

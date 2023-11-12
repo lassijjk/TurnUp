@@ -40,7 +40,7 @@ const App = () => {
       changeLanguage(userItem.language)
     }
 
-    if(userData && !userData?.userBySub?.items[0]?.loginWizard){
+    if (userData && !userData?.userBySub?.items[0]?.loginWizard) {
       setShowLoginWizard(true)
     }
   }, [userData])
@@ -58,7 +58,7 @@ const App = () => {
       <I18nextProvider i18n={i18next}>
         <BrowserRouter>
           <Navbar />
-          <LoginWizard open={showLoginWizard} onClose={() => setShowLoginWizard(false)}/>
+          <LoginWizard open={showLoginWizard} onClose={() => setShowLoginWizard(false)} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/event/:id" element={<Event />} />

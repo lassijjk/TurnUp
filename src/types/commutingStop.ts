@@ -7,8 +7,8 @@ export interface Leg {
   distance: number
   duration: number
   from: {
-    lat:number
-    lon:number
+    lat: number
+    lon: number
     name: string
     stop: {
       code: number
@@ -16,8 +16,8 @@ export interface Leg {
     }
   }
   to: {
-    lat:number
-    lon:number
+    lat: number
+    lon: number
     name: string
     stop: {
       code: number

@@ -177,7 +177,7 @@ const UserSettings = () => {
   const handleNotificationToggle = (notification: 'initialNotification' | 'finalNotification') => () => {
     if (notification === 'initialNotification') {
       setInitialNotification(!initialNotification)
-      if(initialNotification) {
+      if (initialNotification) {
         setFormData((prevFormData) => ({
           ...prevFormData,
           initialNotificationTime: 0,
@@ -193,7 +193,7 @@ const UserSettings = () => {
       }
     }
   }
- 
+
   const handleTimeChange =
     (notification: 'initialNotification' | 'finalNotification') => (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value
@@ -248,9 +248,9 @@ const UserSettings = () => {
 
   const handleCancel = () => {
     setFormData({ ...initialFormData })
-  
-    setInitialNotification(initialFormData.initialNotificationTime !== 0);
-    setFinalNotification(initialFormData.finalNotificationTime !== 0);
+
+    setInitialNotification(initialFormData.initialNotificationTime !== 0)
+    setFinalNotification(initialFormData.finalNotificationTime !== 0)
   }
 
   const handleAlertClose = (_event: React.SyntheticEvent | Event, reason?: string) => {

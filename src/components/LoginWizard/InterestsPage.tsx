@@ -6,7 +6,7 @@ import '../Buttons/EventTag.css'
 import { useTranslation } from 'react-i18next'
 
 type InterestsPageProps = {
-  interests: (string | null)[],
+  interests: (string | null)[]
   setInterests: Dispatch<SetStateAction<(string | null)[]>>
 }
 
@@ -23,9 +23,9 @@ const InterestsPage: React.FC<InterestsPageProps> = ({ interests, setInterests }
   }
 
   return (
-    <div className='page-container'>
-      <h1 className='page-title'>{t('LOGIN_WIZARD.INTERESTS_TITLE')}</h1>
-      <Interests interests={interests} onSelectInterest={onSelectInterest}/>
+    <div className="page-container">
+      <h1 className="page-title">{t('LOGIN_WIZARD.INTERESTS_TITLE')}</h1>
+      <Interests interests={interests} onSelectInterest={onSelectInterest} />
     </div>
   )
 }

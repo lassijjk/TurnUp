@@ -52,3 +52,38 @@
   display: flex !important;
   align-items: center !important;
 }
+
+.navbar-language-item {
+  height: 20px !important;
+}
+
+.navbar-language-finnish {
+  margin-right: 10px !important;
+}
+
+.navbar-language-items:hover {
+  background-color: #fff !important;
+}
+
+.navbar-language-item:hover {
+  scale: 1.05 !important;
+}
+
+@media (min-width:320px)  { 
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ 
+  .navbar-title-container {
+    display: none;
+  }
+}
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (min-width:600px)  { 
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+  .navbar-title-container {
+    display: inline-block;
+  }
+}
+@media (min-width:801px)  { 
+  /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }

@@ -107,9 +107,10 @@ const Map: React.FC = () => {
           axios.get(`${VITE_MAP_EVENT_API}?eventId=${e.features[0].properties.id}`).then((res) => {
             const event = res.data.data[0]
             const innerHtmlContent = `
-              <div class="mapbox-modal">
-                <div>Name: ${event.name}</div>
-                <div>${
+              <img class="mapbox-modal-event-image" src="${event.images[0].url}" alt="mapbox-modal-event-image"></img>
+              <div class="mapbox-modal-content-container">
+                <h3 class="mapbox-modal-event-name">${event.name}</h3>
+                <div class="mapbox-modal-event-time">${
                   convertToReadableDate(event.startTime, t) + ' - ' + convertToReadableDate(event.endTime, t)
                 }</div>
               </div>
@@ -117,7 +118,7 @@ const Map: React.FC = () => {
 
             const divElement = document.createElement('div')
             const assignBtn = document.createElement('div')
-            assignBtn.innerHTML = `<button class="btn btn-success btn-simple text-white">Go to event</button>`
+            assignBtn.innerHTML = `<div class="mapbox-modal-event-button-container"><button class="mapbox-modal-event-button">Go to event</button></div>`
             divElement.innerHTML = innerHtmlContent
             divElement.appendChild(assignBtn)
             // btn.className = 'btn';

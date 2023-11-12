@@ -2,33 +2,24 @@ import React from 'react'
 import './Navbar.css'
 import { useNavigate } from 'react-router-dom'
 import { AppBar, Toolbar, Box, Container, Menu, MenuItem, Typography, IconButton } from '@mui/material'
-import LanguageIcon from '@mui/icons-material/Language'
 import DehazeIcon from '@mui/icons-material/Dehaze'
 import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
+import finnish from '../assets/tn_fi-flag.gif'
+import english from '../assets/tn_uk-flag.gif'
 import { useAuthUser, useLogin, useLogout } from '../hooks/userHooks'
 import { LanguageFullName } from '../types/language'
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const [anchorElLanguage, setAnchorElLanguage] = React.useState<null | HTMLElement>(null)
   const [userSettingEl, setUserSettingEl] = React.useState<null | HTMLElement>(null)
-  const { language, changeLanguage } = useStore()
-  const languages: LanguageFullName[] = [LanguageFullName.ENGLISH, LanguageFullName.FINNISH]
+  const { changeLanguage } = useStore()
 
   const user = useAuthUser()
   const { loginWithGoogle } = useLogin()
   const { logout } = useLogout()
-
-  const handleCloseNavMenu = () => {
-    setAnchorElLanguage(null)
-  }
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElLanguage(event.currentTarget)
-  }
 
   const handleUserSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
     setUserSettingEl(event.currentTarget)
@@ -69,52 +60,19 @@ const Navbar: React.FC = () => {
           >
             {t('MAP.SINGULAR')}
           </Typography>
-          {user ? (
-            <Typography className="navbar-link" onClick={logout}>
-              {t('LOGOUT')}
-            </Typography>
-          ) : (
-            <Typography className="navbar-link" onClick={loginWithGoogle}>
-              {t('LOGIN') + "/"}<br/>{t('REGISTER')}
-            </Typography>
-          )}
 
           <Box className="navbar-link">
-            <IconButton onClick={handleOpenNavMenu}>
-              <LanguageIcon />
+            <IconButton onClick={handleUserSettingsClick}>
+              <DehazeIcon />
             </IconButton>
+
             <Menu
-              id="menu-appbar"
-              anchorEl={anchorElLanguage}
-              open={Boolean(anchorElLanguage)}
-              onClose={handleCloseNavMenu}
+              anchorEl={userSettingEl}
+              open={!!userSettingEl}
+              onClose={handleUserSettingsClose}
+              onClick={handleUserSettingsClose}
             >
-              {languages.map((lang) => (
-                <MenuItem
-                  key={lang}
-                  onClick={handleCloseNavMenu}
-                  className={language == lang ? 'navbar-language-selected' : ''}
-                >
-                  <Typography textAlign="center" onClick={() => changeLanguage(lang)}>
-                    {t('LANGUAGE.' + lang.toUpperCase())}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          {user && (
-            <Box className="navbar-link">
-              <IconButton onClick={handleUserSettingsClick}>
-                <DehazeIcon />
-              </IconButton>
-
-              <Menu
-                anchorEl={userSettingEl}
-                open={!!userSettingEl}
-                onClose={handleUserSettingsClose}
-                onClick={handleUserSettingsClose}
-              >
+              {user && (
                 <MenuItem
                   onClick={() => {
                     navigate('user-settings')
@@ -122,9 +80,32 @@ const Navbar: React.FC = () => {
                 >
                   {t('SETTING.USER_SETTINGS')}
                 </MenuItem>
-              </Menu>
-            </Box>
-          )}
+              )}
+              <MenuItem>
+                {user ? (
+                  <Typography onClick={logout}>{t('LOGOUT')}</Typography>
+                ) : (
+                  <Typography onClick={loginWithGoogle}>
+                    {t('LOGIN') + '/'}
+                    <br />
+                    {t('REGISTER')}
+                  </Typography>
+                )}
+              </MenuItem>
+              <MenuItem className="navbar-language-items">
+                <img
+                  src={finnish}
+                  onClick={() => changeLanguage(LanguageFullName.FINNISH)}
+                  className="navbar-language-item navbar-language-finnish"
+                />
+                <img
+                  src={english}
+                  onClick={() => changeLanguage(LanguageFullName.ENGLISH)}
+                  className="navbar-language-item"
+                />
+              </MenuItem>
+            </Menu>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
