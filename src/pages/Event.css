@@ -1,6 +1,6 @@
 .event-container {
   background-color: var(--light-petrol);
-  min-height: 100vh;
+  min-height: calc(100vh - 85px);
   display: flex;
   flex-wrap: wrap;
 }
