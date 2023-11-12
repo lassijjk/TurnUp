@@ -93,9 +93,11 @@ const Event = () => {
                       ))}
                   </ul>
                 </Typography>
-                {event && <Typography component="div" className="event-tag">
-                  {getEventTags(event as unknown as EventObj)}
-                </Typography>}
+                {event && (
+                  <Typography component="div" className="event-tag">
+                    {getEventTags(event as unknown as EventObj)}
+                  </Typography>
+                )}
                 {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
                 <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
 

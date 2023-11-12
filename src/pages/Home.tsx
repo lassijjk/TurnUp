@@ -10,14 +10,14 @@ import { EventObj } from '../types/event.ts'
 import SearchIcon from '@mui/icons-material/Search'
 import { VITE_MAP_EVENT_API } from '../constants.ts'
 
-const MAX_ITEMS_PER_PAGE = 16;
+const MAX_ITEMS_PER_PAGE = 16
 const Home = () => {
   const { t } = useTranslation()
   const [events, setEvenets] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const [totalPage, setTotalPage] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState<number>(Number.parseInt(searchParams.get('page') || '1'));
+  const [totalPage, setTotalPage] = useState(0)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [currentPage, setCurrentPage] = useState<number>(Number.parseInt(searchParams.get('page') || '1'))
 
   const navigate = useNavigate()
 
@@ -26,15 +26,15 @@ const Home = () => {
   }, [currentPage])
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
+    setCurrentPage(value)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setSearchParams({['page']: value} as any)
-  };
+    setSearchParams({ ['page']: value } as any)
+  }
 
   const fetchEvents = async () => {
     setIsLoading(true)
     let api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=0`
-    if(currentPage > 0) {
+    if (currentPage > 0) {
       api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=${(currentPage - 1) * MAX_ITEMS_PER_PAGE}`
     }
     const data = await axios.get(api)
@@ -94,7 +94,13 @@ const Home = () => {
           ))
         )}
         <Grid item xs={12} className="event-pagination-container">
-          <Pagination count={totalPage} color="primary" className="event-pagination" page={currentPage} onChange={handleChange}/>
+          <Pagination
+            count={totalPage}
+            color="primary"
+            className="event-pagination"
+            page={currentPage}
+            onChange={handleChange}
+          />
         </Grid>
       </Grid>
     </>
