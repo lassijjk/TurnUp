@@ -12,7 +12,7 @@ type MapComponentProps = {
   eventLocationData: EventLocationData
 }
 
-const initMap = (container: HTMLDivElement, eventLocation: EventLocationData, userLocation: GeoLocationData) => {
+const initMap = (container: HTMLDivElement, _: EventLocationData, userLocation: GeoLocationData) => {
   mapboxgl.accessToken = VITE_MAP_BOX_KEY
   const map = new mapboxgl.Map({
     container,
