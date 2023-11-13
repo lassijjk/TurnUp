@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { EventObj } from '../types/event.ts'
 import { useStore } from '../stores/settingStore.tsx'
 import { LanguageFullName } from '../types/language.ts'
-import { cacheQuery, rememberQuery } from './cacheManager.tsx'
+import { cacheQuery, rememberQuery } from './CacheManager.tsx'
 import { QueryId } from '../types/api.ts'
 
 const useTodaysEvents = (max: number = 0) => {
