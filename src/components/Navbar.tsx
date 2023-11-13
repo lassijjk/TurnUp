@@ -6,8 +6,6 @@ import DehazeIcon from '@mui/icons-material/Dehaze'
 import { useStore } from '../stores/settingStore'
 import { useTranslation } from 'react-i18next'
 import logo from '../assets/logo.png'
-import finnish from '../assets/tn_fi-flag.gif'
-import english from '../assets/tn_uk-flag.gif'
 import { useAuthUser, useLogin, useLogout } from '../hooks/userHooks'
 import { LanguageFullName } from '../types/language'
 
@@ -15,7 +13,7 @@ const Navbar: React.FC = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [userSettingEl, setUserSettingEl] = React.useState<null | HTMLElement>(null)
-  const { changeLanguage } = useStore()
+  const { language, changeLanguage } = useStore()
 
   const user = useAuthUser()
   const { loginWithGoogle } = useLogin()
@@ -32,7 +30,7 @@ const Navbar: React.FC = () => {
   return (
     <AppBar position="static" className="navbar-appbar">
       <Container className="navbar-container">
-        <Toolbar>
+        <Toolbar className="navbar-toolbar">
           <Box sx={{ flexGrow: 1 }} className="navbar-app-name">
             <Box>
               <img
@@ -47,7 +45,9 @@ const Navbar: React.FC = () => {
               <Typography component="div" className="navbar-title">
                 {t('NAVBAR.APP_NAME')}
               </Typography>
-              <Typography component="blockquote">{t('NAVBAR.VALUE_PROPOSITION')}</Typography>
+              <Typography className="navbar-title-description" component="blockquote">
+                {t('NAVBAR.VALUE_PROPOSITION')}
+              </Typography>
             </Box>
           </Box>
           <Typography
@@ -83,32 +83,43 @@ const Navbar: React.FC = () => {
                   onClick={() => {
                     navigate('user-settings')
                   }}
+                  className="navbar-menu-item"
                 >
                   {t('SETTING.USER_SETTINGS')}
                 </MenuItem>
               )}
               <MenuItem>
                 {user ? (
-                  <Typography onClick={logout}>{t('LOGOUT')}</Typography>
+                  <Typography className="navbar-menu-item" onClick={logout}>
+                    {t('LOGOUT')}
+                  </Typography>
                 ) : (
-                  <Typography onClick={loginWithGoogle}>
+                  <Typography className="navbar-menu-item" onClick={loginWithGoogle}>
                     {t('LOGIN') + '/'}
                     <br />
                     {t('REGISTER')}
                   </Typography>
                 )}
               </MenuItem>
-              <MenuItem className="navbar-language-items">
-                <img
-                  src={finnish}
+              <MenuItem className="navbar-language-container navbar-menu-item">
+                <Box
                   onClick={() => changeLanguage(LanguageFullName.FINNISH)}
-                  className="navbar-language-item navbar-language-finnish"
-                />
-                <img
-                  src={english}
+                  className={
+                    'navbar-language-item-finnish' +
+                    (language === LanguageFullName.FINNISH ? ' navbar-language-item-selected' : '')
+                  }
+                >
+                  FI
+                </Box>
+                <Box
                   onClick={() => changeLanguage(LanguageFullName.ENGLISH)}
-                  className="navbar-language-item"
-                />
+                  className={
+                    'navbar-language-item-english' +
+                    (language === LanguageFullName.ENGLISH ? ' navbar-language-item-selected' : '')
+                  }
+                >
+                  EN
+                </Box>
               </MenuItem>
             </Menu>
           </Box>

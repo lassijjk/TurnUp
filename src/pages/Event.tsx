@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './event.css'
-import { Button, Grid, Card, Typography, Box } from '@mui/material'
+import { Button, Grid, Card, Typography, Box, CircularProgress } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
 import { convertToReadableTime } from '../utils/convertToReadableTime'
@@ -73,7 +73,9 @@ const Event = () => {
     <Grid container className="event-container">
       <Grid item xs={12}>
         {isLoading ? (
-          <Item>Loading</Item>
+          <Box className="event-loader">
+            <CircularProgress color="secondary" />
+          </Box>
         ) : (
           <Item>
             <Typography component="div" variant="h1" className="event-name">

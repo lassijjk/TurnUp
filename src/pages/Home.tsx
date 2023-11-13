@@ -15,15 +15,16 @@ const Home = () => {
   const { t } = useTranslation()
   const [events, setEvenets] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const [totalPage, setTotalPage] = useState(0)
+  const [totalPage, setTotalPage] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams()
   const [currentPage, setCurrentPage] = useState<number>(Number.parseInt(searchParams.get('page') || '1'))
+  const [search, setSearch] = useState<string>('')
 
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchEvents()
-  }, [currentPage])
+  }, [currentPage, search])
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value)
@@ -32,22 +33,28 @@ const Home = () => {
     window.scrollTo(0, 0)
   }
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search])
+
   const fetchEvents = async () => {
     setIsLoading(true)
-    let api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=0`
+    let api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=0&nameSearch=${search}`
     if (currentPage > 0) {
-      api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=${(currentPage - 1) * MAX_ITEMS_PER_PAGE}`
+      api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=${
+        (currentPage - 1) * MAX_ITEMS_PER_PAGE
+      }&nameSearch=${search}`
     }
     const data = await axios.get(api)
     setEvenets(data.data.data)
-    setTotalPage(Math.floor(data.data.count / MAX_ITEMS_PER_PAGE) + 1)
+    setTotalPage(data.data.count === 0 ? 0 : Math.floor(data.data.count / MAX_ITEMS_PER_PAGE) + 1)
     setIsLoading(false)
   }
 
   const handleEventClick = (eventId: string) => {
     navigate(`/event/${eventId}`)
   }
-
+  
   return (
     <>
       <Helmet>
@@ -58,29 +65,31 @@ const Home = () => {
           <Typography component="h1" className="home-title">
             {t('EVENT_LIST.QUESTION')}
           </Typography>
+          <Grid container className="search-event-container">
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Search events"
+                id="fullWidth"
+                className="search-event"
+                value={search}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setSearch(event.target.value)
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
           {isLoading && (
             <Box className="event-loader">
               <CircularProgress color="secondary" />
             </Box>
-          )}
-          {!isLoading && (
-            <Grid container className="search-event-container">
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Search events"
-                  id="fullWidth"
-                  className="search-event"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            </Grid>
           )}
         </Grid>
         {!isLoading &&
