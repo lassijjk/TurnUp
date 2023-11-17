@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
 import axios from 'axios'
-import { Grid, Typography, TextField, InputAdornment, Pagination, Box, CircularProgress } from '@mui/material'
+import { Grid, Typography, TextField, InputAdornment, Pagination } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { EventObj } from '../types/event.ts'
 import SearchIcon from '@mui/icons-material/Search'
 import { VITE_MAP_EVENT_API } from '../constants.ts'
 import { useDebounce } from '../hooks/useDebounce.tsx'
+import Loading from '../components/Loading.tsx'
 
 const MAX_ITEMS_PER_PAGE = 16
 const Home = () => {
@@ -56,7 +57,7 @@ const Home = () => {
   const handleEventClick = (eventId: string) => {
     navigate(`/event/${eventId}`)
   }
-  
+
   return (
     <>
       <Helmet>
@@ -89,9 +90,7 @@ const Home = () => {
             </Grid>
           </Grid>
           {isLoading && (
-            <Box className="event-loader">
-              <CircularProgress color="secondary" />
-            </Box>
+            <Loading />
           )}
         </Grid>
         {!isLoading &&

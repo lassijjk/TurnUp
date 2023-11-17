@@ -28,13 +28,6 @@
   justify-content: center !important;
 }
 
-.event-loader {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 100%;
-}
-
 @media (min-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .home-title {

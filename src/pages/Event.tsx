@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './event.css'
-import { Button, Grid, Card, Typography, Box, CircularProgress } from '@mui/material'
+import { Button, Grid, Card, Typography, Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
 import { convertToReadableTime } from '../utils/convertToReadableTime'
@@ -14,6 +14,7 @@ import { EventLocationData, EventObj, SingleEvent } from '../types/event'
 import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
 import { VITE_MAP_EVENT_API } from '../constants'
+import Loading from '../components/Loading'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -73,9 +74,7 @@ const Event = () => {
     <Grid container className="event-container">
       <Grid item xs={12}>
         {isLoading ? (
-          <Box className="event-loader">
-            <CircularProgress color="secondary" />
-          </Box>
+          <Loading />
         ) : (
           <Item>
             <Typography component="div" variant="h1" className="event-name">
