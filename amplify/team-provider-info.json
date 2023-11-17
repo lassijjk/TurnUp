@@ -18,11 +18,11 @@
       "function": {
         "fetchTampereTodayEvents": {
           "deploymentBucketName": "amplify-turnup-dev-202954-deployment",
-          "s3Key": "amplify-builds/fetchTampereTodayEvents-55456657516c784f6762-build.zip"
+          "s3Key": "amplify-builds/fetchTampereTodayEvents-64305150384830304546-build.zip"
         },
         "fetchTampereTodayEventsAPI": {
           "deploymentBucketName": "amplify-turnup-dev-202954-deployment",
-          "s3Key": "amplify-builds/fetchTampereTodayEventsAPI-2b6947565a2f46704754-build.zip"
+          "s3Key": "amplify-builds/fetchTampereTodayEventsAPI-62642b48676d72575a33-build.zip"
         }
       }
     }

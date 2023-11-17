@@ -9,6 +9,7 @@ import EventCard from '../components/Cards/EventCard.tsx'
 import { EventObj } from '../types/event.ts'
 import SearchIcon from '@mui/icons-material/Search'
 import { VITE_MAP_EVENT_API } from '../constants.ts'
+import { useDebounce } from '../hooks/useDebounce.tsx'
 
 const MAX_ITEMS_PER_PAGE = 16
 const Home = () => {
@@ -19,12 +20,13 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [currentPage, setCurrentPage] = useState<number>(Number.parseInt(searchParams.get('page') || '1'))
   const [search, setSearch] = useState<string>('')
+  const debouncedValue = useDebounce<string>(search, 500)
 
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchEvents()
-  }, [currentPage, search])
+  }, [currentPage, debouncedValue])
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value)
@@ -35,15 +37,15 @@ const Home = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [search])
+  }, [debouncedValue])
 
   const fetchEvents = async () => {
     setIsLoading(true)
-    let api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=0&nameSearch=${search}`
+    let api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=0&nameSearch=${debouncedValue}`
     if (currentPage > 0) {
       api = `${VITE_MAP_EVENT_API}?limit=${MAX_ITEMS_PER_PAGE}&offset=${
         (currentPage - 1) * MAX_ITEMS_PER_PAGE
-      }&nameSearch=${search}`
+      }&nameSearch=${debouncedValue}`
     }
     const data = await axios.get(api)
     setEvenets(data.data.data)
