@@ -21,3 +21,79 @@
   padding-right: 3rem;
   padding-left: 3rem;
 }
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the right side */
+  margin-bottom: 16px;
+}
+
+.filter-option-select {
+  width: 200px;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.datepicker-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the right side */
+  margin-right: 16px;
+  width: 200px; /* Set the desired width */
+}
+
+.datepicker-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.datepicker-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #e0fdec;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.datepicker-icon,
+.timepicker-icon {
+  margin-right: 8px;
+}
+
+
+.timepicker-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the right side */
+  width: 150px; /* Set the same width as the datepicker-container */
+  font-size: 14px;
+  border: 1px solid #ccc;
+
+}
+
+.timepicker-container .MuiInputLabel-root {
+  color: inherit;
+  font-size: 16px;
+  margin-bottom: 4px;
+  pointer-events: none;
+}
+
+.timepicker-container .MuiInputBase-root {
+  width: 100%; /* Set the desired width */
+  font-size: 8px;
+}
+
+.timepicker-select {
+  width: 100%;
+  font-size: 7px;
+  margin-top: 4px;
+}
