@@ -1,14 +1,21 @@
 import { useState } from 'react'
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
-import { createItinerary, updateUserData, useGetUserData } from '../hooks/appSyncHooks'
-import { UpdateUserInput, UpdateUserMutation } from '../types/graphqlAPI'
-import { SingleEvent } from '../types/event'
-import { useAuthUser } from '../hooks/userHooks'
-import './AddToItinerary.css'
+import { 
+  createItinerary,
+  createUserEvent,
+  //updateUserData
+  useGetItineraries,
+  useGetUserData 
+} from '../hooks/appSyncHooks'
+import {
+  CreateItineraryMutation
+  //CreateItineraryInput, UpdateUserInput, UpdateUserMutation 
+  //User
+ } from '../types/graphqlAPI'
 
-interface User {
-  username: string | null
-}
+import { SingleEvent } from '../types/event'
+//import { useAuthUser } from '../hooks/userHooks'
+import './AddToItinerary.css'
 
 type AddToItineraryProps = {
   event: SingleEvent | undefined
@@ -19,39 +26,29 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [itineraryName, setItineraryName] = useState('')
-
+  const itineraryList = useGetItineraries()
+  console.log(itineraryList)
   const userData = useGetUserData()
-  const user = useAuthUser() as User | null
-
+  //const user = useAuthUser() as User | null
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItineraryName(event.target.value)
   }
+
   const handleSave = async () => {
-    // Create an itinerary for current user with title: itineraryName
-    // and the current event = event
     const userItem = userData?.userBySub?.items[0]
-
-    const itinerary = {
+    
+    //Create an itinerary for current user with title: itineraryName
+    const itinerary = await createItinerary({
       title: itineraryName,
-      events: [event],
-    }
-    /* 
-    createItinerary({
-      title: itineraryName,
-      user: 
-    }) */
+      userItinerariesId: userItem?.id,
+    }) as CreateItineraryMutation
 
-    //tried to update userData with new itineraries
-    /*  await updateUserData({id, givenName, familyName, email, language, interestTags, reminder1,
-        reminder2, advanceTime,
-        itineraries: {
-          items: [
-            {
-              title: itineraryName,
-            },
-          ],
-        },
-      }) */
+    //Add new event to itinerary fith given title
+    createUserEvent({
+      eventId: "addEventID",
+      itineraryEventsId: itinerary?.createItinerary?.id
+    })
+
     console.log({ userItem })
     console.log({ event })
 

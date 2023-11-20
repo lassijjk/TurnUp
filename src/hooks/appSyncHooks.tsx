@@ -7,32 +7,94 @@ import {
   UpdateUserMutation,
   UpdateUserInput,
   CreateItineraryMutation,
-  Itinerary,
+  CreateItineraryInput,
+  CreateUserEventMutation,
+  CreateUserEventInput,
+  ListItinerariesQuery
 } from '../types/graphqlAPI'
 import { useAuthUser } from './userHooks'
 
-export const createItinerary = async (inputData: Itinerary) => {
+interface CognitoUser {
+  username: string | null
+}
+
+export const createItinerary = async (inputData: CreateItineraryInput) => {
+  let response: CreateItineraryMutation | string = ''
   try {
-    await API.graphql<GraphQLQuery<CreateItineraryMutation>>({
+    const createdItineraryResponse = await API.graphql<GraphQLQuery<CreateItineraryMutation>>({
       query: mutations.createItinerary,
       variables: {
         input: {
           title: inputData.title,
-          user: inputData.user,
+          userItinerariesId: inputData.userItinerariesId,
         },
       },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
+    response = createdItineraryResponse.data as CreateItineraryMutation
   } catch (error) {
     console.log(error)
   }
+  return response
 }
-interface User {
-  username: string | null
+
+export const createUserEvent = async (inputData: CreateUserEventInput) => {
+  let response: CreateUserEventMutation | string = ''
+  try {
+    const createdEventResponse = await API.graphql<GraphQLQuery<CreateUserEventMutation>>({
+      query: mutations.createUserEvent,
+      variables: {
+        input: {
+          eventId: inputData.eventId,
+          itineraryEventsId: inputData.itineraryEventsId
+        },
+      },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+    response = createdEventResponse.data as CreateUserEventMutation
+  } catch (error) {
+    console.log(error)
+    response = error as string
+  }
+  return response
+}
+
+export const useGetItineraries = () => {
+  const [itineraries, setItineraries] = useState<ListItinerariesQuery | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const itineraryListResponse = await API.graphql<GraphQLQuery<ListItinerariesQuery>>({
+          query: queries.listItineraries,
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })
+        const itineraryListResult = itineraryListResponse.data as ListItinerariesQuery
+        if (!ignore) {
+          setItineraries(itineraryListResult)
+        }
+      } catch (error) {
+        console.log('Error fetching itinerary list data', error)
+      }
+    }
+
+    let ignore = false
+    setItineraries(null)
+    if (!ignore) {
+      fetchData()
+    }
+
+    return () => {
+      ignore = true
+    }
+  }, [])
+
+  return itineraries
 }
 
 export const useGetUserData = () => {
   const [userData, setUserData] = useState<UserBySubQuery | null>(null)
-  const user = useAuthUser() as User | null
+  const user = useAuthUser() as CognitoUser | null
 
   useEffect(() => {
     const fetchData = async () => {
