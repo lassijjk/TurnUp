@@ -1,0 +1,21 @@
+Button.itineraries{
+    background-color: #418155!important;
+    color: white;
+    align-self: center;
+    margin-top: 10px;
+    margin-left: 70px;
+  }
+
+
+  .itinerary-modal{
+    border: 2px solid #418155;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    box-Shadow: 24px;
+    padding: 30px;
+  }
