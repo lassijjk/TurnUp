@@ -71,7 +71,6 @@ const Event = () => {
     setEvent(data.data.data[0])
     setIsLoading(false)
   }
-
   return (
     <Grid container className="event-container">
       <Grid item xs={12}>
@@ -109,7 +108,7 @@ const Event = () => {
                 <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go
                 </Button>
-                {isLoggedInUser && <AddToItinerary event={event} />}
+                {isLoggedInUser && event && <AddToItinerary eventId={event?.id} />}
               </>
             )}
             {showEvent && <CommutingStops eventLocationData={eventLocationData} />}

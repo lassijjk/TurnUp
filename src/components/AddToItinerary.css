@@ -1,12 +1,12 @@
-Button.itineraries{
+Button.itinerary-btn{
     background-color: #418155!important;
     color: white;
     align-self: center;
     margin-top: 10px;
     margin-left: 70px;
   }
-
-
+  
+  
   .itinerary-modal{
     border: 2px solid #418155;
     border-radius: 10px;
@@ -18,4 +18,19 @@ Button.itineraries{
     background-color: white;
     box-Shadow: 24px;
     padding: 30px;
+  }
+  button.modal-details{
+  
+    padding: 16px;
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #fff !important;
+    color: black;
+    border: 2px solid #686872;
+    width: 300px;
+    text-transform: none;
+    box-shadow: none !important;
+    margin: 5px;
   }

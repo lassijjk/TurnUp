@@ -1,33 +1,20 @@
 import { useState } from 'react'
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
-import { 
-  createItinerary,
-  createUserEvent,
-  //updateUserData
-  useGetItineraries,
-  useGetUserData 
-} from '../hooks/appSyncHooks'
-import {
-  CreateItineraryMutation
-  //CreateItineraryInput, UpdateUserInput, UpdateUserMutation 
-  //User
- } from '../types/graphqlAPI'
-
-import { SingleEvent } from '../types/event'
-//import { useAuthUser } from '../hooks/userHooks'
+import { createItinerary, createUserEvent, useGetItineraries, useGetUserData } from '../hooks/appSyncHooks'
+import { CreateItineraryMutation } from '../types/graphqlAPI'
 import './AddToItinerary.css'
 
 type AddToItineraryProps = {
-  event: SingleEvent | undefined
+  eventId: string
 }
 
-const AddToItinerary = ({ event }: AddToItineraryProps) => {
+const AddToItinerary = ({ eventId }: AddToItineraryProps) => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [itineraryName, setItineraryName] = useState('')
   const itineraryList = useGetItineraries()
-  console.log(itineraryList)
+
   const userData = useGetUserData()
   //const user = useAuthUser() as User | null
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,38 +23,51 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
 
   const handleSave = async () => {
     const userItem = userData?.userBySub?.items[0]
-    
-    //Create an itinerary for current user with title: itineraryName
-    const itinerary = await createItinerary({
-      title: itineraryName,
-      userItinerariesId: userItem?.id,
-    }) as CreateItineraryMutation
+    const itineraryExisits = userItem?.itineraries?.items.find((item) => item?.title === itineraryName)
+    if (itineraryExisits) {
+      createUserEvent({
+        eventId: eventId,
+        itineraryEventsId: itineraryExisits.id,
+      })
+    } else {
+      //Create an itinerary for current user with title: itineraryName
+      const itinerary = (await createItinerary({
+        title: itineraryName,
+        userItinerariesId: userItem?.id,
+      })) as CreateItineraryMutation
 
-    //Add new event to itinerary fith given title
-    createUserEvent({
-      eventId: "addEventID",
-      itineraryEventsId: itinerary?.createItinerary?.id
-    })
+      //Add new event to itinerary with given title
+      createUserEvent({
+        eventId: eventId,
+        itineraryEventsId: itinerary?.createItinerary?.id,
+      })
+    }
+  }
 
-    console.log({ userItem })
-    console.log({ event })
-
-    //for later check if itinerary name exists before adding it
-    // const itineraryExisits = userItem?.itineraries?.items.find(item => item?.title === itineraryName)
+  const handleAddToItinerary = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(event.currentTarget.textContent)
+    const selectedItinerary = event.currentTarget.textContent
+    if (selectedItinerary) setItineraryName(selectedItinerary)
   }
 
   return (
     <div>
-      <Button className="itineraries" onClick={handleOpen}>
+      <Button className="itinerary-btn" onClick={handleOpen}>
         Add to itinerary
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box className="itinerary-modal">
-          <TextField placeholder="Add itinerary name" value={itineraryName} onChange={handleInputChange} />
-          <Button className="itineraries" onClick={handleSave}>
+          <Typography sx={{ mt: 3, mb: 2 }}>Add current event to new Itinerary.</Typography>
+          <TextField placeholder="create new itinerary" value={itineraryName} onChange={handleInputChange} />
+          <Button className="itinerary-btn" onClick={handleSave}>
             Save
           </Button>
-          <Typography sx={{ mt: 2 }}>Add current event to your Itinerary.</Typography>
+          <Typography sx={{ mt: 3, mb: 2 }}>Add current event to your Itinerary.</Typography>
+          {itineraryList?.listItineraries?.items?.map((itinerary, index) => (
+            <Button key={index} className="modal-details" onClick={handleAddToItinerary}>
+              {itinerary?.title}
+            </Button>
+          ))}
         </Box>
       </Modal>
     </div>
