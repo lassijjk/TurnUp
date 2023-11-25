@@ -10,7 +10,15 @@ import {
   CreateItineraryInput,
   CreateUserEventMutation,
   CreateUserEventInput,
-  ListItinerariesQuery
+  ListItinerariesQuery,
+  UpdateItineraryInput,
+  UpdateItineraryMutation,
+  UpdateUserEventInput,
+  UpdateUserEventMutation,
+  DeleteItineraryInput,
+  DeleteItineraryMutation,
+  DeleteUserEventInput,
+  DeleteUserEventMutation,
 } from '../types/graphqlAPI'
 import { useAuthUser } from './userHooks'
 
@@ -152,9 +160,95 @@ export const updateUserData = async (inputData: UpdateUserInput) => {
     })
     response = userDataResponse.data as UpdateUserMutation
   } catch (error) {
-    console.error('Error fetching user data', error)
+    console.error('Error updating user data', error)
     response = error as string
   }
 
+  return response
+}
+
+export const updateItinerary = async (inputData: UpdateItineraryInput) => {
+  let response: UpdateItineraryMutation | string = ''
+  try {
+    const itineraryResponse = await API.graphql<GraphQLQuery<UpdateItineraryMutation>>({
+      query: mutations.updateUserEvent,
+      variables: {
+        input: {
+          id: inputData.id,
+          title: inputData.title,
+          userItinerariesId: inputData.userItinerariesId,
+        },
+      },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+    response = itineraryResponse.data as UpdateItineraryMutation
+  } catch(error) {
+    console.error('Error updating itinerary data ', error)
+    response = error as string
+  }
+  return response
+}
+
+export const updateUserEvent = async (inputData: UpdateUserEventInput) => {
+  let response: UpdateUserEventMutation | string = ''
+  try {
+    const userEventResponse = await API.graphql<GraphQLQuery<UpdateUserEventMutation>>({
+      query: mutations.updateUserEvent,
+      variables: {
+        input: {
+          id: inputData.id,
+          eventId: inputData.eventId,
+          dateTimes: inputData.dateTimes,
+          itineraryEventsId: inputData.itineraryEventsId,
+        },
+      },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+    response = userEventResponse.data as UpdateUserEventMutation
+  } catch(error) {
+    console.error('Error updating userEvent data ', error)
+    response = error as string
+  }
+  return response
+}
+
+// Deleting only the itinerary and not userEvents related to it
+export const deleteItinerary = async (inputData: DeleteItineraryInput) => {
+  let response: DeleteItineraryMutation | string = ''
+  try {
+    const deleteResponse = await API.graphql<GraphQLQuery<DeleteItineraryMutation>>({
+      query: mutations.deleteItinerary,
+      variables: {
+        input: {
+          id: inputData.id,
+        },
+      },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+    response = deleteResponse.data as DeleteItineraryMutation
+  } catch(error) {
+    console.error('Error deleting itinerary ', error)
+    response = error as string
+  }
+  return response
+}
+
+export const deleteUserEvent = async (inputData: DeleteUserEventInput) => {
+  let response: DeleteUserEventMutation | string = ''
+  try {
+    const deleteResponse = await API.graphql<GraphQLQuery<DeleteUserEventMutation>>({
+      query: mutations.deleteUserEvent,
+      variables: {
+        input: {
+          id: inputData.id,
+        },
+      },
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+    })
+    response = deleteResponse.data as DeleteUserEventMutation
+  } catch(error) {
+    console.error('Error deleting event ', error)
+    response = error as string
+  }
   return response
 }
