@@ -19,12 +19,7 @@
 }
 
 .form-elements {
-  margin: 0 6.5rem;
-}
-
-.title {
-  padding-left: 25px;
-  font-weight: bold;
+  margin: 0;
 }
 
 .interest-text {
@@ -61,10 +56,6 @@ button.btn-back {
   display: flex;
   align-self: flex-start;
 }
-.icon {
-  display: flex !important;
-  padding-left: 30px !important;
-}
 .snack-bar {
   margin-left: 230px;
   background-color: var(--warm-green) !important;
@@ -73,9 +64,14 @@ button.btn-back {
 .css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
   color: white !important;
 }
-.time-input {
-  width: 100px;
+.time-input-wrapper .form-field{
+  max-width: 100%;
 }
+
+.time-input label {
+  max-width: unset;
+}
+
 .event-buffer {
   margin-right: 5px;
 }
@@ -85,4 +81,80 @@ button.btn-back {
   align-items: center;
   text-align: left;
   color: black !important;
+}
+
+.user-settings-main-container {
+  padding: 16px !important;
+}
+
+.title-wrapper {
+  margin: 0 !important;
+  margin-top: 16px !important;
+}
+
+.user-settings-card-wrapper {
+  padding: 16px !important;
+}
+
+.form-field-container {
+  flex-direction: column !important;
+}
+
+.form-field {
+  display: flex;
+  max-width: 100% !important;
+}
+
+.input-field {
+  width: 100%;
+  margin-right: 14px;
+}
+
+.language-wrapper {
+  flex-direction: column !important;
+  gap: 1rem;
+}
+
+.icon {
+  font-size: 50px !important;
+}
+
+.title {
+  margin-left: 12px;
+  line-height: 50px !important;
+  font-size: 24px !important;
+}
+
+
+@media (min-width: 801px) {
+  .user-settings-main-container {
+    padding-top: 50px !important;
+  }
+
+  .user-settings-card-wrapper {
+    padding: 32px !important;
+    padding-top: 50px !important;
+  }
+  
+  .form-field-container {
+    flex-direction: row !important;
+  }
+
+  .form-elements {
+    margin: 0 6.5rem;
+  }
+
+  .form-field {
+    max-width: 50% !important;
+  }
+
+  .icon {
+    font-size: 64px !important;
+  }  
+
+  .title {
+    margin-left: 25px;
+    font-size: 32px !important;
+    line-height: 64px !important;
+  }
 }
