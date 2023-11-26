@@ -108,7 +108,7 @@ const Event = () => {
                 <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go
                 </Button>
-                {isLoggedInUser && event && <AddToItinerary eventId={event?.id} />}
+                {isLoggedInUser && event && <AddToItinerary event={event} />}
               </>
             )}
             {showEvent && <CommutingStops eventLocationData={eventLocationData} />}
