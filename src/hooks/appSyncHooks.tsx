@@ -54,7 +54,8 @@ export const createUserEvent = async (inputData: CreateUserEventInput) => {
       variables: {
         input: {
           eventId: inputData.eventId,
-          itineraryEventsId: inputData.itineraryEventsId
+          dateTimes: inputData.dateTimes,
+          itineraryEventsId: inputData.itineraryEventsId,
         },
       },
       authMode: 'AMAZON_COGNITO_USER_POOLS',
@@ -182,7 +183,7 @@ export const updateItinerary = async (inputData: UpdateItineraryInput) => {
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
     response = itineraryResponse.data as UpdateItineraryMutation
-  } catch(error) {
+  } catch (error) {
     console.error('Error updating itinerary data ', error)
     response = error as string
   }
@@ -205,7 +206,7 @@ export const updateUserEvent = async (inputData: UpdateUserEventInput) => {
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
     response = userEventResponse.data as UpdateUserEventMutation
-  } catch(error) {
+  } catch (error) {
     console.error('Error updating userEvent data ', error)
     response = error as string
   }
@@ -226,7 +227,7 @@ export const deleteItinerary = async (inputData: DeleteItineraryInput) => {
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
     response = deleteResponse.data as DeleteItineraryMutation
-  } catch(error) {
+  } catch (error) {
     console.error('Error deleting itinerary ', error)
     response = error as string
   }
@@ -246,7 +247,7 @@ export const deleteUserEvent = async (inputData: DeleteUserEventInput) => {
       authMode: 'AMAZON_COGNITO_USER_POOLS',
     })
     response = deleteResponse.data as DeleteUserEventMutation
-  } catch(error) {
+  } catch (error) {
     console.error('Error deleting event ', error)
     response = error as string
   }

@@ -53,20 +53,21 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
     setValue((event.target as HTMLInputElement).value)
     setSelectedDate(date)
   }
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     console.log(selectedDate)
-    handleCloseDates()
-    handleClose()
-  }
-
-  const handleSave = async () => {
     const userItem = userData?.userBySub?.items[0]
     const itineraryExisits = userItem?.itineraries?.items.find((item) => item?.title === itineraryName)
     if (itineraryExisits) {
       createUserEvent({
         eventId: event.id,
         itineraryEventsId: itineraryExisits.id,
+        dateTimes: [
+          {
+            start: selectedDate?.start,
+            end: selectedDate?.end,
+          },
+        ],
       })
     } else {
       //Create an itinerary for current user with title: itineraryName
@@ -81,6 +82,11 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
         itineraryEventsId: itinerary?.createItinerary?.id,
       })
     }
+    handleCloseDates()
+    handleClose()
+  }
+
+  const handleSave = () => {
     handleOpenDates()
   }
 
