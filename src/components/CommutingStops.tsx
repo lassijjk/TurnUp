@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles'
 import { VITE_DIGI_TRANSIT_API_KEY, DIGI_TRANSIT_API_URL } from '../constants'
 import { LocationPoint, Plan, Itinerary, Leg } from '../types/commutingStop'
 import useGeoLocation, { GeoLocationData } from '../api/useGeoLocation'
+import './CommutingStops.css'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -130,28 +131,30 @@ const CommutingStops = ({ eventLocationData }: CommutingStopsProps) => {
 
   return (
     <Grid container className="commute-container">
-      {error && <p>{error}</p>}
+      {error && <p className="commute-info">{error}</p>}
 
-      {isLoading && <p>Loading...</p>}
-      {hasNoItinirary && <p>Route couldn't be planned with current location!</p>}
+      {isLoading && <p className="commute-info">Loading...</p>}
+      {hasNoItinirary && <p className="commute-info">Route couldn't be planned with current location!</p>}
 
       {showItinirary && (
         <Grid item xs={12}>
-          <Item>
+          <Item className="commute-info-wrapper">
             {data &&
               data.plan.itineraries.map((itinerary: Itinerary, itineraryIndex: number) =>
                 getFirstWalk(itinerary).map((leg: Leg, legIndex: number) => (
                   <div key={`itinerary-${itineraryIndex}-leg-${legIndex}`}>
                     {firstBusStopName && (
                       <>
-                        <p>Walk to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.</p>
+                        <p className="commute-info">
+                          Walk to the nearest bus stop, {Math.round(leg.duration / 60)} minutes.
+                        </p>
                         <hr />
-                        <p> Nearest station: {firstBusStopName} </p>
+                        <p className="commute-info"> Nearest station: {firstBusStopName} </p>
                       </>
                     )}
-                    {lastBusStopName && <p> Destination: {lastBusStopName}</p>}
+                    {lastBusStopName && <p className="commute-info"> Destination: {lastBusStopName}</p>}
                     {mappedItineraries[0][0] == undefined && (
-                      <p>Walk to destination {Math.round(leg.duration / 60)} minutes.</p>
+                      <p className="commute-info">Walk to destination {Math.round(leg.duration / 60)} minutes.</p>
                     )}
                   </div>
                 ))

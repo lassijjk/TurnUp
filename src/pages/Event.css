@@ -9,15 +9,15 @@
   flex-wrap: wrap;
   /* flex-direction: row-reverse; */
   justify-content: center;
-  padding: 1rem;
+  padding: 1rem !important;
 }
 
 .event-description {
-  font-size: medium;
+  font-size: 1rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
   text-align: left;
 }
 
@@ -43,17 +43,89 @@ button.lets-go-button {
   width: 100%;
 }
 
+.list-of-dates {
+  font-size: 1rem !important;
+}
+
+.event-address {
+  font-size: 1rem !important;
+}
+
 @media (min-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .event-container {
     padding-right: 1rem;
     padding-left: 1rem;
   }
-}
-@media (min-width: 801px) {
-  /* tablet, landscape iPad, lo-res laptops ands desktops */
-  .event-container {
-    padding-right: 3rem;
-    padding-left: 3rem;
+  .list-of-dates {
+    font-size: 0.75rem !important;
+  }
+  .event-description {
+    font-size: 0.75rem;
+    padding-top: 1rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .event-address {
+    font-size: 0.75rem !important;
+  }
+  .event-tag-frame {
+    width: 6.75rem !important;
+  }
+  .event-tag {
+    padding: 0.7rem !important;
+  }
+  button.lets-go-button {
+    font-size: 0.75rem !important;
+  }
+  @media (min-width: 480px) {
+    /* smartphones, Android phones, landscape iPhone */
+    .list-of-dates {
+      font-size: 1rem !important;
+    }
+    .event-description {
+      font-size: 0.9rem !important;
+      padding-top: 1rem;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    .event-address {
+      font-size: 0.9rem !important;
+    }
+    .event-tag-frame {
+      width: 6.75rem !important;
+    }
+    .event-tag {
+      padding: 1rem !important;
+    }
+    button.lets-go-button {
+      font-size: 0.8rem !important;
+    }
+  }
+
+  @media (min-width: 801px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .event-container {
+      padding-right: 3rem;
+      padding-left: 3rem;
+    }
+    .event-description {
+      font-size: 1rem !important;
+      padding-top: 2rem;
+      padding-left: 3rem !important;
+      padding-right: 3rem !important;
+    }
+    .event-address {
+      font-size: 1rem !important;
+    }
+    .event-tag-frame {
+      width: 7.75rem !important;
+    }
+    .event-tag {
+      padding: 1rem !important;
+    }
+    button.lets-go-button {
+      font-size: 0.875rem !important;
+    }
   }
 }
