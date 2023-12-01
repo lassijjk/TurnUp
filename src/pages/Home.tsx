@@ -15,7 +15,7 @@ import Loading from '../components/Loading.tsx'
 const MAX_ITEMS_PER_PAGE = 16
 const Home = () => {
   const { t } = useTranslation()
-  const [events, setEvenets] = useState()
+  const [events, setEvenets] = useState<EventObj[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [totalPage, setTotalPage] = useState(1)
   const [searchParams, setSearchParams] = useSearchParams()
@@ -48,15 +48,33 @@ const Home = () => {
         (currentPage - 1) * MAX_ITEMS_PER_PAGE
       }&nameSearch=${debouncedValue}`
     }
-    const data = await axios.get(api)
-    setEvenets(data.data.data)
-    setTotalPage(data.data.count === 0 ? 0 : Math.floor(data.data.count / MAX_ITEMS_PER_PAGE) + 1)
+    const response = await axios.get(api)
+    setEvenets(response.data.data)
+    setTotalPage(response.data.count === 0 ? 0 : Math.floor(response.data.count / MAX_ITEMS_PER_PAGE) + 1)
     setIsLoading(false)
   }
 
   const handleEventClick = (eventId: string) => {
     navigate(`/event/${eventId}`)
   }
+
+  const pagination = !isLoading && events && events.length > 0 && (
+    <Grid item xs={12} className="event-pagination-container">
+      <Pagination
+        count={totalPage}
+        color="primary"
+        className="event-pagination"
+        page={currentPage}
+        onChange={handleChange}
+      />
+    </Grid>
+  )
+
+  const noEvent = !isLoading && events && events.length === 0 && (
+    <Grid item xs={12} className="event-pagination-container">
+      Can not find event with this search
+    </Grid>
+  )
 
   return (
     <>
@@ -89,9 +107,7 @@ const Home = () => {
               />
             </Grid>
           </Grid>
-          {isLoading && (
-            <Loading />
-          )}
+          {isLoading && <Loading />}
         </Grid>
         {!isLoading &&
           events &&
@@ -106,17 +122,8 @@ const Home = () => {
               }}
             />
           ))}
-        {!isLoading && (
-          <Grid item xs={12} className="event-pagination-container">
-            <Pagination
-              count={totalPage}
-              color="primary"
-              className="event-pagination"
-              page={currentPage}
-              onChange={handleChange}
-            />
-          </Grid>
-        )}
+        {pagination}
+        {noEvent}
       </Grid>
     </>
   )
