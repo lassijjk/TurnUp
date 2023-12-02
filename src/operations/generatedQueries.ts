@@ -100,6 +100,15 @@ export const listItineraries = /* GraphQL */ `query ListItineraries(
         advanceTime
         interestTags
         itineraries {
+          items {
+            id
+            title
+            owner
+            createdAt
+            updatedAt
+            userItinerariesId
+            __typename
+          }
           nextToken
           __typename
         }
@@ -113,7 +122,21 @@ export const listItineraries = /* GraphQL */ `query ListItineraries(
         items {
           id
           eventId
+          itinerary {
+            id
+            title
+            owner
+            createdAt
+            updatedAt
+            userItinerariesId
+            __typename
+          }
           owner
+          dateTimes {
+            start
+            end
+            __typename
+          }
           createdAt
           updatedAt
           itineraryEventsId
