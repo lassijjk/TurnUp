@@ -34,7 +34,7 @@
         direction: column; 
     }
     .itinerary-details{
-        padding: 30px;
+        padding: 20px;
         text-align: left;
     }
     
@@ -64,7 +64,9 @@
     }
     .itinerary-name{
         color: var(--dark-gray);
-        min-width: 200px;
+        min-width: 170px;
+        margin-left: 45px !important;
+        font-size: 1.1rem !important;
     }
     .bus-icon{
         font-size: 40px !important;
@@ -83,10 +85,12 @@
     color: white !important;
     }
     .events{
-        min-width: 400px;
+        min-width: 430px;
     }
     .event-names{
         padding: 5px;
+        font-size: 1.1rem !important;
+        max-width: 250px;
     }
     .event-detail-wrapper{
         display: flex;
@@ -99,6 +103,24 @@
     }
     .event-time{
         display: flex;
-       
-        
     }
+    .single-itinerary-badge {
+        position: absolute;
+        margin-left: 20px;
+        width: 25px;
+        height: 100%;
+    }
+
+    .thisWeek {
+        background: #C83E36;
+    }
+    .inTheFuture {
+        background: #E8B455;
+    }
+    .thisMonth {
+        background: #39A7D7;
+    }
+    .default {
+        background: black;
+    }
+

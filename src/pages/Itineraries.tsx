@@ -7,11 +7,61 @@ import axios from 'axios'
 import { SingleEvent } from '../types/event'
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined'
 import EditIcon from '@mui/icons-material/Edit'
-import { CreateItineraryMutation, Itinerary } from '../types/graphqlAPI'
+import { CreateItineraryMutation, Itinerary, ListItinerariesQuery } from '../types/graphqlAPI'
 import { useNavigate } from 'react-router-dom'
 import { convertToReadableTime } from '../utils/convertToReadableTime'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
 import { t } from 'i18next'
+import moment from 'moment'
+
+const getUrgencyIndicator = (eventDate: string): string => {
+  const momentEventDate = moment(eventDate)
+  const currentDate = moment()
+  const oneWeekLater = moment().add(1, 'week')
+  const oneMonthLater = moment().add(1, 'month')
+
+  switch (true) {
+    case momentEventDate.isBefore(currentDate):
+      return 'default'
+    case momentEventDate.isBefore(oneWeekLater):
+      return 'thisWeek'
+    case momentEventDate.isBefore(oneMonthLater):
+      return 'thisMonth'
+    default:
+      return 'inTheFuture'
+  }
+}
+
+const getSelectedDates = (title: string, eventId: string, itineraries: ListItinerariesQuery | null) => {
+  return itineraries?.listItineraries?.items
+    .filter((item) => item?.title === title)
+    .flatMap(
+      (item) =>
+        item?.events?.items?.flatMap((_item) => {
+          const idMatches = _item?.eventId === eventId
+
+          return _item?.dateTimes && idMatches ? _item?.dateTimes : []
+        })
+    )
+    .flatMap((item) => item)
+}
+
+const getItineraryColor = (itinerary: [string, SingleEvent[]], itineraries: ListItinerariesQuery | null) => {
+  const [title, events] = itinerary
+  const _eventDates = events.map((event) => getSelectedDates(title, event.id, itineraries))
+  const _getColors = _eventDates.flatMap((dt) => dt?.map((d) => getUrgencyIndicator(d?.start ?? '')))
+
+  switch (true) {
+    case _getColors.includes('thisWeek'):
+      return 'thisWeek'
+    case _getColors.includes('thisMonth'):
+      return 'thisMonth'
+    case _getColors.includes('inTheFuture'):
+      return 'inTheFuture'
+    default:
+      return 'default'
+  }
+}
 
 const Itineraries = () => {
   const [itinerary, setItinerary] = useState<{
@@ -46,13 +96,13 @@ const Itineraries = () => {
         ids.map(async (_id) => {
           if (_id) {
             const response = await fetchEventById(_id)
+
             return response.data
           }
         })
       )
 
       const updatedAccumulator = await accumulator
-
       return {
         ...updatedAccumulator,
         [title]: events.filter((event) => event !== null).flat(),
@@ -62,21 +112,25 @@ const Itineraries = () => {
     return eventsByTitle
   }
 
+  const _itineraries = itineraries?.listItineraries?.items
   useEffect(() => {
-    const _itineraries = itineraries?.listItineraries?.items
-
     if (!_itineraries) return
 
     const fetchData = async () => {
-      const response = await getEventsById(_itineraries as Itinerary[])
-      setItinerary((prevItinerary) => ({
-        ...prevItinerary,
-        ...response,
-      }))
+      try {
+        const response = await getEventsById(_itineraries as Itinerary[])
+
+        setItinerary((prevItinerary) => ({
+          ...prevItinerary,
+          ...response,
+        }))
+      } catch {
+        console.log('HAS ERROR')
+      }
     }
 
     void fetchData()
-  }, [itineraries?.listItineraries?.items])
+  }, [_itineraries])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItineraryName(event.target.value)
@@ -95,7 +149,18 @@ const Itineraries = () => {
         title: itineraryName,
         userItinerariesId: userItem?.id,
       })) as CreateItineraryMutation
+
+      setItinerary({
+        ...itinerary,
+        [itineraryName]: [],
+      })
       setOpenAlert(true)
+
+      setTimeout(() => {
+        handleClose()
+        setItineraryName('')
+        setOpenAlert(false)
+      }, 3000)
     }
   }
   const handleAlertClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
@@ -104,19 +169,6 @@ const Itineraries = () => {
     }
     setOpenAlert(false)
   }
-
-  const getSelectedDates = (title: string, eventId: string) =>
-    itineraries?.listItineraries?.items
-      .filter((item) => item?.title === title)
-      .flatMap(
-        (item) =>
-          item?.events?.items?.flatMap((_item) => {
-            const idMatches = _item?.eventId === eventId
-
-            return _item?.dateTimes && idMatches ? _item?.dateTimes : []
-          })
-      )
-      .flatMap((item) => item)
 
   return (
     <Grid container className="grid-container">
@@ -144,7 +196,7 @@ const Itineraries = () => {
                 Save
               </Button>
               <Typography sx={{ mt: 3 }}>Create new itinerary.</Typography>
-              <Snackbar open={openAlert} autoHideDuration={6000000} onClose={handleAlertClose}>
+              <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleAlertClose}>
                 <Alert onClose={handleAlertClose} sx={{ width: '100%' }} className="saved-alert">
                   Itinerary created successfully
                 </Alert>
@@ -154,32 +206,34 @@ const Itineraries = () => {
         )}
 
         {itinerary &&
-          Object.entries(itinerary).map((itinerary, index) => {
-            const [title, events] = itinerary
+          Object.entries(itinerary).map((_itinerary, index) => {
+            const [title, events] = _itinerary
             return (
               <Grid key={`itinerary-${index}`} container className="single-itinerary-wrapper">
                 <Card key={`itinerary-${index}`} className="single-itinerary" title={title}>
+                  <div className={`single-itinerary-badge ${getItineraryColor(_itinerary, itineraries)}`} />
                   <Typography variant="h6" className="itinerary-details itinerary-name">
                     {title}
                   </Typography>
                   <div className="itinerary-details events">
                     {events.map((event, _index) => {
-                      const date = getSelectedDates(title, event.id)
-
+                      const date = getSelectedDates(title, event.id, itineraries)
                       return (
                         <Typography variant="h6" className="itinerary-event" key={`event-${_index}`}>
                           <div className="event-detail-wrapper">
                             <Typography className="event-names">{event.name}</Typography>
                             {date &&
-                              date.map((dt, index) => (
-                                <div key={`${dt} ${index}`} className="event-date-time">
-                                  <Box>{dt?.start && convertToReadableDate(dt.start, t)}</Box>
-                                  <Box className="event-time">
-                                    {dt?.start && convertToReadableTime(dt.start)} -{' '}
-                                    {dt?.end && convertToReadableTime(dt?.end)}
-                                  </Box>
-                                </div>
-                              ))}
+                              date.map((dt, index) => {
+                                return (
+                                  <div key={`${dt} ${index}`} className="event-date-time">
+                                    <Box>{dt?.start && convertToReadableDate(dt.start, t)}</Box>
+                                    <Box className="event-time">
+                                      {dt?.start && convertToReadableTime(dt.start)} -{' '}
+                                      {dt?.end && convertToReadableTime(dt?.end)}
+                                    </Box>
+                                  </div>
+                                )
+                              })}
                           </div>
                         </Typography>
                       )
