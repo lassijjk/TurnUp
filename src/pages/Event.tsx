@@ -13,6 +13,7 @@ import EventTag from '../components/Buttons/EventTag'
 import { EventLocationData, EventObj, SingleEvent } from '../types/event'
 import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { VITE_MAP_EVENT_API } from '../constants'
 
 const Item = styled(Card)(({ theme }) => ({
@@ -69,6 +70,18 @@ const Event = () => {
     setIsLoading(false)
   }
 
+  const addEventToLocalStorage = () => {
+    const events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : []
+    if(event) {
+      const checkEvent = events.find((e: SingleEvent) => e.id === event.id)
+      if(checkEvent) {
+        return;
+      }
+      events.push(event)
+      localStorage.setItem('events', JSON.stringify(events))
+    }
+  }
+
   return (
     <Grid container className="event-container">
       <Grid item xs={12}>
@@ -78,8 +91,9 @@ const Event = () => {
           </Box>
         ) : (
           <Item>
-            <Typography component="div" variant="h1" className="event-name">
+            <Typography component="div" variant="h1" className="event-name" sx={{ display: 'flex', justifyContent: 'center', alignItems: "center" }}>
               {event ? event.name : ''}
+              <Box sx={{ cursor: 'pointer' }}><StarBorderIcon onClick={addEventToLocalStorage}/></Box>
             </Typography>
             {showMore && (
               <>

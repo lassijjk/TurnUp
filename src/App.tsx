@@ -14,6 +14,7 @@ import { useAuthUser } from './hooks/userHooks.tsx'
 import { useGetUserData } from './hooks/appSyncHooks.tsx'
 import { useEffect, useState } from 'react'
 import LoginWizard from './components/LoginWizard/LoginWizard.tsx'
+import { SingleEvent } from './types/event.ts'
 
 interface ProtectedRouteProps {
   isLoggedInUser: boolean
@@ -44,6 +45,40 @@ const App = () => {
       setShowLoginWizard(true)
     }
   }, [userData])
+
+  useEffect(() => {
+    Notification.requestPermission().then((perm) => {
+      if (perm === 'granted') {
+        console.log('Notification permission granted')
+      }
+      setInterval(() => {
+        let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : [];
+        if (events && events.length > 0) {
+          events = events.filter((event: SingleEvent) => Date.now() > Date.parse(event.startTime))
+          localStorage.setItem('events', JSON.stringify(events))
+          events.forEach((event: SingleEvent) => {
+            const timeDifference = Date.now() - Date.parse(event.startTime);
+            if (timeDifference >= 32*1000) {
+              const notification = new Notification("Example notification", {
+                body: `30 mintues until event: ${event.name} starts`
+              });
+              notification.addEventListener("close", e => {
+                console.log(e);
+              });
+            } else if(timeDifference >= 7*1000 || timeDifference <= 3*1000) {
+              const notification = new Notification("Example notification", {
+                body: `5 mintues until event: ${event.name} starts`
+              });
+              notification.addEventListener("close", e => {
+                console.log(e);
+              });
+            }
+          });
+        }
+      }, 60 * 1000);
+    })
+  }, [])
+  
 
   i18next.init({
     resources: {

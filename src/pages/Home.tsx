@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Home.css'
 import axios from 'axios'
-import { Grid, Typography, TextField, InputAdornment, Pagination, Box, CircularProgress } from '@mui/material'
+import { Grid, Typography, TextField, InputAdornment, Pagination, Box, CircularProgress, Button } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -54,7 +54,7 @@ const Home = () => {
   const handleEventClick = (eventId: string) => {
     navigate(`/event/${eventId}`)
   }
-  
+
   return (
     <>
       <Helmet>
