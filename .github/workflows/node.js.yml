@@ -24,3 +24,12 @@ jobs:
 
     - name: Run tests
       run: npm test
+
+    - name: Generate Code Coverage
+      run: npm run coverage  # Assuming you have a script for running tests with coverage
+
+    - name: Upload Code Coverage Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: coverage  # Adjust the path based on your coverage report directory

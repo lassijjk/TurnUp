@@ -12,7 +12,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md}\" --config ./.prettierrc.json",
     "preview": "vite preview",
     "test": "vitest",
-    "coverage": "nyc vitest src/test"
+    "coverage": "vitest run --coverage",
+    "test-with-coverage": "npm run test && npm run coverage"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.1",
@@ -40,6 +41,8 @@
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "@vitest/coverage-istanbul": "^0.34.6",
+    "@vitest/coverage-v8": "^0.34.6",
     "c8": "^8.0.1",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
