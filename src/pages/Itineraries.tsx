@@ -9,6 +9,9 @@ import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFi
 import EditIcon from '@mui/icons-material/Edit'
 import { CreateItineraryMutation, Itinerary } from '../types/graphqlAPI'
 import { useNavigate } from 'react-router-dom'
+import { convertToReadableTime } from '../utils/convertToReadableTime'
+import { convertToReadableDate } from '../utils/convertToReadableDate'
+import { t } from 'i18next'
 
 const Itineraries = () => {
   const [itinerary, setItinerary] = useState<{
@@ -66,7 +69,6 @@ const Itineraries = () => {
 
     const fetchData = async () => {
       const response = await getEventsById(_itineraries as Itinerary[])
-
       setItinerary((prevItinerary) => ({
         ...prevItinerary,
         ...response,
@@ -102,6 +104,20 @@ const Itineraries = () => {
     }
     setOpenAlert(false)
   }
+
+  const getSelectedDates = (title: string, eventId: string) =>
+    itineraries?.listItineraries?.items
+      .filter((item) => item?.title === title)
+      .flatMap(
+        (item) =>
+          item?.events?.items?.flatMap((_item) => {
+            const idMatches = _item?.eventId === eventId
+
+            return _item?.dateTimes && idMatches ? _item?.dateTimes : []
+          })
+      )
+      .flatMap((item) => item)
+
   return (
     <Grid container className="grid-container">
       <Card className="card-wrapper">
@@ -140,21 +156,35 @@ const Itineraries = () => {
         {itinerary &&
           Object.entries(itinerary).map((itinerary, index) => {
             const [title, events] = itinerary
-
             return (
               <Grid key={`itinerary-${index}`} container className="single-itinerary-wrapper">
-                <Card key={`itinerary-${index}`} className="single-itinerary">
+                <Card key={`itinerary-${index}`} className="single-itinerary" title={title}>
                   <Typography variant="h6" className="itinerary-details itinerary-name">
                     {title}
                   </Typography>
-                  <div className="itinerary-details">
-                    {events.map((event, _index) => (
-                      <Typography variant="h6" className="itinerary-event" key={`event-${_index}`}>
-                        {event.name}
-                      </Typography>
-                    ))}
-                  </div>
+                  <div className="itinerary-details events">
+                    {events.map((event, _index) => {
+                      const date = getSelectedDates(title, event.id)
 
+                      return (
+                        <Typography variant="h6" className="itinerary-event" key={`event-${_index}`}>
+                          <div className="event-detail-wrapper">
+                            <Typography className="event-names">{event.name}</Typography>
+                            {date &&
+                              date.map((dt, index) => (
+                                <div key={`${dt} ${index}`} className="event-date-time">
+                                  <Box>{dt?.start && convertToReadableDate(dt.start, t)}</Box>
+                                  <Box className="event-time">
+                                    {dt?.start && convertToReadableTime(dt.start)} -{' '}
+                                    {dt?.end && convertToReadableTime(dt?.end)}
+                                  </Box>
+                                </div>
+                              ))}
+                          </div>
+                        </Typography>
+                      )
+                    })}
+                  </div>
                   <Typography className="itinerary-details edit-itinerary">
                     <DirectionsBusFilledOutlinedIcon className="bus-icon" />
                     <Button className="btn-frame btn-edit ">

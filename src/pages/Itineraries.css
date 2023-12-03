@@ -24,8 +24,10 @@
         box-shadow: none !important;
         display: flex;
         flex-direction: row;
+        position: relative;
         
     }
+ 
     .single-itinerary-wrapper{
         justify-content: center ;
         align-items: center ;
@@ -33,9 +35,9 @@
     }
     .itinerary-details{
         padding: 30px;
-        min-width: 250px;
         text-align: left;
     }
+    
     .itinerary-event {
         padding-bottom: 5px; 
     }
@@ -62,6 +64,7 @@
     }
     .itinerary-name{
         color: var(--dark-gray);
+        min-width: 200px;
     }
     .bus-icon{
         font-size: 40px !important;
@@ -78,4 +81,24 @@
     .saved-alert{
     background-color: #418155 !important;
     color: white !important;
+    }
+    .events{
+        min-width: 400px;
+    }
+    .event-names{
+        padding: 5px;
+    }
+    .event-detail-wrapper{
+        display: flex;
+        justify-content: space-between;
+    }
+    .event-date-time{
+        display: flex;
+        flex-direction: column;
+        font-size: 1rem;
+    }
+    .event-time{
+        display: flex;
+       
+        
     }
