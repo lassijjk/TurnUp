@@ -58,14 +58,14 @@ const App = () => {
           localStorage.setItem('events', JSON.stringify(events))
           events.forEach((event: SingleEvent) => {
             const timeDifference = Date.now() - Date.parse(event.startTime);
-            if (timeDifference >= 32*1000) {
+            if (timeDifference <= 35*60*1000 && timeDifference >= 25*60*1000 ) {
               const notification = new Notification("Example notification", {
                 body: `30 mintues until event: ${event.name} starts`
               });
               notification.addEventListener("close", e => {
                 console.log(e);
               });
-            } else if(timeDifference >= 7*1000 || timeDifference <= 3*1000) {
+            } else if(timeDifference <= 10*60*1000 && timeDifference >= 5*60*1000) {
               const notification = new Notification("Example notification", {
                 body: `5 mintues until event: ${event.name} starts`
               });
@@ -75,7 +75,7 @@ const App = () => {
             }
           });
         }
-      }, 60 * 1000);
+      }, 2 * 60 * 1000);
     })
   }, [])
   
