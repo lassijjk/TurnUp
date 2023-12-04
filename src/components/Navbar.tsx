@@ -88,6 +88,16 @@ const Navbar: React.FC = () => {
                   {t('SETTING.USER_SETTINGS')}
                 </MenuItem>
               )}
+              {user && (
+                <MenuItem
+                  onClick={() => {
+                    navigate('Itineraries')
+                  }}
+                  className="navbar-menu-item"
+                >
+                  My itinerary
+                </MenuItem>
+              )}
               <MenuItem>
                 {user ? (
                   <Typography className="navbar-menu-item" onClick={logout}>
