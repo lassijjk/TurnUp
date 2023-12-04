@@ -168,7 +168,9 @@ const Itineraries = () => {
       return
     }
     setOpenAlert(false)
+    handleClose()
   }
+  const getIdByName = (title: string) => _itineraries?.find((it) => it?.title === title)?.id
 
   return (
     <Grid container className="grid-container">
@@ -196,7 +198,7 @@ const Itineraries = () => {
                 Save
               </Button>
               <Typography sx={{ mt: 3 }}>Create new itinerary.</Typography>
-              <Snackbar open={openAlert} autoHideDuration={3000} onClose={handleAlertClose}>
+              <Snackbar open={openAlert} autoHideDuration={2000} onClose={handleAlertClose}>
                 <Alert onClose={handleAlertClose} sx={{ width: '100%' }} className="saved-alert">
                   Itinerary created successfully
                 </Alert>
@@ -241,7 +243,12 @@ const Itineraries = () => {
                   </div>
                   <Typography className="itinerary-details edit-itinerary">
                     <DirectionsBusFilledOutlinedIcon className="bus-icon" />
-                    <Button className="btn-frame btn-edit ">
+                    <Button
+                      className="btn-frame btn-edit "
+                      onClick={() => {
+                        navigate(`${getIdByName(title)}`)
+                      }}
+                    >
                       {<EditIcon sx={{ fontSize: 15, padding: '2px' }} />}Edit
                     </Button>
                   </Typography>

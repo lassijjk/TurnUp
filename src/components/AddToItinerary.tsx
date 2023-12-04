@@ -18,6 +18,7 @@ import { convertToReadableTime } from '../utils/convertToReadableTime'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
 import { useTranslation } from 'react-i18next'
 import { TFunction } from 'i18next'
+import { useNavigate } from 'react-router-dom'
 
 interface EventDate {
   start: string
@@ -44,6 +45,7 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
   const { t } = useTranslation()
   const itineraryList = useGetItineraries()
   const userData = useGetUserData()
+  const navigate = useNavigate()
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setItineraryName(event.target.value)
@@ -84,6 +86,8 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
     }
     handleCloseDates()
     handleClose()
+    setItineraryName('')
+    navigate('/Itineraries', { replace: true })
   }
 
   const handleSave = () => {
