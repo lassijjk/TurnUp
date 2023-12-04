@@ -87,8 +87,8 @@ const Event = () => {
                   <ul style={{ listStyleType: 'none' }}>
                     {event &&
                       event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
-                        <li key={`${date.start}-${index}`} className="list-of-dates">
-                          <p>
+                        <li key={`${date.start}-${index}`}>
+                          <p className="list-of-dates">
                             {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
                           </p>
                         </li>
@@ -101,7 +101,9 @@ const Event = () => {
                   </Typography>
                 )}
                 {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
-                <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
+                <Typography component="div" className="event-address">
+                  Address: {event ? event.locations[0]?.address : ''}
+                </Typography>
 
                 <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go

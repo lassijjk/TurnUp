@@ -260,20 +260,20 @@ const UserSettings = () => {
     setOpenAlert(false)
   }
   return (
-    <GridContainer container>
-      <CardWrapper>
+    <GridContainer container className="user-settings-main-container">
+      <CardWrapper className="user-settings-card-wrapper">
         <Button className="btn-frame btn-back" onClick={() => `${navigate('/')}`}>
           {t('SETTING.BACK')}
         </Button>
-        <Grid container spacing={2} marginTop={2} className="icon">
-          <AccountCircleIcon sx={{ fontSize: 64 }}></AccountCircleIcon>
-          <Title variant="h4" align="left" className="title" style={{ lineHeight: '64px' }}>
+        <Grid container spacing={2} marginTop={2} className="title-wrapper">
+          <AccountCircleIcon className="icon" />
+          <Title variant="h4" align="left" className="title">
             {t('SETTING.USER_SETTINGS')}
           </Title>
         </Grid>
         <form onSubmit={handleSubmit} className="form-elements">
-          <Grid container spacing={2} marginTop={2}>
-            <InputWrapper item xs={6} display="flex">
+          <Grid container spacing={2} marginTop={2} className="form-field-container">
+            <InputWrapper item xs={6} className="form-field">
               <InputLabelWrapper>
                 <FormLabel sx={{ color: 'black' }}>{t('SETTING.FIRST_NAME')} </FormLabel>
               </InputLabelWrapper>
@@ -285,9 +285,10 @@ const UserSettings = () => {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 required
+                className="input-field"
               />
             </InputWrapper>
-            <InputWrapper item xs={6} display="flex">
+            <InputWrapper item xs={6} className="form-field">
               <InputLabelWrapper>
                 <FormLabel sx={{ color: 'black' }}>{t('SETTING.LAST_NAME')}</FormLabel>
               </InputLabelWrapper>
@@ -299,12 +300,13 @@ const UserSettings = () => {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 required
+                className="input-field"
               />
             </InputWrapper>
           </Grid>
 
-          <Grid container spacing={2} marginTop={2}>
-            <InputWrapper item xs={12} display="flex">
+          <Grid container spacing={2} marginTop={2} className="form-field-container">
+            <InputWrapper item xs={12} className="form-field">
               <InputLabelWrapper>
                 <FormLabel sx={{ color: 'black' }}>{t('SETTING.EMAIL')} </FormLabel>
               </InputLabelWrapper>
@@ -316,12 +318,13 @@ const UserSettings = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
+                className="input-field"
               />
             </InputWrapper>
           </Grid>
 
-          <Grid container spacing={2} marginTop={2}>
-            <InputWrapper item xs={12} display="flex">
+          <Grid container spacing={2} marginTop={2} className="form-field-container">
+            <InputWrapper item xs={12} className="form-field language-wrapper">
               <InputLabelWrapper>
                 <FormLabel sx={{ color: 'black' }}>{t('SETTING.LANGUAGE')} </FormLabel>
               </InputLabelWrapper>
@@ -347,8 +350,8 @@ const UserSettings = () => {
 
           <Interests interests={formData.interests} onSelectInterest={onSelectInterest} />
 
-          <Grid container spacing={2} marginTop={5}>
-            <InputWrapper item xs={6} display="flex">
+          <Grid container spacing={2} marginTop={5} className="time-input-wrapper">
+            <InputWrapper item xs={6} display="flex" className="form-field">
               <FormLabel className="event-buffer notification-label">{t('SETTING.EVENT_ARRIVAL_BUFFER')}</FormLabel>
               <TextField
                 className="time-input"
@@ -360,8 +363,8 @@ const UserSettings = () => {
               />
             </InputWrapper>
           </Grid>
-          <Grid container spacing={2} marginTop={3}>
-            <InputWrapper item xs={6} display="flex">
+          <Grid container spacing={2} marginTop={3} className="time-input-wrapper">
+            <InputWrapper item xs={6} display="flex" className="form-field">
               <FormControlLabel
                 className="notification-label"
                 control={
@@ -380,8 +383,8 @@ const UserSettings = () => {
               />
             </InputWrapper>
           </Grid>
-          <Grid container spacing={2} marginTop={3}>
-            <InputWrapper item xs={6} display="flex">
+          <Grid container spacing={2} marginTop={3} className="time-input-wrapper">
+            <InputWrapper item xs={6} display="flex" className="form-field">
               <FormControlLabel
                 className="notification-label"
                 control={
