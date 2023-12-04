@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 
-import { convertToReadableTime } from '../utils/convertToReadableTime'; // replace 'yourFile' with the actual file name or path
+import { convertToReadableTime } from '../utils/convertToReadableTime'; 
 
 describe('convertToReadableTime', () => {
     it('Converts valid time string to readable time', () => {

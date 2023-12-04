@@ -1,3 +1,5 @@
+<a href='https://coveralls.io/github/lassijjk/TurnUp?branch=main'><img src='https://coveralls.io/repos/github/lassijjk/TurnUp/badge.svg?branch=main' alt='Coverage Status' /></a>
+
 # Project Name: Turn Up
 
 An app to help you find something to do in the city of Tampere e.g., when you are travelling for a business and have an evening to spend, or you are looking for something new or different to do
@@ -202,12 +204,13 @@ The base URL for the API is: `https://l199cimgf2.execute-api.eu-north-1.amazonaw
 ```http
 GET https://l199cimgf2.execute-api.eu-north-1.amazonaws.com/dev?eventId=123&userLat=61.4978&userLon=23.7610&radius=50
 
+
 ## License
 
 This project is developed and maintained by Tampere University students and is licensed under the [MIT License](LICENSE).
 ## Author
 
-  + Eero Laine: eero.laine@tuni.fi
+ 
   + Santeri Ora: santeri.ora@tuni.fi
   + Lassi Kirvesmäki: lassi.kirvesmaki@tuni.fi
   + Finnan Solomon: finnan.solomon@tuni.fi
