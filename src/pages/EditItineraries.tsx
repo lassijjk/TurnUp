@@ -63,15 +63,20 @@ const EditItineraries = () => {
     if (_itinerary) {
       if (id) {
         _itinerary.events?.items.forEach(async (event) => {
-          await deleteSingleEvent(event?.id as string)
+          //Delete the events inside before deleting the itinerary
+          if (event?.id) {
+            const inputData: DeleteUserEventInput = {
+              id: event.id,
+            }
+            ;(await deleteUserEvent(inputData)) as DeleteUserEventMutation
+          }
         })
 
+        //Delete itinerary
         const inputData: DeleteItineraryInput = {
           id: id,
         }
-        const response = (await deleteItinerary(inputData)) as DeleteItineraryMutation
-
-        console.log(response, 'DELETEDItinerary')
+        ;(await deleteItinerary(inputData)) as DeleteItineraryMutation
       }
       setEvents([])
       navigate('/Itineraries')
@@ -83,9 +88,7 @@ const EditItineraries = () => {
       const inputData: DeleteUserEventInput = {
         id: userEventId,
       }
-      const response = (await deleteUserEvent(inputData)) as DeleteUserEventMutation
-      console.log(response, 'DELETEDEvent')
-
+      ;(await deleteUserEvent(inputData)) as DeleteUserEventMutation
       setEvents(events.filter((event) => event.id !== eventId))
     }
   }
