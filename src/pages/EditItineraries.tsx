@@ -59,21 +59,25 @@ const EditItineraries = () => {
     void updateEvents()
   }, [_itinerary])
 
-  const handleDelete = async () => {
+  const handleDeleteItinerary = async () => {
     if (_itinerary) {
-      _itinerary.events?.items.map((event) => handleEventDelete(event?.id as string))
-
       if (id) {
+        _itinerary.events?.items.forEach(async (event) => {
+          await deleteSingleEvent(event?.id as string)
+        })
+
         const inputData: DeleteItineraryInput = {
           id: id,
         }
         const response = (await deleteItinerary(inputData)) as DeleteItineraryMutation
+
         console.log(response, 'DELETEDItinerary')
       }
-      fetchAllEvents()
+      setEvents([])
+      navigate('/Itineraries')
     }
   }
-  const handleEventDelete = async (eventId: string) => {
+  const deleteSingleEvent = async (eventId: string) => {
     const userEventId = _itinerary?.events?.items.find((event) => event?.eventId === eventId)?.id
     if (userEventId) {
       const inputData: DeleteUserEventInput = {
@@ -81,7 +85,8 @@ const EditItineraries = () => {
       }
       const response = (await deleteUserEvent(inputData)) as DeleteUserEventMutation
       console.log(response, 'DELETEDEvent')
-      fetchAllEvents()
+
+      setEvents(events.filter((event) => event.id !== eventId))
     }
   }
 
@@ -99,7 +104,7 @@ const EditItineraries = () => {
           </Typography>
           <DeleteIcon
             sx={{ fontSize: 44, backgroundColor: '#EB5E58', borderRadius: 1, marginTop: 5 }}
-            onClick={handleDelete}
+            onClick={handleDeleteItinerary}
           />
         </Grid>
 
@@ -115,7 +120,7 @@ const EditItineraries = () => {
                       {event.name}
                       <DeleteIcon
                         sx={{ fontSize: 24, backgroundColor: '#EB5E58', borderRadius: 1, marginLeft: 20 }}
-                        onClick={() => handleEventDelete(event.id)}
+                        onClick={() => deleteSingleEvent(event.id)}
                       />
                     </div>
                   </Card>

@@ -136,8 +136,6 @@ const Itineraries = () => {
     setItineraryName(event.target.value)
   }
 
-  const ItineraryCount = itineraries?.listItineraries?.items.length
-
   const handleCreateItinerary = async () => {
     const userItem = userData?.userBySub?.items[0]
     const itineraryExisits = userItem?.itineraries?.items.find((item) => item?.title === itineraryName)
@@ -160,7 +158,7 @@ const Itineraries = () => {
         handleClose()
         setItineraryName('')
         setOpenAlert(false)
-      }, 3000)
+      }, 2000)
     }
   }
   const handleAlertClose = (_event: React.SyntheticEvent | Event, reason?: string) => {
@@ -170,6 +168,7 @@ const Itineraries = () => {
     setOpenAlert(false)
     handleClose()
   }
+
   const getIdByName = (title: string) => _itineraries?.find((it) => it?.title === title)?.id
 
   return (
@@ -180,11 +179,11 @@ const Itineraries = () => {
         </Button>
         <Grid className="itinerary-header">
           <DirectionsBusFilledOutlinedIcon className="header-contents" sx={{ fontSize: 64, color: '#3F3E3E' }} />
-          {ItineraryCount && ItineraryCount > 0 && (
-            <Typography variant="h5" style={{ lineHeight: '64px' }} className="header-contents">
-              {`You have (${ItineraryCount}) upcoming itineraries.`}
-            </Typography>
-          )}
+
+          <Typography variant="h5" style={{ lineHeight: '64px' }} className="header-contents">
+            {`You have (${itinerary ? Object.keys(itinerary).length : 0}) upcoming itineraries.`}
+          </Typography>
+
           <Button className="itinerary-btn header-contents create-btn" onClick={handleOpen}>
             Create new
           </Button>

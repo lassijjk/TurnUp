@@ -15,6 +15,8 @@ Button.itinerary-btn{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
+  max-height: 600px;
+  overflow-y: scroll;
   background-color: white;
   box-Shadow: 24px;
   padding: 30px;
