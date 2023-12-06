@@ -58,10 +58,13 @@ const EventTag: React.FC<EventTagProps> = ({ variant, onClick, selected }) => {
     }
   }
 
+  const isNonInteractiveTag = selected === undefined
+  const isDefaultTag = !(selected || isNonInteractiveTag)
+
   return (
     <Button
       variant="contained"
-      className={`ripple-button event-tag-frame event-tag-frame-${variant} ${selected ? 'selected' : ''}`}
+      className={`ripple-button event-tag-frame event-tag-frame-${variant} ${isDefaultTag ? 'default' : ''}`}
       onClick={onClick}
     >
       <Box component="span" className="event-title">
