@@ -59,6 +59,11 @@ export const createItinerary = /* GraphQL */ `mutation CreateItinerary(
           __typename
         }
         owner
+        dateTimes {
+          start
+          end
+          __typename
+        }
         createdAt
         updatedAt
         itineraryEventsId
@@ -73,7 +78,10 @@ export const createItinerary = /* GraphQL */ `mutation CreateItinerary(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.CreateItineraryMutationVariables, APITypes.CreateItineraryMutation>
+` as GeneratedMutation<
+  APITypes.CreateItineraryMutationVariables,
+  APITypes.CreateItineraryMutation
+>;
 export const updateItinerary = /* GraphQL */ `mutation UpdateItinerary(
   $input: UpdateItineraryInput!
   $condition: ModelItineraryConditionInput
@@ -125,6 +133,11 @@ export const updateItinerary = /* GraphQL */ `mutation UpdateItinerary(
           __typename
         }
         owner
+        dateTimes {
+          start
+          end
+          __typename
+        }
         createdAt
         updatedAt
         itineraryEventsId
@@ -139,7 +152,10 @@ export const updateItinerary = /* GraphQL */ `mutation UpdateItinerary(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.UpdateItineraryMutationVariables, APITypes.UpdateItineraryMutation>
+` as GeneratedMutation<
+  APITypes.UpdateItineraryMutationVariables,
+  APITypes.UpdateItineraryMutation
+>;
 export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
   $input: DeleteItineraryInput!
   $condition: ModelItineraryConditionInput
@@ -191,6 +207,11 @@ export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
           __typename
         }
         owner
+        dateTimes {
+          start
+          end
+          __typename
+        }
         createdAt
         updatedAt
         itineraryEventsId
@@ -205,7 +226,10 @@ export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.DeleteItineraryMutationVariables, APITypes.DeleteItineraryMutation>
+` as GeneratedMutation<
+  APITypes.DeleteItineraryMutationVariables,
+  APITypes.DeleteItineraryMutation
+>;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
   $condition: ModelUserConditionInput
@@ -260,7 +284,10 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.CreateUserMutationVariables, APITypes.CreateUserMutation>
+` as GeneratedMutation<
+  APITypes.CreateUserMutationVariables,
+  APITypes.CreateUserMutation
+>;
 export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $input: UpdateUserInput!
   $condition: ModelUserConditionInput
@@ -315,7 +342,10 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.UpdateUserMutationVariables, APITypes.UpdateUserMutation>
+` as GeneratedMutation<
+  APITypes.UpdateUserMutationVariables,
+  APITypes.UpdateUserMutation
+>;
 export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   $input: DeleteUserInput!
   $condition: ModelUserConditionInput
@@ -370,7 +400,10 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     __typename
   }
 }
-` as GeneratedMutation<APITypes.DeleteUserMutationVariables, APITypes.DeleteUserMutation>
+` as GeneratedMutation<
+  APITypes.DeleteUserMutationVariables,
+  APITypes.DeleteUserMutation
+>;
 export const createUserEvent = /* GraphQL */ `mutation CreateUserEvent(
   $input: CreateUserEventInput!
   $condition: ModelUserEventConditionInput
@@ -421,13 +454,21 @@ export const createUserEvent = /* GraphQL */ `mutation CreateUserEvent(
       __typename
     }
     owner
+    dateTimes {
+      start
+      end
+      __typename
+    }
     createdAt
     updatedAt
     itineraryEventsId
     __typename
   }
 }
-` as GeneratedMutation<APITypes.CreateUserEventMutationVariables, APITypes.CreateUserEventMutation>
+` as GeneratedMutation<
+  APITypes.CreateUserEventMutationVariables,
+  APITypes.CreateUserEventMutation
+>;
 export const updateUserEvent = /* GraphQL */ `mutation UpdateUserEvent(
   $input: UpdateUserEventInput!
   $condition: ModelUserEventConditionInput
@@ -478,13 +519,21 @@ export const updateUserEvent = /* GraphQL */ `mutation UpdateUserEvent(
       __typename
     }
     owner
+    dateTimes {
+      start
+      end
+      __typename
+    }
     createdAt
     updatedAt
     itineraryEventsId
     __typename
   }
 }
-` as GeneratedMutation<APITypes.UpdateUserEventMutationVariables, APITypes.UpdateUserEventMutation>
+` as GeneratedMutation<
+  APITypes.UpdateUserEventMutationVariables,
+  APITypes.UpdateUserEventMutation
+>;
 export const deleteUserEvent = /* GraphQL */ `mutation DeleteUserEvent(
   $input: DeleteUserEventInput!
   $condition: ModelUserEventConditionInput
@@ -535,10 +584,18 @@ export const deleteUserEvent = /* GraphQL */ `mutation DeleteUserEvent(
       __typename
     }
     owner
+    dateTimes {
+      start
+      end
+      __typename
+    }
     createdAt
     updatedAt
     itineraryEventsId
     __typename
   }
 }
-` as GeneratedMutation<APITypes.DeleteUserEventMutationVariables, APITypes.DeleteUserEventMutation>
+` as GeneratedMutation<
+  APITypes.DeleteUserEventMutationVariables,
+  APITypes.DeleteUserEventMutation
+>;

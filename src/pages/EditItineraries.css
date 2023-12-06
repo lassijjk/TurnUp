@@ -1,0 +1,13 @@
+.edit-event-cards{
+    margin-top: 45px;
+    width: 400px;
+    padding: 20px;
+    border: solid #686872 2px;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.edit-cards-wrapper{
+    text-align: -webkit-center;
+}

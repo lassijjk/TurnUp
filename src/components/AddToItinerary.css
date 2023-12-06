@@ -1,0 +1,46 @@
+Button.itinerary-btn{
+  background-color: #418155!important;
+  color: white;
+  align-self: center;
+  margin-top: 10px;
+  margin-left: 70px;
+}
+
+
+.itinerary-modal{
+  border: 2px solid #418155;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-height: 600px;
+  overflow-y: scroll;
+  background-color: white;
+  box-Shadow: 24px;
+  padding: 30px;
+}
+button.modal-details{
+
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #fff !important;
+  color: black;
+  border: 2px solid #686872;
+  width: 300px;
+  text-transform: none;
+  box-shadow: none !important;
+  margin: 5px;
+}
+
+.itinerary-modal.event-date-modal {
+  padding: 0;
+}
+
+.event-dates-wrapper {
+  margin: 1rem 2rem;
+}

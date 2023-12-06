@@ -45,7 +45,9 @@
 .btn-save {
   background-color: var(--dark-blue) !important;
 }
-
+.btn-edit{
+  background-color: var(--pine-green) !important;
+}
 .form-submission-btns {
   justify-content: flex-end;
   padding-top: 40px;
