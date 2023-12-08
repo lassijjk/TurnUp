@@ -230,64 +230,6 @@ export const deleteItinerary = /* GraphQL */ `mutation DeleteItinerary(
   APITypes.DeleteItineraryMutationVariables,
   APITypes.DeleteItineraryMutation
 >;
-export const createUser = /* GraphQL */ `mutation CreateUser(
-  $input: CreateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  createUser(input: $input, condition: $condition) {
-    id
-    userSub
-    givenName
-    familyName
-    email
-    language
-    loginWizard
-    reminder1
-    reminder2
-    advanceTime
-    interestTags
-    itineraries {
-      items {
-        id
-        user {
-          id
-          userSub
-          givenName
-          familyName
-          email
-          language
-          loginWizard
-          reminder1
-          reminder2
-          advanceTime
-          interestTags
-          createdAt
-          updatedAt
-          __typename
-        }
-        title
-        owner
-        events {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        userItinerariesId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateUserMutationVariables,
-  APITypes.CreateUserMutation
->;
 export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $input: UpdateUserInput!
   $condition: ModelUserConditionInput
@@ -345,64 +287,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
 ` as GeneratedMutation<
   APITypes.UpdateUserMutationVariables,
   APITypes.UpdateUserMutation
->;
-export const deleteUser = /* GraphQL */ `mutation DeleteUser(
-  $input: DeleteUserInput!
-  $condition: ModelUserConditionInput
-) {
-  deleteUser(input: $input, condition: $condition) {
-    id
-    userSub
-    givenName
-    familyName
-    email
-    language
-    loginWizard
-    reminder1
-    reminder2
-    advanceTime
-    interestTags
-    itineraries {
-      items {
-        id
-        user {
-          id
-          userSub
-          givenName
-          familyName
-          email
-          language
-          loginWizard
-          reminder1
-          reminder2
-          advanceTime
-          interestTags
-          createdAt
-          updatedAt
-          __typename
-        }
-        title
-        owner
-        events {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        userItinerariesId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    createdAt
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteUserMutationVariables,
-  APITypes.DeleteUserMutation
 >;
 export const createUserEvent = /* GraphQL */ `mutation CreateUserEvent(
   $input: CreateUserEventInput!
