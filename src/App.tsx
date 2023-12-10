@@ -49,33 +49,34 @@ const App = () => {
   useEffect(() => {
     Notification.requestPermission().then((perm) => {
       if (perm === 'granted') {
-        console.log('Notification permission granted')
-      }
-      setInterval(() => {
-        let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : [];
-        if (events && events.length > 0) {
-          events = events.filter((event: SingleEvent) => Date.now() > Date.parse(event.startTime))
-          localStorage.setItem('events', JSON.stringify(events))
-          events.forEach((event: SingleEvent) => {
-            const timeDifference = Date.now() - Date.parse(event.startTime);
-            if (timeDifference <= 35*60*1000 && timeDifference >= 25*60*1000 ) {
-              const notification = new Notification("Example notification", {
-                body: `30 mintues until event: ${event.name} starts`
-              });
-              notification.addEventListener("close", e => {
-                console.log(e);
-              });
-            } else if(timeDifference <= 10*60*1000 && timeDifference >= 5*60*1000) {
-              const notification = new Notification("Example notification", {
-                body: `5 mintues until event: ${event.name} starts`
-              });
-              notification.addEventListener("close", e => {
-                console.log(e);
-              });
+        setInterval(() => {
+          let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : [];
+          if (events && events.length > 0) {
+            events = events.filter((event: SingleEvent) => event.startTime && Date.now() > Date.parse(event.startTime))
+            localStorage.setItem('events', JSON.stringify(events))
+            for(let i = 0; i < events.length; i++) {
+              const event = events[i]
+              const timeDifference = Date.now() - Date.parse(event.startTime);
+              if (timeDifference <= 31*60*1000 && timeDifference >= 29*60*1000) {
+                console.log('hello')
+                const notification = new Notification("Example notification", {
+                  body: `30 mintues until event: ${event.name} starts`
+                });
+                notification.addEventListener("close", e => {
+                  console.log(e);
+                });
+              } else if(timeDifference <= 11*60*1000 && timeDifference >= 9*60*1000) {
+                const notification = new Notification("Example notification", {
+                  body: `5 mintues until event: ${event.name} starts`
+                });
+                notification.addEventListener("close", e => {
+                  console.log(e);
+                });
+              }
             }
-          });
-        }
-      }, 2 * 60 * 1000);
+          }
+        }, 60 * 1000);
+      }
     })
   }, [])
   

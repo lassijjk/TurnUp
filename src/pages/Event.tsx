@@ -13,7 +13,7 @@ import EventTag from '../components/Buttons/EventTag'
 import { EventLocationData, EventObj, SingleEvent } from '../types/event'
 import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 import { VITE_MAP_EVENT_API } from '../constants'
 
 const Item = styled(Card)(({ theme }) => ({
@@ -35,6 +35,7 @@ const Event = () => {
   const [showMore, setShowMore] = useState(true)
   const [isShowMap, setIsShowMap] = useState<boolean>(false)
   const { language } = useStore()
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
   const [eventLocationData, setEventLocationData] = useState<EventLocationData>(DEFAULT_TO)
@@ -70,16 +71,27 @@ const Event = () => {
     setIsLoading(false)
   }
 
-  const addEventToLocalStorage = () => {
+  const addOrRemoveEventFromLocalStorage = () => {
     const events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : []
     if(event) {
       const checkEvent = events.find((e: SingleEvent) => e.id === event.id)
-      if(checkEvent) {
-        return;
+      if(checkEvent || isFavorite) {
+        const newEvents = events.filter((e: SingleEvent) => e.id !== event.id)
+        localStorage.setItem('events', JSON.stringify(newEvents))
+        setIsFavorite(false)
+      } else {
+        events.push(event)
+        localStorage.setItem('events', JSON.stringify(events))
+        setIsFavorite(true)
       }
-      events.push(event)
-      localStorage.setItem('events', JSON.stringify(events))
     }
+  }
+  
+  const checkIsFavorite = () => {
+    if(!event) return false;
+    const events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : []
+    const checkEvent = events.find((e: SingleEvent) => e.id === event.id)
+    return isFavorite == undefined ? !!checkEvent : isFavorite;  
   }
 
   return (
@@ -93,7 +105,7 @@ const Event = () => {
           <Item>
             <Typography component="div" variant="h1" className="event-name" sx={{ display: 'flex', justifyContent: 'center', alignItems: "center" }}>
               {event ? event.name : ''}
-              <Box sx={{ cursor: 'pointer' }}><StarBorderIcon onClick={addEventToLocalStorage}/></Box>
+              <Box sx={{ cursor: 'pointer' }}><StarIcon sx={{color: checkIsFavorite() ? 'red' : 'gray'}} onClick={addOrRemoveEventFromLocalStorage}/></Box>
             </Typography>
             {showMore && (
               <>
