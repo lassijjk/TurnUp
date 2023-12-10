@@ -172,7 +172,7 @@ export const updateItinerary = async (inputData: UpdateItineraryInput) => {
   let response: UpdateItineraryMutation | string = ''
   try {
     const itineraryResponse = await API.graphql<GraphQLQuery<UpdateItineraryMutation>>({
-      query: mutations.updateUserEvent,
+      query: mutations.updateItinerary,
       variables: {
         input: {
           id: inputData.id,
