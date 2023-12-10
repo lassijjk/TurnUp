@@ -14,6 +14,7 @@ import { useAuthUser } from './hooks/userHooks.tsx'
 import { useGetUserData } from './hooks/appSyncHooks.tsx'
 import { useEffect, useState } from 'react'
 import LoginWizard from './components/LoginWizard/LoginWizard.tsx'
+import { SingleEvent } from './types/event.ts'
 import Itineraries from './pages/Itineraries.tsx'
 import EditItineraries from './pages/EditItineraries.tsx'
 
@@ -46,6 +47,41 @@ const App = () => {
       setShowLoginWizard(true)
     }
   }, [userData])
+
+  useEffect(() => {
+    Notification.requestPermission().then((perm) => {
+      if (perm === 'granted') {
+        setInterval(() => {
+          let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : [];
+          if (events && events.length > 0) {
+            events = events.filter((event: SingleEvent) => event.startTime && Date.now() > Date.parse(event.startTime))
+            localStorage.setItem('events', JSON.stringify(events))
+            for(let i = 0; i < events.length; i++) {
+              const event = events[i]
+              const timeDifference = Date.now() - Date.parse(event.startTime);
+              if (timeDifference <= 31*60*1000 && timeDifference >= 29*60*1000) {
+                console.log('hello')
+                const notification = new Notification("Example notification", {
+                  body: `30 mintues until event: ${event.name} starts`
+                });
+                notification.addEventListener("close", e => {
+                  console.log(e);
+                });
+              } else if(timeDifference <= 11*60*1000 && timeDifference >= 9*60*1000) {
+                const notification = new Notification("Example notification", {
+                  body: `5 mintues until event: ${event.name} starts`
+                });
+                notification.addEventListener("close", e => {
+                  console.log(e);
+                });
+              }
+            }
+          }
+        }, 60 * 1000);
+      }
+    })
+  }, [])
+  
 
   i18next.init({
     resources: {

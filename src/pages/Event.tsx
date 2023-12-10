@@ -13,6 +13,7 @@ import EventTag from '../components/Buttons/EventTag'
 import { EventLocationData, EventObj, SingleEvent } from '../types/event'
 import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
+import StarIcon from '@mui/icons-material/Star';
 import { VITE_MAP_EVENT_API } from '../constants'
 import AddToItinerary from '../components/AddToItinerary'
 import { useAuthUser } from '../hooks/userHooks'
@@ -37,6 +38,7 @@ const Event = () => {
   const [isShowMap, setIsShowMap] = useState<boolean>(false)
   const isLoggedInUser = useAuthUser()
   const { language } = useStore()
+  const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
 
   const [eventLocationData, setEventLocationData] = useState<EventLocationData>(DEFAULT_TO)
@@ -71,6 +73,30 @@ const Event = () => {
     setEvent(data.data.data[0])
     setIsLoading(false)
   }
+
+  const addOrRemoveEventFromLocalStorage = () => {
+    const events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : []
+    if(event) {
+      const checkEvent = events.find((e: SingleEvent) => e.id === event.id)
+      if(checkEvent || isFavorite) {
+        const newEvents = events.filter((e: SingleEvent) => e.id !== event.id)
+        localStorage.setItem('events', JSON.stringify(newEvents))
+        setIsFavorite(false)
+      } else {
+        events.push(event)
+        localStorage.setItem('events', JSON.stringify(events))
+        setIsFavorite(true)
+      }
+    }
+  }
+  
+  const checkIsFavorite = () => {
+    if(!event) return false;
+    const events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')!) : []
+    const checkEvent = events.find((e: SingleEvent) => e.id === event.id)
+    return isFavorite == undefined ? !!checkEvent : isFavorite;  
+  }
+
   return (
     <Grid container className="event-container">
       <Grid item xs={12}>
@@ -80,8 +106,9 @@ const Event = () => {
           </Box>
         ) : (
           <Item>
-            <Typography component="div" variant="h1" className="event-name">
+            <Typography component="div" variant="h1" className="event-name" sx={{ display: 'flex', justifyContent: 'center', alignItems: "center" }}>
               {event ? event.name : ''}
+              <Box sx={{ cursor: 'pointer' }}><StarIcon sx={{color: checkIsFavorite() ? 'red' : 'gray'}} onClick={addOrRemoveEventFromLocalStorage}/></Box>
             </Typography>
             {showMore && (
               <>
