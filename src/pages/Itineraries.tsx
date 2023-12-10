@@ -255,6 +255,32 @@ const Itineraries = () => {
               </Grid>
             )
           })}
+        <div className="legend-wrapper">
+          <div className="legend-item">
+            <div className="legend default"></div>
+            <Typography variant="caption" style={{ color: 'var(--dark-gray)' }}>
+              Past/No Events
+            </Typography>
+          </div>
+          <div className="legend-item">
+            <div className="legend thisWeek"></div>
+            <Typography variant="caption" style={{ color: 'var(--warm-red)' }}>
+              This Week
+            </Typography>
+          </div>
+          <div className="legend-item">
+            <div className="legend thisMonth"></div>
+            <Typography variant="caption" style={{ color: 'var(--light-blue)' }}>
+              This Month
+            </Typography>
+          </div>
+          <div className="legend-item">
+            <div className="legend inTheFuture"></div>
+            <Typography variant="caption" style={{ color: 'var(--amarillo-yellow)' }}>
+              Future Events
+            </Typography>
+          </div>
+        </div>
       </Card>
     </Grid>
   )

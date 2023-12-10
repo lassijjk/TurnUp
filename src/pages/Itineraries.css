@@ -116,16 +116,31 @@
 }
 
 .thisWeek {
-  background: #c83e36;
+  background: var(--warm-red);
 }
 .inTheFuture {
-  background: #e8b455;
+  background: var(--amarillo-yellow);
 }
 .thisMonth {
-  background: #39a7d7;
+  background: var(--light-blue);
 }
 .default {
-  background: black;
+  background: var(--dark-gray);
+}
+.legend {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.legend-wrapper {
+  margin-top: 20px;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  margin-right: 20px;
+  margin-bottom: 8px;
 }
 
 @media (min-width: 430px) {
@@ -139,6 +154,17 @@
     width: 350px;
     flex-basis: content;
     font-size: large !important;
+  }
+}
+@media (min-width: 560px) {
+  .legend-wrapper {
+    margin-top: 20px;
+    margin-left: 48px;
+    display: flex;
+    align-items: center;
+  }
+  .legend-item {
+    margin-bottom: 0px;
   }
 }
 @media (min-width: 600px) {
