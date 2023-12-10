@@ -1,28 +1,27 @@
-Button.itinerary-btn{
-  background-color: #418155!important;
+Button.itinerary-btn {
+  background-color: #418155 !important;
   color: white;
   align-self: center;
   margin-top: 10px;
-  margin-left: 70px;
+  font-size: 0.75rem !important;
+  margin-left: 8px;
 }
 
-
-.itinerary-modal{
+.itinerary-modal {
   border: 2px solid #418155;
   border-radius: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  max-height: 600px;
+  max-width: 400px;
+  max-height: 532px;
   overflow-y: scroll;
   background-color: white;
-  box-Shadow: 24px;
-  padding: 30px;
+  box-shadow: 24px;
+  padding: 16px;
 }
-button.modal-details{
-
+Button.modal-details {
   padding: 16px;
   width: 100%;
   text-align: left;
@@ -31,7 +30,7 @@ button.modal-details{
   background-color: #fff !important;
   color: black;
   border: 2px solid #686872;
-  width: 300px;
+  width: 260px;
   text-transform: none;
   box-shadow: none !important;
   margin: 5px;
@@ -43,4 +42,37 @@ button.modal-details{
 
 .event-dates-wrapper {
   margin: 1rem 2rem;
+}
+.dates-and-times {
+  font-size: 0.8rem !important ;
+  inline-size: max-content;
+}
+.custom-radio-label {
+  font-size: 14px;
+}
+.text-field {
+  height: 0.4375em !important;
+}
+.submit-btn{
+  margin-left: 0px !important; 
+}
+.add-btn{
+  margin-left: 58px !important;
+}
+@media (min-width: 400px) {
+
+  Button.itinerary-btn {
+    font-size: 0.8rem !important;
+    margin-left: 42px;
+  }
+  .itinerary-modal {
+    padding: 30px;
+    max-height: 576px;
+  }
+  .custom-radio-label {
+    font-size: 15px;
+  }
+  Button.modal-details {
+    width: 300px;
+  }
 }

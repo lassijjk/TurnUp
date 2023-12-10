@@ -99,14 +99,12 @@ const EditItineraries = () => {
         <Button className="btn-frame btn-back itinerary-back-btn" onClick={() => `${navigate('/Itineraries')}`}>
           Back
         </Button>
-        <Grid className="itinerary-header">
-          <EditIcon className="header-contents" sx={{ fontSize: 64 }} />
+        <Grid className="edit-itinerary-header">
+          <EditIcon sx={{ fontSize: 42 }} />
 
-          <Typography variant="h5" style={{ lineHeight: '64px' }} className="header-contents">
-            {`Edit : ${_itinerary?.title}`}
-          </Typography>
+          <Typography variant="h5">{`Edit: ${_itinerary?.title ? _itinerary.title : ''}`}</Typography>
           <DeleteIcon
-            sx={{ fontSize: 44, backgroundColor: '#EB5E58', borderRadius: 1, marginTop: 5 }}
+            sx={{ fontSize: 36, backgroundColor: '#EB5E58', borderRadius: 1, marginLeft: 3 }}
             onClick={handleDeleteItinerary}
           />
         </Grid>
@@ -119,12 +117,12 @@ const EditItineraries = () => {
               {events &&
                 events.map((event, index) => (
                   <Card className="edit-event-cards" key={`event-${event.id + index}`}>
-                    <div>
-                      {event.name}
+                    <div className="edit-event-card-item">
                       <DeleteIcon
-                        sx={{ fontSize: 24, backgroundColor: '#EB5E58', borderRadius: 1, marginLeft: 20 }}
+                        sx={{ fontSize: 24, backgroundColor: '#EB5E58', borderRadius: 1, marginRight: 2 }}
                         onClick={() => deleteSingleEvent(event.id)}
                       />
+                      <p>{event.name}</p>
                     </div>
                   </Card>
                 ))}

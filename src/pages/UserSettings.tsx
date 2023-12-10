@@ -411,7 +411,7 @@ const UserSettings = () => {
             <Button type="button" className="btn-cancel btn-frame" onClick={handleCancel}>
               {t('SETTING.CANCEL')}
             </Button>
-            <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleAlertClose}>
+            <Snackbar open={openAlert} autoHideDuration={2000} onClose={handleAlertClose}>
               <Alert onClose={handleAlertClose} sx={{ width: '100%' }} className="snack-bar">
                 {t('SETTING.ALERT')}
               </Alert>

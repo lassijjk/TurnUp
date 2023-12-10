@@ -59,16 +59,16 @@ button.lets-go-button {
     min-height: calc(100vh - 75px); 
   }
   .list-of-dates {
-    font-size: 0.75rem !important;
+    font-size: 0.9rem !important;
   }
   .event-description {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     padding-top: 1rem;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
   .event-address {
-    font-size: 0.75rem !important;
+    font-size: 0.9rem !important;
   }
   .event-tag-frame {
     width: 6.75rem !important;
@@ -79,6 +79,7 @@ button.lets-go-button {
   button.lets-go-button {
     font-size: 0.75rem !important;
   }
+}
   @media (min-width: 480px) {
     /* smartphones, Android phones, landscape iPhone */
     .event-container {
@@ -133,4 +134,4 @@ button.lets-go-button {
       font-size: 0.875rem !important;
     }
   }
-}
+

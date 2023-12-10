@@ -178,7 +178,7 @@ const Itineraries = () => {
           Back
         </Button>
         <Grid className="itinerary-header">
-          <DirectionsBusFilledOutlinedIcon className="header-contents" sx={{ fontSize: 64, color: '#3F3E3E' }} />
+          <DirectionsBusFilledOutlinedIcon className="bus-icon" sx={{ fontSize: 64, color: '#3F3E3E' }} />
 
           <Typography variant="h5" style={{ lineHeight: '64px' }} className="header-contents">
             {`You have (${itinerary ? Object.keys(itinerary).length : 0}) upcoming itineraries.`}
@@ -191,7 +191,7 @@ const Itineraries = () => {
 
         {openModal && (
           <Modal open={openModal} onClose={handleClose}>
-            <Box className="itinerary-modal">
+            <Box className="itinerary-modal-create">
               <TextField placeholder="Add itinerary name" value={itineraryName} onChange={handleInputChange} />
               <Button className="itinerary-btn" onClick={handleCreateItinerary}>
                 Save
@@ -213,10 +213,11 @@ const Itineraries = () => {
               <Grid key={`itinerary-${index}`} container className="single-itinerary-wrapper">
                 <Card key={`itinerary-${index}`} className="single-itinerary" title={title}>
                   <div className={`single-itinerary-badge ${getItineraryColor(_itinerary, itineraries)}`} />
-                  <Typography variant="h6" className="itinerary-details itinerary-name">
-                    {title}
-                  </Typography>
-                  <div className="itinerary-details events">
+
+                  <div className="itinerary-details ">
+                    <Typography variant="h6" className="itinerary-details itinerary-name">
+                      {title}
+                    </Typography>
                     {events.map((event, _index) => {
                       const date = getSelectedDates(title, event.id, itineraries)
                       return (
@@ -241,9 +242,8 @@ const Itineraries = () => {
                     })}
                   </div>
                   <Typography className="itinerary-details edit-itinerary">
-                    <DirectionsBusFilledOutlinedIcon className="bus-icon" />
                     <Button
-                      className="btn-frame btn-edit "
+                      className="btn-frame btn-edit"
                       onClick={() => {
                         navigate(`${getIdByName(title)}`)
                       }}
