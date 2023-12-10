@@ -15,6 +15,8 @@ import { useStore } from '../stores/settingStore'
 import MapComponent from '../components/Map/MapComponent'
 import StarIcon from '@mui/icons-material/Star';
 import { VITE_MAP_EVENT_API } from '../constants'
+import AddToItinerary from '../components/AddToItinerary'
+import { useAuthUser } from '../hooks/userHooks'
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -34,6 +36,7 @@ const Event = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [showMore, setShowMore] = useState(true)
   const [isShowMap, setIsShowMap] = useState<boolean>(false)
+  const isLoggedInUser = useAuthUser()
   const { language } = useStore()
   const [isFavorite, setIsFavorite] = useState<boolean | undefined>(undefined);
   const DEFAULT_TO = { latitude: 61.4941, longitude: 23.7792 }
@@ -113,8 +116,8 @@ const Event = () => {
                   <ul style={{ listStyleType: 'none' }}>
                     {event &&
                       event.dates.map((date: { start: string | Date; end: string | Date }, index: Key) => (
-                        <li key={`${date.start}-${index}`} className="list-of-dates">
-                          <p>
+                        <li key={`${date.start}-${index}`}>
+                          <p className="list-of-dates">
                             {convertToReadableDate(date.start, t)} {convertToReadableTime(date.start)}
                           </p>
                         </li>
@@ -127,11 +130,14 @@ const Event = () => {
                   </Typography>
                 )}
                 {event && event.description !== '-' && <Box className="event-description">{event.description}</Box>}
-                <Typography component="div">Address: {event ? event.locations[0]?.address : ''}</Typography>
+                <Typography component="div" className="event-address">
+                  Address: {event ? event.locations[0]?.address : ''}
+                </Typography>
 
                 <Button className="lets-go-button" onClick={handleCommute}>
                   Let's Go
                 </Button>
+                {isLoggedInUser && event && <AddToItinerary event={event} />}
               </>
             )}
             {showEvent && <CommutingStops eventLocationData={eventLocationData} />}

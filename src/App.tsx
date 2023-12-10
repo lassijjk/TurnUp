@@ -15,6 +15,8 @@ import { useGetUserData } from './hooks/appSyncHooks.tsx'
 import { useEffect, useState } from 'react'
 import LoginWizard from './components/LoginWizard/LoginWizard.tsx'
 import { SingleEvent } from './types/event.ts'
+import Itineraries from './pages/Itineraries.tsx'
+import EditItineraries from './pages/EditItineraries.tsx'
 
 interface ProtectedRouteProps {
   isLoggedInUser: boolean
@@ -102,6 +104,8 @@ const App = () => {
             <Route element={<ProtectedRoute isLoggedInUser={!!isLoggedInUser} />}>
               <Route path="/user-settings" element={<UserSettings />} />
             </Route>
+            <Route path="/itineraries" element={<Itineraries />} />
+            <Route path="/itineraries/:id" element={<EditItineraries />} />
           </Routes>
         </BrowserRouter>
       </I18nextProvider>

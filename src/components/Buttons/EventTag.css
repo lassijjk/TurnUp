@@ -74,7 +74,7 @@
   color: var(--white) !important;
 }
 
-.selected {
+.default {
   background-color: var(--deep-gray) !important;
   color: var(--white) !important;
 }

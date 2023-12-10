@@ -1,0 +1,38 @@
+.commute-info {
+  font-size: 1rem !important;
+}
+.commute-info-wrapper {
+  margin-top: 24px !important;
+}
+
+@media (min-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+
+  .commute-info {
+    font-size: 0.75rem !important;
+  }
+  .commute-info-wrapper {
+    margin-top: 2px !important;
+  }
+}
+
+@media (min-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+
+  .commute-info {
+    font-size: 0.9rem !important;
+  }
+  .commute-info-wrapper {
+    margin-top: 2px !important;
+  }
+}
+
+@media (min-width: 801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .commute-info {
+    font-size: 1rem !important;
+  }
+  .commute-info-wrapper {
+    margin-top: 24px !important;
+  }
+}
