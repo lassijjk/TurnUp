@@ -57,7 +57,6 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(selectedDate)
     const userItem = userData?.userBySub?.items[0]
     const itineraryExisits = userItem?.itineraries?.items.find((item) => item?.title === itineraryName)
     if (itineraryExisits) {
@@ -95,25 +94,28 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
   }
 
   const handleAddToItinerary = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event.currentTarget.textContent)
     const selectedItinerary = event.currentTarget.textContent
     if (selectedItinerary) setItineraryName(selectedItinerary)
   }
-  // console.log({ event })
   return (
     <div>
-      <Button className="itinerary-btn" onClick={handleOpen}>
+      <Button className="itinerary-btn add-btn" onClick={handleOpen}>
         Add to itinerary
       </Button>
       <Modal open={openItineraryModal} onClose={handleClose}>
         <Box className="itinerary-modal">
-          <Typography sx={{ mt: 3, mb: 2 }}>Add current event to new Itinerary.</Typography>
-          <TextField placeholder="create new itinerary" value={itineraryName} onChange={handleInputChange} />
+          <Typography sx={{ mt: 3, mb: 2 }}>{t('ITINERARY.MODAL_ADD_EVENT')}</Typography>
+          <TextField
+            className="text-field"
+            placeholder={t('ITINERARY.MODAL_PLACE_HOLDER')}
+            value={itineraryName}
+            onChange={handleInputChange}
+          />
           <Button className="itinerary-btn" onClick={handleSave}>
             Save
           </Button>
           {itineraryList?.listItineraries?.items.length && (
-            <Typography sx={{ mt: 3, mb: 2 }}>Add current event to your Itinerary.</Typography>
+            <Typography sx={{ mt: 3, mb: 2 }}>{t('ITINERARY.MODAL_ADD_EVENT2')}</Typography>
           )}
           {itineraryList?.listItineraries?.items?.map((itinerary, index) => (
             <Button key={index} className="modal-details" onClick={handleAddToItinerary}>
@@ -131,7 +133,7 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
                 {event &&
                   event.dates.map((date, index) => {
                     return (
-                      <FormControl key={`${index}-${date}}`}>
+                      <FormControl key={`${index}-${date}}`} className="dates-and-times">
                         <RadioGroup
                           name="controlled-radio-buttons-group"
                           value={value}
@@ -143,14 +145,14 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
                             key={`${index}-${date}}`}
                             value={getReadableTime(date, t)}
                             control={<Radio />}
-                            label={getReadableTime(date, t)}
+                            label={<span className="custom-radio-label">{getReadableTime(date, t)}</span>}
                           />
                         </RadioGroup>
                       </FormControl>
                     )
                   })}
                 <div>
-                  <Button className="itinerary-btn" type="submit">
+                  <Button className="itinerary-btn submit-btn" type="submit">
                     Submit
                   </Button>
                 </div>

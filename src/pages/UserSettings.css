@@ -33,10 +33,10 @@
 
 .btn-frame {
   color: var(--white) !important;
-  width: 5.8125rem !important;
+  width: 4.8125rem !important;
   height: 2.0625rem !important;
   border-radius: var(--border-radius-30) !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
 }
 .btn-cancel {
   background-color: var(--red-violet) !important;
@@ -45,9 +45,7 @@
 .btn-save {
   background-color: var(--dark-blue) !important;
 }
-.btn-edit{
-  background-color: var(--pine-green) !important;
-}
+
 .form-submission-btns {
   justify-content: flex-end;
   padding-top: 40px;
@@ -59,14 +57,15 @@ button.btn-back {
   align-self: flex-start;
 }
 .snack-bar {
-  margin-left: 230px;
   background-color: var(--warm-green) !important;
   color: white !important;
+  width: max-content !important;
+  margin-bottom: 64px;
 }
 .css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
   color: white !important;
 }
-.time-input-wrapper .form-field{
+.time-input-wrapper .form-field {
   max-width: 100%;
 }
 
@@ -127,6 +126,17 @@ button.btn-back {
   font-size: 24px !important;
 }
 
+@media (min-width: 400px) {
+  .btn-frame {
+    width: 5.8125rem !important;
+    font-size: 12px !important;
+  }
+}
+@media (min-width: 600px) {
+  .snack-bar {
+    margin-left: 8px;
+  }
+}
 
 @media (min-width: 801px) {
   .user-settings-main-container {
@@ -137,7 +147,7 @@ button.btn-back {
     padding: 32px !important;
     padding-top: 50px !important;
   }
-  
+
   .form-field-container {
     flex-direction: row !important;
   }
@@ -152,11 +162,17 @@ button.btn-back {
 
   .icon {
     font-size: 64px !important;
-  }  
+  }
 
   .title {
     margin-left: 25px;
     font-size: 32px !important;
     line-height: 64px !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .snack-bar {
+    margin-left: 230px;
   }
 }

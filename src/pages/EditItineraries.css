@@ -1,6 +1,5 @@
 .edit-event-cards{
     margin-top: 45px;
-    width: 400px;
     padding: 20px;
     border: solid #686872 2px;
     box-shadow: none !important;
@@ -10,4 +9,20 @@
 }
 .edit-cards-wrapper{
     text-align: -webkit-center;
+}
+
+.edit-event-card-item {
+    display: flex;
+    text-align: left;
+}
+.edit-itinerary-header{
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+}
+
+@media (min-width: 600px) {
+    .edit-event-cards{
+     width: 400px;
+    }  
 }

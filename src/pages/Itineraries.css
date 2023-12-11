@@ -1,126 +1,203 @@
-.grid-container{
+.grid-container {
+  padding-top: 16px;
+  background-color: var(--light-petrol);
+  min-height: 100vh;
+}
 
-    padding-top: 16px;
-      background-color: var(--light-petrol);
-      min-height: 100vh;
-    }
-    
-    .card-wrapper{
-    
-     padding: 16px;
-      margin-top: 24px;
-      border-radius: 8px;
-      background-color: #fff;
-      text-align: center;
-      width: 1000px;
-      margin: 0 auto;
-      color: black !important;
-    }
-    .single-itinerary{
-        margin-top: 45px;
-        width: 900px;
-        
-        border: solid #686872 2px;
-        box-shadow: none !important;
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        
-    }
- 
-    .single-itinerary-wrapper{
-        justify-content: center ;
-        align-items: center ;
-        direction: column; 
-    }
-    .itinerary-details{
-        padding: 20px;
-        text-align: left;
-    }
-    
-    .itinerary-event {
-        padding-bottom: 5px; 
-    }
-    
-    .itinerary-event:not(:last-child) {
-        border-bottom: 1px solid #8cc1b3; /* Add a border-bottom to create a line separator for all items except the last one */
-    }
-    .itinerary-header{
-        display: flex;
-    }
-    .header-contents{
-        padding: 30px;
-        width: 350px;
-        flex-basis: content;
-    }
-    .edit-itinerary{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .itinerary-back-btn{
-        margin-left: 17px !important;
-        margin-top: 17px !important;
-    }
-    .itinerary-name{
-        color: var(--dark-gray);
-        min-width: 170px;
-        margin-left: 45px !important;
-        font-size: 1.1rem !important;
-    }
-    .bus-icon{
-        font-size: 40px !important;
-         padding-bottom: 8px;
-         color: var(--dark-gray);
-    }
-    .create-btn{
-        margin-left: auto !important;
-        margin-right: 50px !important;
-    }
-    .snackbar {
-        z-index: 9999; 
-      }
-    .saved-alert{
-    background-color: #418155 !important;
-    color: white !important;
-    }
-    .events{
-        min-width: 430px;
-    }
-    .event-names{
-        padding: 5px;
-        font-size: 1.1rem !important;
-        max-width: 250px;
-    }
-    .event-detail-wrapper{
-        display: flex;
-        justify-content: space-between;
-    }
-    .event-date-time{
-        display: flex;
-        flex-direction: column;
-        font-size: 1rem;
-    }
-    .event-time{
-        display: flex;
-    }
-    .single-itinerary-badge {
-        position: absolute;
-        margin-left: 20px;
-        width: 25px;
-        height: 100%;
-    }
+.card-wrapper {
+  padding: 16px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background-color: #fff;
+  text-align: center;
+  width: 1000px;
+  margin: 0 auto;
+  color: black !important;
+}
+.single-itinerary {
+  position: relative;
+  margin-bottom: 32px;
+  width: 900px;
 
-    .thisWeek {
-        background: #C83E36;
-    }
-    .inTheFuture {
-        background: #E8B455;
-    }
-    .thisMonth {
-        background: #39A7D7;
-    }
-    .default {
-        background: black;
-    }
+  border: solid #686872 2px;
+  box-shadow: none !important;
+}
 
+.single-itinerary-wrapper {
+  justify-content: center;
+  align-items: center;
+  direction: column;
+}
+.itinerary-details {
+  margin: 16px 40px 0 60px;
+  text-align: left;
+}
+
+.itinerary-event {
+  padding: 8px 0;
+}
+
+.itinerary-event:not(:last-child) {
+  border-bottom: 1px solid #8cc1b3; /* Add a border-bottom to create a line separator for all items except the last one */
+}
+.itinerary-header {
+  margin: 16px 0 16px 0px !important;
+  align-items: center;
+  text-align: left;
+}
+.header-contents {
+  flex-basis: content;
+  font-size: large !important;
+  line-height: 24px !important;
+}
+.edit-itinerary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px !important;
+}
+.itinerary-back-btn {
+  margin-top: 8px !important;
+}
+.itinerary-name {
+  color: var(--dark-gray);
+  font-size: 1.1rem !important;
+  color: tomato;
+  font-weight: bold !important;
+  margin-bottom: 8px !important;
+}
+.bus-icon {
+  display: none !important;
+}
+.create-btn {
+  margin-left: auto !important;
+}
+.snackbar {
+  z-index: 9999;
+}
+.saved-alert {
+  background-color: #418155 !important;
+  color: white !important;
+}
+.event-names {
+  padding: 8px 0;
+  font-size: 1.1rem !important;
+  margin-right: 12px !important;
+}
+
+.event-date-time {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: var(--deep-gray) !important;
+}
+.event-time {
+  display: flex;
+}
+.single-itinerary-badge {
+  position: absolute;
+  width: 25px;
+  height: 100%;
+}
+.btn-edit {
+  background-color: var(--pine-green) !important;
+}
+.itinerary-modal-create {
+  border: 2px solid #418155;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  background-color: white;
+  box-shadow: 24px;
+  padding: 30px;
+}
+
+.thisWeek {
+  background: var(--warm-red);
+}
+.inTheFuture {
+  background: var(--amarillo-yellow);
+}
+.thisMonth {
+  background: var(--light-blue);
+}
+.default {
+  background: var(--dark-gray);
+}
+.legend {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.legend-wrapper {
+  margin-top: 20px;
+  align-items: center;
+}
+.legend-item {
+  display: flex;
+  margin-right: 20px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 430px) {
+  .itinerary-header {
+    display: flex;
+    margin: 16px 0 16px 0px !important;
+    align-items: center;
+  }
+  .header-contents {
+    /* padding: 30px; */
+    width: 350px;
+    flex-basis: content;
+    font-size: large !important;
+  }
+}
+@media (min-width: 576px) {
+  .legend-wrapper {
+    margin-top: 20px;
+    margin-left: 48px;
+    display: flex;
+    align-items: center;
+  }
+  .legend-item {
+    margin-bottom: 0px;
+  }
+}
+@media (min-width: 600px) {
+  .single-itinerary-badge {
+    margin-left: 20px;
+  }
+
+  .event-detail-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .itinerary-header {
+    display: flex;
+    margin: 24px 0 16px 28px !important;
+    align-items: center;
+  }
+  .itinerary-back-btn {
+    margin-left: 17px !important;
+    margin-top: 17px !important;
+  }
+}
+@media (min-width: 700px) {
+  .bus-icon {
+    display: flex !important;
+    font-size: 56px !important;
+    padding-bottom: 8px;
+  }
+  .header-contents {
+    font-size: x-large !important ;
+  }
+  .create-btn {
+    margin-left: auto !important;
+    margin-right: 50px !important;
+  }
+}

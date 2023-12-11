@@ -82,5 +82,28 @@
     "CLOSE_TEXT": "You can edit your interests and other settings at any time on the settings page.",
     "SKIP_TITLE": "Settings",
     "SKIP_TEXT": "You can edit your settings at any time on the settings page."
+  },
+
+  "ITINERARY":{
+    "MY_ITINERARY":"My Itinerary",
+    "BACK": "Back",
+    "ITINERARY_COUNT": "You have ",
+    "HEADER": " upcoming itineraries.",
+    "EDIT": "Edit",
+    "CREATE_BTN": "Create new",
+    "MODAL_TEXT": "Create new itinerary.",
+    "SAVE": "Save",
+    "PLACE_HOLDER": "Add itinerary name",
+    "ALERT": "Itinerary created successfully.",
+    "PAST": "Past(No) Event",
+    "THIS_WEEK": "This Week",
+    "THIS_MONTH": "This Month",
+    "FUTURE": "Upcoming Events",
+    "MODAL_PLACE_HOLDER": "Create new itinerary",
+    "MODAL_ADD_EVENT": "Add current event to new Itinerary.",
+    "MODAL_ADD_EVENT2": "Add current event to your Itinerary."
+
+    
+
   }
 }
