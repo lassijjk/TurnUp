@@ -10,21 +10,6 @@
       "StackName": "amplify-turnup-dev-202954",
       "StackId": "arn:aws:cloudformation:eu-north-1:348653493156:stack/amplify-turnup-dev-202954/fd0b14e0-5648-11ee-b82a-0e8839087fe4",
       "AmplifyAppId": "d2ormrrtjqw2j9"
-    },
-    "categories": {
-      "auth": {
-        "TurnUp": {}
-      },
-      "function": {
-        "fetchTampereTodayEvents": {
-          "deploymentBucketName": "amplify-turnup-dev-202954-deployment",
-          "s3Key": "amplify-builds/fetchTampereTodayEvents-55456657516c784f6762-build.zip"
-        },
-        "fetchTampereTodayEventsAPI": {
-          "deploymentBucketName": "amplify-turnup-dev-202954-deployment",
-          "s3Key": "amplify-builds/fetchTampereTodayEventsAPI-2b6947565a2f46704754-build.zip"
-        }
-      }
     }
   }
 }
