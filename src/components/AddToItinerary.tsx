@@ -104,10 +104,10 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
       </Button>
       <Modal open={openItineraryModal} onClose={handleClose}>
         <Box className="itinerary-modal">
-          <Typography sx={{ mt: 3, mb: 2 }}>Add current event to new Itinerary.</Typography>
+          <Typography sx={{ mt: 3, mb: 2 }}>{t('ITINERARY.MODAL_ADD_EVENT')}</Typography>
           <TextField
             className="text-field"
-            placeholder="create new itinerary"
+            placeholder={t('ITINERARY.MODAL_PLACE_HOLDER')}
             value={itineraryName}
             onChange={handleInputChange}
           />
@@ -115,7 +115,7 @@ const AddToItinerary = ({ event }: AddToItineraryProps) => {
             Save
           </Button>
           {itineraryList?.listItineraries?.items.length && (
-            <Typography sx={{ mt: 3, mb: 2 }}>Add current event to your Itinerary.</Typography>
+            <Typography sx={{ mt: 3, mb: 2 }}>{t('ITINERARY.MODAL_ADD_EVENT2')}</Typography>
           )}
           {itineraryList?.listItineraries?.items?.map((itinerary, index) => (
             <Button key={index} className="modal-details" onClick={handleAddToItinerary}>

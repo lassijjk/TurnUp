@@ -156,7 +156,7 @@
     font-size: large !important;
   }
 }
-@media (min-width: 560px) {
+@media (min-width: 576px) {
   .legend-wrapper {
     margin-top: 20px;
     margin-left: 48px;

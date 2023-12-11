@@ -11,8 +11,8 @@ import { CreateItineraryMutation, Itinerary, ListItinerariesQuery } from '../typ
 import { useNavigate } from 'react-router-dom'
 import { convertToReadableTime } from '../utils/convertToReadableTime'
 import { convertToReadableDate } from '../utils/convertToReadableDate'
-import { t } from 'i18next'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 
 const getUrgencyIndicator = (eventDate: string): string => {
   const momentEventDate = moment(eventDate)
@@ -76,6 +76,7 @@ const Itineraries = () => {
   const [itineraryName, setItineraryName] = useState('')
   const [openAlert, setOpenAlert] = useState(false)
   const userData = useGetUserData()
+  const { t } = useTranslation()
 
   const fetchEventById = async (id: string) => {
     const response = await axios.get(`${VITE_MAP_EVENT_API}?eventId=${id}`)
@@ -137,6 +138,9 @@ const Itineraries = () => {
   }
 
   const handleCreateItinerary = async () => {
+    if (!itineraryName) {
+      return
+    }
     const userItem = userData?.userBySub?.items[0]
     const itineraryExisits = userItem?.itineraries?.items.find((item) => item?.title === itineraryName)
     if (itineraryExisits) {
@@ -175,31 +179,33 @@ const Itineraries = () => {
     <Grid container className="grid-container">
       <Card className="card-wrapper">
         <Button className="btn-frame btn-back itinerary-back-btn" onClick={() => `${navigate('/')}`}>
-          Back
+          {t('ITINERARY.BACK')}
         </Button>
         <Grid className="itinerary-header">
           <DirectionsBusFilledOutlinedIcon className="bus-icon" sx={{ fontSize: 64, color: '#3F3E3E' }} />
 
           <Typography variant="h5" style={{ lineHeight: '64px' }} className="header-contents">
-            {`You have (${itinerary ? Object.keys(itinerary).length : 0}) upcoming itineraries.`}
+            {`${t('ITINERARY.ITINERARY_COUNT')} (${itinerary ? Object.keys(itinerary).length : 0}) ${t(
+              'ITINERARY.HEADER'
+            )}`}
           </Typography>
 
           <Button className="itinerary-btn header-contents create-btn" onClick={handleOpen}>
-            Create new
+            {t('ITINERARY.CREATE_BTN')}
           </Button>
         </Grid>
 
         {openModal && (
           <Modal open={openModal} onClose={handleClose}>
             <Box className="itinerary-modal-create">
-              <TextField placeholder="Add itinerary name" value={itineraryName} onChange={handleInputChange} />
+              <TextField placeholder={t('ITINERARY.PLACE_HOLDER')} value={itineraryName} onChange={handleInputChange} />
               <Button className="itinerary-btn" onClick={handleCreateItinerary}>
-                Save
+                {t('ITINERARY.SAVE')}
               </Button>
-              <Typography sx={{ mt: 3 }}>Create new itinerary.</Typography>
+              <Typography sx={{ mt: 3 }}> {t('ITINERARY.MODAL_TEXT')}</Typography>
               <Snackbar open={openAlert} autoHideDuration={2000} onClose={handleAlertClose}>
                 <Alert onClose={handleAlertClose} sx={{ width: '100%' }} className="saved-alert">
-                  Itinerary created successfully
+                  {t('ITINERARY.ALERT')}
                 </Alert>
               </Snackbar>
             </Box>
@@ -248,7 +254,8 @@ const Itineraries = () => {
                         navigate(`${getIdByName(title)}`)
                       }}
                     >
-                      {<EditIcon sx={{ fontSize: 15, padding: '2px' }} />}Edit
+                      {<EditIcon sx={{ fontSize: 13, padding: '1px' }} />}
+                      {t('ITINERARY.EDIT')}
                     </Button>
                   </Typography>
                 </Card>
@@ -259,25 +266,25 @@ const Itineraries = () => {
           <div className="legend-item">
             <div className="legend default"></div>
             <Typography variant="caption" style={{ color: 'var(--dark-gray)' }}>
-              Past/No Events
+              {t('ITINERARY.PAST')}
             </Typography>
           </div>
           <div className="legend-item">
             <div className="legend thisWeek"></div>
             <Typography variant="caption" style={{ color: 'var(--warm-red)' }}>
-              This Week
+              {t('ITINERARY.THIS_WEEK')}
             </Typography>
           </div>
           <div className="legend-item">
             <div className="legend thisMonth"></div>
             <Typography variant="caption" style={{ color: 'var(--light-blue)' }}>
-              This Month
+              {t('ITINERARY.THIS_MONTH')}
             </Typography>
           </div>
           <div className="legend-item">
             <div className="legend inTheFuture"></div>
             <Typography variant="caption" style={{ color: 'var(--amarillo-yellow)' }}>
-              Future Events
+              {t('ITINERARY.FUTURE')}
             </Typography>
           </div>
         </div>

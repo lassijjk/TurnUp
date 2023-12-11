@@ -14,10 +14,12 @@ import {
 } from '../types/graphqlAPI'
 import axios from 'axios'
 import { VITE_MAP_EVENT_API } from '../constants'
+import { useTranslation } from 'react-i18next'
 
 const EditItineraries = () => {
   const [events, setEvents] = useState<SingleEvent[]>([])
   const [loading, setLoading] = useState<boolean>(true)
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
   const { id } = useParams()
@@ -97,12 +99,11 @@ const EditItineraries = () => {
     <Grid container className="grid-container">
       <Card className="card-wrapper">
         <Button className="btn-frame btn-back itinerary-back-btn" onClick={() => `${navigate('/Itineraries')}`}>
-          Back
+          {t('ITINERARY.BACK')}
         </Button>
         <Grid className="edit-itinerary-header">
           <EditIcon sx={{ fontSize: 42 }} />
-
-          <Typography variant="h5">{`Edit: ${_itinerary?.title ? _itinerary.title : ''}`}</Typography>
+          <Typography variant="h5">{`${t('ITINERARY.EDIT')}: ${_itinerary?.title ? _itinerary.title : ''}`}</Typography>
           <DeleteIcon
             sx={{ fontSize: 36, backgroundColor: '#EB5E58', borderRadius: 1, marginLeft: 3 }}
             onClick={handleDeleteItinerary}

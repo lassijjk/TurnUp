@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
                   }}
                   className="navbar-menu-item"
                 >
-                  My itinerary
+                  {t('ITINERARY.MY_ITINERARY')}
                 </MenuItem>
               )}
               <MenuItem>
