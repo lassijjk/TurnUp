@@ -35,6 +35,57 @@
   width: 100%;
 }
 
+.datepicker-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8px; /* Add margin to space it below the date */
+}
+
+.datepicker-input {
+  width: 100%;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.datepicker-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #e0fdec;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px; /* Add margin to space it from the input */
+}
+
+.datepicker-icon,
+.timepicker-icon {
+  margin-right: 8px;
+}
+
+clear-filter-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px; /* Adjust the margin as needed */
+}
+
+.clear-filter-button {
+  font-size: 16px;
+  padding: 8px;
+  border: 1px solid #e0fdec;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.clear-filter-button:hover {
+  background-color: #e0fdec; /* Add a background color on hover */
+}
+
 @media (min-width: 320px) {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
   .home-title {
