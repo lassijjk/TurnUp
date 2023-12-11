@@ -54,8 +54,9 @@ const Home = () => {
     setSelectedDate(date);
     // Refetch events when the date changes
     fetchEvents();
+    
   };
-
+   
 
 
   useEffect(() => {
