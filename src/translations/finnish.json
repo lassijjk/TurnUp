@@ -1,0 +1,105 @@
+{
+  "DATE": {
+    "SHORT": {   
+      "0": "Su",
+      "1": "Ma",
+      "2": "Ti",
+      "3": "Ke",
+      "4": "To",
+      "5": "Pe",
+      "6": "La"
+    }
+  },
+  "EVENT_LIST": {
+    "DESCRIPTION": "Tämän on tapahtumalistaus",
+    "QUESTION": "Piristetäänkö päivääsi?",
+    "SINGULAR": "Tapahtumat"
+  },
+  "EVENT_TAG": {
+    "LABEL": {
+      "art": "Taide",
+      "culture": "Kulttuuri",
+      "food": "Ruoka",
+      "for-kids": "Lapsille",
+      "free": "Ilmainen",
+      "music": "Musiikki",
+      "outdoor": "Ulkoilma",
+      "religion": "Uskonto",
+      "science": "Tiede",
+      "seminar": "Seminaari",
+      "seniors": "Seniorit",
+      "sightseeing": "Kierros",
+      "sports": "Liikunta"
+    }
+  },
+  "HOME": {
+    "DESCRIPTION": "Tämä on etusivu",
+    "SINGULAR": "Löytää tapahtumia"
+  },
+  "LANGUAGE": {
+    "ENGLISH": "Englanti",
+    "FINNISH": "Suomi"
+  },
+  "LOGIN": "Kirjaudu sisään",
+  "REGISTER": "Rekisteröidy",
+  "LOGOUT": "Kirjaudu ulos",
+  "MAP": {
+    "DESCRIPTION": "Tämä on karttanäkymä",
+    "SINGULAR": "Kartta"
+  },
+  "NAVBAR": {
+    "APP_NAME": "Turn up",
+    "VALUE_PROPOSITION": "Löydä hauskaa tekemistä"
+  },
+  "SETTING":{
+    "USER_SETTINGS": "Käyttäjäasetukset",
+    "FIRST_NAME": "Etunimi",
+    "LAST_NAME": "Sukunimi",
+    "EMAIL": "Sähköposti",
+    "LANGUAGE": "Kieli",
+    "INTERESTS": "Kiinnostuksen kohteet",
+    "SAVE":"Tallenna",
+    "CANCEL":"Peruuta",
+    "BACK": "Takaisin",
+    "EVENT_ARRIVAL_BUFFER": "Tapahtuman saapumispuskuri",
+    "INITIAL_NOTIFICATION": "Ensimmäinen ilmoitus",
+    "FINAL_NOTIFICATION":"Lopullinen ilmoitus",  
+    "ALERT": "Asetuksen tallennus onnistui!"
+  },
+
+  "LOGIN_WIZARD":{
+    "SKIP": "Ohita",
+    "NEXT": "Seuraava",
+    "SAVE": "Tallenna",
+    "BACK": "Takaisin",
+    "SETTINGS": "Asetukset",
+    "CLOSE": "Sulje",
+    "WELCOME_TITLE": "Tervetuloa TurnUp sivustolle",
+    "WELCOME_TEXT": "Määrittele aluksi käyttäjän asetukset parantaaksesi käyttäjäkokemustasi. Näet tämän dialogin vain kerran.",
+    "INTERESTS_TITLE": "Valitse kiinnostuksen kohteesi",
+    "CLOSE_TITLE":  "Päivitys onnistui",
+    "CLOSE_TEXT": "Voit muuttaa mielenkiinnon kohteitasi ja muita asetuksiasi milloin vain asetukset sivulta.",
+    "SKIP_TITLE": "Asetukset",
+    "SKIP_TEXT": "Voit muuttaa asetuksiasi myöhemmin milloin vain asetukset sivulta"
+  },
+  "ITINERARY":{
+    "MY_ITINERARY":"Matkasuunnitelmani",
+    "BACK": "Takaisin",
+    "ITINERARY_COUNT": "Sinulla on ",
+    "HEADER": " tulevaa reittiä.",
+    "EDIT": "Muokata",
+    "CREATE_BTN": "Luo uusi",
+    "MODAL_TEXT": "Luo uusi matkasuunnitelma.",
+    "SAVE": "Tallenna",
+    "PLACE_HOLDER": "Lisää matkareitin nimi",
+    "ALERT": "Reittisuunnitelman luominen onnistui",
+    "PAST": " Mennyt(Ei)",
+    "THIS_WEEK": "Tämä viikko",
+    "THIS_MONTH": "Tässä kuussa",
+    "FUTURE": "Tulevaisuudessa",
+    "MODAL_PLACE_HOLDER": "Uusi matkasuunnitelma",
+    "MODAL_ADD_EVENT": "Lisää tämä tapahtuma uuteen reittisuunnitelmaan.",
+    "MODAL_ADD_EVENT2": "Lisää tämä tapahtuma matkasuunnitelmaasi."
+    
+  }
+}

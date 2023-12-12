@@ -1,0 +1,178 @@
+.setting-container {
+  background-color: var(--light-petrol);
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
+
+.selected-language {
+  background-color: var(--light-sky-blue);
+}
+
+.full-name {
+  display: flex;
+}
+.email {
+  display: flex;
+}
+
+.form-elements {
+  margin: 0;
+}
+
+.interest-text {
+  padding: 16px;
+}
+.interests-container {
+  padding: 16px;
+  gap: 20px;
+  max-width: 600px;
+}
+
+.btn-frame {
+  color: var(--white) !important;
+  width: 4.8125rem !important;
+  height: 2.0625rem !important;
+  border-radius: var(--border-radius-30) !important;
+  font-size: 11px !important;
+}
+.btn-cancel {
+  background-color: var(--red-violet) !important;
+  margin-left: 20px !important;
+}
+.btn-save {
+  background-color: var(--dark-blue) !important;
+}
+
+.form-submission-btns {
+  justify-content: flex-end;
+  padding-top: 40px;
+}
+
+button.btn-back {
+  background-color: var(--red-violet) !important;
+  display: flex;
+  align-self: flex-start;
+}
+.snack-bar {
+  background-color: var(--warm-green) !important;
+  color: white !important;
+  width: max-content !important;
+  margin-bottom: 64px;
+}
+.css-frvpmh-MuiPaper-root-MuiAlert-root .MuiAlert-icon {
+  color: white !important;
+}
+.time-input-wrapper .form-field {
+  max-width: 100%;
+}
+
+.time-input label {
+  max-width: unset;
+}
+
+.event-buffer {
+  margin-right: 5px;
+}
+.notification-label {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: black !important;
+}
+
+.user-settings-main-container {
+  padding: 16px !important;
+}
+
+.title-wrapper {
+  margin: 0 !important;
+  margin-top: 16px !important;
+}
+
+.user-settings-card-wrapper {
+  padding: 16px !important;
+}
+
+.form-field-container {
+  flex-direction: column !important;
+}
+
+.form-field {
+  display: flex;
+  max-width: 100% !important;
+}
+
+.input-field {
+  width: 100%;
+  margin-right: 14px;
+}
+
+.language-wrapper {
+  flex-direction: column !important;
+  gap: 1rem;
+}
+
+.icon {
+  font-size: 50px !important;
+}
+
+.title {
+  margin-left: 12px;
+  line-height: 50px !important;
+  font-size: 24px !important;
+}
+
+@media (min-width: 400px) {
+  .btn-frame {
+    width: 5.8125rem !important;
+    font-size: 12px !important;
+  }
+}
+@media (min-width: 600px) {
+  .snack-bar {
+    margin-left: 8px;
+  }
+}
+
+@media (min-width: 801px) {
+  .user-settings-main-container {
+    padding-top: 50px !important;
+  }
+
+  .user-settings-card-wrapper {
+    padding: 32px !important;
+    padding-top: 50px !important;
+  }
+
+  .form-field-container {
+    flex-direction: row !important;
+  }
+
+  .form-elements {
+    margin: 0 6.5rem;
+  }
+
+  .form-field {
+    max-width: 50% !important;
+  }
+
+  .icon {
+    font-size: 64px !important;
+  }
+
+  .title {
+    margin-left: 25px;
+    font-size: 32px !important;
+    line-height: 64px !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .snack-bar {
+    margin-left: 230px;
+  }
+}

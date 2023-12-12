@@ -1,0 +1,78 @@
+Button.itinerary-btn {
+  background-color: #418155 !important;
+  color: white;
+  align-self: center;
+  margin-top: 10px;
+  font-size: 0.75rem !important;
+  margin-left: 8px;
+}
+
+.itinerary-modal {
+  border: 2px solid #418155;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  max-height: 532px;
+  overflow-y: scroll;
+  background-color: white;
+  box-shadow: 24px;
+  padding: 16px;
+}
+Button.modal-details {
+  padding: 16px;
+  width: 100%;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #fff !important;
+  color: black;
+  border: 2px solid #686872;
+  width: 260px;
+  text-transform: none;
+  box-shadow: none !important;
+  margin: 5px;
+}
+
+.itinerary-modal.event-date-modal {
+  padding: 0;
+}
+
+.event-dates-wrapper {
+  margin: 1rem 2rem;
+}
+.dates-and-times {
+  font-size: 0.8rem !important ;
+  inline-size: max-content;
+}
+.custom-radio-label {
+  font-size: 14px;
+}
+.text-field {
+  height: 0.4375em !important;
+}
+.submit-btn{
+  margin-left: 0px !important; 
+}
+.add-btn{
+  margin-left: 58px !important;
+}
+@media (min-width: 400px) {
+
+  Button.itinerary-btn {
+    font-size: 0.8rem !important;
+    margin-left: 42px;
+  }
+  .itinerary-modal {
+    padding: 30px;
+    max-height: 576px;
+  }
+  .custom-radio-label {
+    font-size: 15px;
+  }
+  Button.modal-details {
+    width: 300px;
+  }
+}

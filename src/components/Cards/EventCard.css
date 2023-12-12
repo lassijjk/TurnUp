@@ -1,0 +1,109 @@
+.event-card-frame {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.event-card-content {
+  background-color: var(--white) !important;
+  border-radius: var(--border-radius-15) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  flex-direction: column !important;
+}
+
+.event-card-content img {
+  border-top-left-radius: var(--border-radius-15) !important;
+  border-top-right-radius: var(--border-radius-15) !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.event-card-info {
+  height: 100% !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.event-name {
+  height: calc(2 * 1.19rem) !important;
+  overflow: hidden !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #39364f !important;
+}
+
+.time-to {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-top: 0.5rem !important;
+}
+
+.event-card-tags {
+  margin-top: 0.5rem !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.5rem !important;
+}
+
+.travel-time {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-top: 0.5rem !important;
+}
+
+.event-card-time {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #d1410c !important;
+  margin-left: 3px !important;
+}
+
+.event-card-bus-time {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #6f7287 !important;
+  margin-left: 3px !important;
+}
+
+@media (min-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .event-name {
+    font-size: 0.9rem !important;
+  }
+  .event-card-time {
+    font-size: 0.65rem !important;
+  }
+  .event-card-bus-time {
+    font-size: 0.65rem !important;
+  }
+}
+@media (min-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+  .event-name {
+    font-size: 1rem !important;
+  }
+  .event-card-time {
+    font-size: 0.75rem !important;
+  }
+  .event-card-bus-time {
+    font-size: 0.75rem !important;
+  }
+}
+@media (min-width: 600px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+}
+@media (min-width: 801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+@media (min-width: 1025px) {
+  /* big landscape tablets, laptops, and desktops */
+}
+@media (min-width: 1281px) {
+  /* hi-res laptops and desktops */
+}

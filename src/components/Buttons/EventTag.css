@@ -1,0 +1,84 @@
+.event-tag-frame {
+  width: 7.75rem !important;
+  height: 1.75rem !important;
+  border-radius: var(--border-radius-30) !important;
+  background-color: var(--pink) !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 0.2rem 1rem !important;
+  border: 0 !important;
+}
+
+.event-tag-frame-art {
+  background-color: var(--berry-red) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-culture {
+  background-color: var(--red-violet) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-food {
+  background-color: var(--amarillo-yellow) !important;
+  color: var(--black) !important;
+}
+
+.event-tag-frame-for-kids {
+  background-color: var(--green) !important;
+  color: var(--black) !important;
+}
+
+.event-tag-frame-free {
+  background-color: var(--warm-green) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-music {
+  background-color: var(--pink) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-outdoor {
+  background-color: var(--pine-green) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-religion {
+  background-color: var(--light-yellow) !important;
+  color: var(--black) !important;
+}
+
+.event-tag-frame-science {
+  background-color: var(--dark-blue) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-seminar {
+  background-color: var(--steel-blue) !important;
+  color: var(--white) !important;
+}
+
+.event-tag-frame-seniors {
+  background-color: var(--aqua-blue) !important;
+  color: var(--black) !important;
+}
+
+.event-tag-frame-sightseeing {
+  background-color: var(--light-sky-blue) !important;
+  color: var(--black) !important;
+}
+
+.event-tag-frame-sports {
+  background-color: var(--dark-water) !important;
+  color: var(--white) !important;
+}
+
+.default {
+  background-color: var(--deep-gray) !important;
+  color: var(--white) !important;
+}
+
+.event-title {
+  font-size: 10px !important;
+}

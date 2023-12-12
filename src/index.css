@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.mapboxgl-map {
+  overflow: unset !important;
+  width: 100% !important;
+  height: calc(100vh - 85px - 6.7rem);
+}
+
+.mapboxgl-ctrl-bottom-right {
+  display: none !important;
+}

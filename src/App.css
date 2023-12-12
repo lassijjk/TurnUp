@@ -1,0 +1,92 @@
+.app {
+  font-family: 'Open sans', 'sans-serif' !important;
+
+  --bold: 900;
+  --semi-bold: 800;
+  --medium: 700;
+
+  --warm-red: #c83e36;
+  --dark-warm-red: #ae1e20;
+  --berry-red: #ad3963;
+  --red-violet: #a5407b;
+  --dark-blue: #29549a;
+  --dark-water: #22437b;
+  --steel-blue: #0074a4;
+  --pine-green: #397368;
+  --warm-green: #418155;
+  --light-warm-red: #eb5e58;
+  --pink: #cb4a6c;
+  --light-sky-blue: #88bce7;
+  --light-blue: #39a7d7;
+  --aqua-blue: #91c9ea;
+  --green: #abc872;
+  --light-petrol: #8cc1b3;
+  --yellow: #f4d240;
+  --amarillo-yellow: #e8b455;
+  --light-yellow: #f8de79;
+  --white: #ffffff;
+  --black: #000000;
+  --dark-gray: #3f3e3e;
+  --deep-gray: #686872;
+  --light-blue-gray: #e5eef8;
+  --light-sand: #f1eeeb;
+  --dark-black-vintage: #2b2b2b;
+
+  --border-radius-15: 0.75rem;
+  --border-radius-30: 1.5rem;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: var(--bold);
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: var(--semi-bold);
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: var(--medium);
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: var(--medium);
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+em {
+  font-size: 1rem;
+  font-weight: var(--medium);
+  font-style: normal;
+}
+
+span {
+  font-size: 0.875rem;
+}
+
+blockquote {
+  font-size: 1.25rem;
+  font-style: italic;
+}
+
+.black-text {
+  color: var(--black);
+}
+
+.white-text {
+  color: var(--white);
+}

@@ -1,0 +1,147 @@
+.navbar-appbar {
+  background-color: #fff !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+.navbar-container {
+  max-width: unset !important;
+}
+
+.navbar-link {
+  color: var(--dark-black-vintage) !important;
+  text-decoration: none !important;
+  margin-right: 0.5rem !important;
+  padding: 0.25rem 0.5rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+}
+
+.navbar-link:hover {
+  color: #9750fa !important;
+}
+
+.navbar-language-selected {
+  background-color: #9750fa !important;
+  color: #fff !important;
+}
+
+.navbar-logo {
+  height: 60px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  cursor: pointer;
+}
+
+.navbar-title-container {
+  cursor: pointer;
+}
+
+.navbar-title-container {
+  margin-left: 10px !important;
+}
+
+.navbar-title {
+  font-weight: 700 !important;
+  color: var(--dark-black-vintage) !important;
+}
+
+.navbar-app-name {
+  color: var(--black) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navbar-language-item {
+  height: 20px !important;
+}
+
+.navbar-language-finnish {
+  margin-right: 10px !important;
+}
+
+.navbar-language-container:hover {
+  background-color: #fff !important;
+}
+
+.navbar-language-item:hover {
+  scale: 1.05 !important;
+}
+
+.navbar-language-item-english {
+  padding: 0 10px;
+}
+
+.navbar-language-item-selected {
+  font-weight: 700;
+}
+
+@media (min-width: 320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  .navbar-title-container {
+    display: none;
+  }
+  .navbar-title {
+    font-size: 1rem !important;
+  }
+  .navbar-title-description {
+    font-size: 0.75rem !important;
+  }
+  .navbar-link {
+    font-size: 0.75rem !important;
+  }
+  .navbar-logo {
+    height: 50px !important;
+  }
+  .navbar-toolbar {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .navbar-menu-item {
+    font-size: 0.75rem !important;
+  }
+}
+@media (min-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+}
+@media (min-width: 600px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+  .navbar-title-container {
+    display: inline-block;
+  }
+}
+@media (min-width: 801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .navbar-title {
+    font-size: 1.25rem !important;
+  }
+  .navbar-title-description {
+    font-size: 0.85rem !important;
+  }
+  .navbar-link {
+    font-size: 1rem !important;
+  }
+  .navbar-logo {
+    height: 60px !important;
+  }
+  .navbar-toolbar {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .navbar-menu-item {
+    font-size: 1rem !important;
+  }
+}
+@media (min-width: 1025px) {
+  /* big landscape tablets, laptops, and desktops */
+  .navbar-title {
+    font-size: 1.35rem !important;
+  }
+}
+@media (min-width: 1281px) {
+  /* hi-res laptops and desktops */
+}
