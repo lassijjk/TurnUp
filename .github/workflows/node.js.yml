@@ -15,12 +15,13 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 14  
+        node-version: 14  # Adjust the version as needed
 
     - name: Install dependencies
-      run: |
-        npm ci
-        npm install @aws-amplify/ui-react
+      run: npm ci
+
+    - name: Build
+      run: npm run build 
       
     # - name: Run tests
     #   run: npm test
