@@ -201,7 +201,7 @@ The base URL for the API is: `https://l199cimgf2.execute-api.eu-north-1.amazonaw
 ### Example API Request
 ```http
 GET https://l199cimgf2.execute-api.eu-north-1.amazonaws.com/dev?eventId=123&userLat=61.4978&userLon=23.7610&radius=50
-
+````
 ## License
 
 This project is developed and maintained by Tampere University students and is licensed under the [MIT License](LICENSE).
