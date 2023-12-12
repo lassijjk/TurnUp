@@ -15,16 +15,18 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 14  # Adjust the version as needed
+        node-version: 14  
 
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm ci
+        npm install @aws-amplify/ui-react
       
     # - name: Run tests
     #   run: npm test
 
     # - name: Generate Code Coverage
-    #   run: npm run coverage  # Assuming you have a script for running tests with coverage
+    #   run: npm run coverage  
 
     # - name: Upload Code Coverage Results
     #   uses: actions/upload-artifact@v2
